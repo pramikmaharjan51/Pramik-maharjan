@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pramik Maharajan — Marketing Strategist & Business Growth Consultant</title>
 <meta name="description" content="Pramik Maharajan helps businesses get seen, grow and stand out. Marketing strategy, business growth consulting and mentorship from Kathmandu, Nepal." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -185,6 +186,12 @@
   .footer-bottom nav{display:flex;gap:28px}
   .footer-bottom nav a{transition:color .2s ease}
   .footer-bottom nav a:hover{color:var(--text)}
+  .floating-cta{position:fixed;left:28px;bottom:28px;z-index:90;display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:100px;background:var(--gold);color:#0a0a0b;font-size:.85rem;font-weight:600;letter-spacing:.01em;box-shadow:0 14px 40px -12px rgba(201,162,39,.95),0 0 0 1px rgba(201,162,39,.4);opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .35s ease,transform .35s var(--ease),background .22s ease;white-space:nowrap}
+  .floating-cta.show{opacity:1;transform:translateY(0);pointer-events:auto}
+  .floating-cta:hover{background:var(--gold-lt);transform:translateY(-2px)}
+  .floating-cta svg{flex:0 0 auto;transition:transform .3s var(--ease)}
+  .floating-cta:hover svg{transform:rotate(90deg)}
+  @media (max-width:620px){.floating-cta{left:16px;right:16px;bottom:16px;justify-content:center;padding:13px 18px;font-size:.8rem}.floating-cta.show{transform:translateY(0)}}
   .to-top{position:fixed;right:28px;bottom:28px;z-index:90;width:44px;height:44px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line);background:rgba(10,10,11,.85);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--text-2);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s ease,transform .3s ease,color .2s ease,border-color .2s ease}
   .to-top.show{opacity:1;transform:translateY(0);pointer-events:auto}
   .to-top:hover{color:var(--gold-lt);border-color:var(--gold-line)}
@@ -230,7 +237,7 @@
     .card{padding:36px 28px 32px}
     .quote{padding:36px 28px 30px}
     .cform .row{grid-template-columns:1fr}
-    .to-top{right:18px;bottom:18px}
+    .to-top{right:18px;bottom:88px}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -276,7 +283,7 @@
       <p class="hero-sub reveal" style="--d:120ms">Helping businesses get seen, grow &amp; stand out.</p>
       <p class="hero-lede reveal" style="--d:180ms">Marketing strategist, business growth consultant and mentor. I help founders and teams build the clarity, positioning and systems that turn ambitious businesses into <strong>recognizable brands</strong>.</p>
       <div class="hero-ctas reveal" style="--d:240ms">
-        <a class="btn btn-primary" href="#contact">Book a discovery call <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-primary" href="#contact">Get your free strategy plan <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn-secondary" href="#services">View services</a>
       </div>
       <div class="hero-metrics reveal" style="--d:300ms">
@@ -417,7 +424,7 @@
               <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span><b>Marketers</b> — sharpen strategy thinking and execution</span></li>
               <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span><b>Career switchers</b> — a structured path into marketing</span></li>
             </ul>
-            <a class="btn btn-primary" href="#contact">Apply for mentorship <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-primary" href="#contact">Get your free strategy plan <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
           <aside class="mentor-panel">
             <h4>Programme details</h4>
@@ -485,9 +492,9 @@
       <div class="contact reveal">
         <div class="contact-inner">
           <div class="contact-copy">
-            <div class="marker">Get in touch</div>
+            <div class="marker">Get your free strategy plan</div>
             <h2>Let's talk about <em>your business</em>.</h2>
-            <p>Tell me a little about what you're working on. Whether it's a positioning problem, a growth plateau, or you're just starting out — I'll get back to you within one business day.</p>
+            <p>Fill in the form and you'll get a free, personalized strategy plan for your business — no cost, no obligation. I'll review your situation and send you a clear roadmap within one business day.</p>
             <div class="channels">
               <a class="channel" href="mailto:pramikmaharjan51@gmail.com">
                 <span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
@@ -508,7 +515,7 @@
           <div class="contact-form-wrap">
             <form class="cform" id="contactForm" novalidate>
               <input type="hidden" name="access_key" value="afcff878-b295-4696-8334-df168b3ab2d2">
-              <input type="hidden" name="subject" value="New Inquiry — Pramik Maharajan Portfolio">
+              <input type="hidden" name="subject" value="Free Strategy Plan Request — Pramik Maharajan">
               <input type="hidden" name="from_name" value="Pramik Maharajan Portfolio">
               <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off">
 
@@ -520,6 +527,7 @@
                 <input type="tel" name="phone" placeholder="Phone (optional)" autocomplete="tel">
                 <select name="interest" required>
                   <option value="" disabled selected>What are you interested in?</option>
+                  <option value="Free Strategy Plan">Free Strategy Plan</option>
                   <option value="Marketing Strategy">Marketing Strategy</option>
                   <option value="Business Growth Consulting">Business Growth Consulting</option>
                   <option value="Mentorship">Mentorship</option>
@@ -527,7 +535,7 @@
                 </select>
               </div>
               <textarea name="message" placeholder="Tell me about your business and what you're trying to solve..." required></textarea>
-              <button type="submit" class="btn btn-primary">Send message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              <button type="submit" class="btn btn-primary">Get my free strategy plan <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
               <p class="form-msg" id="formMsg"></p>
               <p class="form-note">Your details stay private. No spam, ever.</p>
             </form>
@@ -564,7 +572,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#process">Process</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact">Get free strategy plan</a></li>
         </ul>
       </div>
       <div class="footer-col footer-contact">
@@ -585,6 +593,11 @@
   </div>
 </footer>
 
+<a class="floating-cta" href="#contact" id="floatingCta">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+  Get your free strategy plan
+</a>
+
 <button class="to-top" id="toTop" aria-label="Back to top">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
@@ -598,11 +611,18 @@
   var progress = document.getElementById("progress");
   var header = document.getElementById("header");
   var toTop = document.getElementById("toTop");
+  var floatingCta = document.getElementById("floatingCta");
+  var contactSection = document.getElementById("contact");
+
   function onScroll(){
     var y = window.scrollY, max = document.documentElement.scrollHeight - window.innerHeight;
     progress.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
     header.classList.toggle("scrolled", y > 12);
     toTop.classList.toggle("show", y > 700);
+    var contactTop = contactSection ? contactSection.getBoundingClientRect().top : 9999;
+    var pastHero = y > 400;
+    var contactVisible = contactTop < window.innerHeight * 0.55;
+    floatingCta.classList.toggle("show", pastHero && !contactVisible);
   }
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -696,17 +716,15 @@
         var raw = await res.text();
         var data = {};
         try { data = JSON.parse(raw); } catch (_) { data = { message: raw }; }
-        console.log("[Web3Forms] status:", res.status, "body:", data);
 
         if (res.ok && data.success === true) {
-          formMsg.textContent = "Message sent. I'll get back to you within one business day.";
+          formMsg.textContent = "Thanks! Your free strategy plan request has been sent — I'll be in touch within one business day.";
           formMsg.className = "form-msg ok";
           form.reset();
         } else {
           throw new Error(data.message || ("HTTP " + res.status));
         }
       } catch (err) {
-        console.error("[Contact] failure:", err);
         formMsg.innerHTML = "Something went wrong. You can also email " +
           "<a href='mailto:pramikmaharjan51@gmail.com' style='color:var(--gold-lt)'>pramikmaharjan51@gmail.com</a>.";
         formMsg.className = "form-msg err";
