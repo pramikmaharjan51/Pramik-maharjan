@@ -11,7 +11,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{box-sizing:border-box}
-  :root{--bg:#0a0a0b;--surface:#141417;--text:#f4f4f5;--text-2:#a1a1aa;--text-3:#71717a;--line:rgba(255,255,255,.08);--gold:#c9a227;--gold-lt:#e8cf7a;--gold-soft:rgba(201,162,39,.1);--gold-line:rgba(201,162,39,.28);--serif:"Instrument Serif",Georgia,serif;--sans:"Inter",ui-sans-serif,system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1);--max:1200px}
+  :root{--bg:#0a0a0b;--surface:#141417;--text:#f4f4f5;--text-2:#a1a1aa;--text-3:#71717a;--line:rgba(255,255,255,.08);--gold:#c9a227;--gold-lt:#e8cf7a;--gold-soft:rgba(201,162,39,.1);--gold-line:rgba(201,162,39,.28);--serif:"Instrument Serif",Georgia,serif;--sans:"Inter",ui-sans-serif,system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1);--max:1200px;
+    --aurora-color1: rgba(201,162,39,0.14);
+    --aurora-color2: rgba(120,90,200,0.14);
+  }
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}ul{list-style:none;margin:0;padding:0}button{font-family:inherit;cursor:pointer}img{display:block;max-width:100%}
@@ -48,15 +51,58 @@
   .nav-toggle i{display:block;width:16px;height:1px;background:currentColor;position:relative}
   .nav-toggle i::before,.nav-toggle i::after{content:"";position:absolute;left:0;width:16px;height:1px;background:currentColor}
   .nav-toggle i::before{top:-5px}.nav-toggle i::after{top:5px}
-  .hero{max-width:var(--max);margin:0 auto;padding:180px 32px 120px;display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center;min-height:100svh}
-  .hero-role{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:100px;border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:.72rem;color:var(--text-2);margin-bottom:32px}
+
+  .hero{position:relative;width:100%;min-height:100svh;overflow:hidden;isolation:isolate}
+  .hero-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:180px 32px 120px;display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center;min-height:100svh}
+
+  .aurora{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--bg)}
+  .aurora-base{position:absolute;inset:0;opacity:.5;background-image:
+      radial-gradient(circle at 25% 30%, var(--aurora-color1) 0%, transparent 70%),
+      radial-gradient(circle at 75% 70%, var(--aurora-color2) 0%, transparent 70%);
+    background-size:100% 100%;animation:aurora-pulse 10s ease-in-out infinite}
+  .aurora-blobs{position:absolute;inset:0;mix-blend-mode:screen;opacity:0;animation:aurora-fadein 1.2s ease-in-out forwards}
+  .blob{position:absolute;border-radius:9999px;filter:blur(80px);will-change:transform}
+  .blob-1{width:50%;height:50%;top:-25%;left:-25%;background:#8b6f16;opacity:.35;animation:blob-drift-1 30s ease-in-out infinite}
+  .blob-2{width:50%;height:50%;bottom:-25%;right:-25%;background:#7a5ac8;opacity:.3;animation:blob-drift-2 40s ease-in-out infinite}
+  .blob-3{width:33%;height:33%;top:33%;left:33%;background:#4f46e5;opacity:.22;animation:blob-drift-3 50s ease-in-out infinite}
+  .aurora-stars{position:absolute;inset:0}
+  .star{position:absolute;width:2px;height:2px;border-radius:9999px;background:#fff;opacity:0;animation:star-twinkle linear infinite}
+
+  @keyframes aurora-pulse{
+    0%,100%{opacity:.5;transform:scale(1)}
+    50%{opacity:.7;transform:scale(1.05)}
+  }
+  @keyframes aurora-fadein{to{opacity:1}}
+  @keyframes blob-drift-1{
+    0%,100%{transform:translate(-40px,-20px) scale(1)}
+    50%{transform:translate(60px,30px) scale(1.2)}
+  }
+  @keyframes blob-drift-2{
+    0%,100%{transform:translate(50px,20px) scale(1)}
+    50%{transform:translate(-50px,-30px) scale(1.3)}
+  }
+  @keyframes blob-drift-3{
+    0%,100%{transform:translate(20px,-30px) rotate(0deg)}
+    50%{transform:translate(-20px,30px) rotate(360deg)}
+  }
+  @keyframes star-twinkle{
+    0%,100%{opacity:0}
+    50%{opacity:.85}
+  }
+
+  .hero-role{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;border-radius:100px;border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:.72rem;color:var(--text-2);margin-bottom:32px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
   .hero-role .dot{width:6px;height:6px;border-radius:50%;background:#4ade80}
   .hero h1{font-size:clamp(3.2rem,7.6vw,5.8rem);line-height:.98;letter-spacing:-.03em;margin-bottom:8px}
   .hero h1 .accent{display:block;font-style:italic;color:var(--gold-lt)}
   .hero-sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.6vw,1.85rem);line-height:1.3;color:var(--text-2);margin:24px 0 0;max-width:24ch}
   .hero-lede{color:var(--text-2);font-size:1.05rem;line-height:1.75;max-width:50ch;margin:32px 0 40px}
   .hero-lede strong{color:var(--text);font-weight:500}
-  .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:52px}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:32px}
+  .hero-socials{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:44px}
+  .hero-socials .lbl{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-right:4px}
+  .social-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:.76rem;color:var(--text-2);cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:color .22s ease,border-color .22s ease,background .22s ease,transform .22s var(--ease)}
+  .social-pill:hover{color:var(--gold-lt);border-color:var(--gold-line);background:var(--gold-soft);transform:translateY(-2px)}
+  .social-pill svg{flex:0 0 auto;pointer-events:none}
   .hero-metrics{display:grid;grid-template-columns:repeat(3,auto);gap:48px;padding-top:32px;border-top:1px solid var(--line)}
   .metric b{display:block;font-family:var(--serif);font-size:2rem;color:var(--text);line-height:1;font-variant-numeric:tabular-nums}
   .metric span{display:block;margin-top:8px;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
@@ -154,9 +200,11 @@
   .contact h2 em{font-style:italic;color:var(--gold-lt)}
   .contact-copy p{color:var(--text-2);font-size:.97rem;line-height:1.75;margin:0 0 40px}
   .channels{display:grid;gap:0;border-top:1px solid var(--line);margin-bottom:36px}
-  .channel{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);transition:padding-left .3s var(--ease)}
+  .channel{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:padding-left .3s var(--ease)}
   .channel:hover{padding-left:8px}
-  .channel .ci{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--text-2)}
+  .channel .ci{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--text-2);transition:color .22s ease,border-color .22s ease,background .22s ease}
+  .channel:hover .ci{color:var(--gold-lt);border-color:var(--gold-line);background:var(--gold-soft)}
+  .channel svg{pointer-events:none}
   .channel .label{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
   .channel .value{display:block;font-size:.9rem;margin-top:3px;color:var(--text)}
   .availability{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:100px;border:1px solid var(--line);font-size:.75rem;color:var(--text-2)}
@@ -182,6 +230,10 @@
   .footer-contact a{display:block;font-size:.9rem;color:var(--text);margin-bottom:10px;transition:color .2s ease}
   .footer-contact a:hover{color:var(--gold-lt)}
   .footer-contact small{display:block;color:var(--text-3);font-size:.84rem;margin-top:16px;line-height:1.7}
+  .footer-socials{display:flex;gap:10px;margin-top:4px}
+  .fs-link{width:38px;height:38px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line);color:var(--text-2);cursor:pointer;transition:color .22s ease,border-color .22s ease,background .22s ease,transform .22s var(--ease)}
+  .fs-link:hover{color:var(--gold-lt);border-color:var(--gold-line);background:var(--gold-soft);transform:translateY(-2px)}
+  .fs-link svg{pointer-events:none}
   .footer-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;padding-top:32px;font-size:.82rem;color:var(--text-3)}
   .footer-bottom nav{display:flex;gap:28px}
   .footer-bottom nav a{transition:color .2s ease}
@@ -197,11 +249,108 @@
   .to-top:hover{color:var(--gold-lt);border-color:var(--gold-line)}
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0ms)}
   .reveal.in{opacity:1;transform:none}
+
+  .timeline{--tl-accent:var(--gold);--tl-muted:var(--text-2);position:relative;width:100%;height:300vh;background:var(--bg);color:var(--text)}
+  .tl-sticky{position:sticky;top:0;height:100vh;width:100%;padding-top:10%;overflow:hidden}
+  .tl-track{display:flex;align-items:center;gap:5vw;width:240vw;height:32vw;padding:0 5vw;margin-right:2vw;will-change:transform}
+  .tl-photo{flex:0 0 auto;height:100%;width:30vw;overflow:hidden;border-radius:1vw;border:1px solid var(--line);background:var(--surface)}
+  .tl-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 32%;filter:saturate(.9) contrast(1.03)}
+  .tl-stage{position:relative;height:100%;width:100%}
+  .tl-axis{position:absolute;left:0;top:49%;transform:translateY(-50%);display:flex;align-items:center;width:100%;height:fit-content}
+  .tl-cap{flex:0 0 auto;width:.8vw;height:.8vw;border-radius:50%;background:var(--tl-accent)}
+  .tl-line{height:1px;width:0;border-radius:999px;background:var(--tl-accent)}
+  .tl-half{display:flex;width:100%;height:50%;align-items:center;justify-content:flex-start}
+  .tl-titlecol{width:20%;height:100%;padding-top:2vw}
+  .tl-titlecol h2{width:65%;font-size:3vw;line-height:.95;font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
+  .tl-titlecol h2 em{font-style:italic;color:var(--gold-lt)}
+  .tl-periodcol{width:34%;height:100%;padding-top:2vw}
+  .tl-periodcol p{margin:0;font-family:var(--sans);font-size:1.65vw;line-height:1;color:var(--tl-muted)}
+  .tl-items{display:flex;width:100%;height:100%;column-gap:15vw}
+  .tl-items-bottom{column-gap:20vw;margin-left:7vw}
+  .tl-item{position:relative;height:100%;width:30vw;padding:0 3vw}
+  .tl-item-bottom{width:25vw}
+  .tl-stem{position:absolute;left:0;top:0;height:100%;width:100%}
+  .tl-item-bottom .tl-stem{top:auto;bottom:-1%}
+  .tl-dot{position:relative;width:1vw;height:1vw;aspect-ratio:1;margin-left:-.5vw;border-radius:50%;background:var(--tl-accent)}
+  .tl-stemline{width:1px;height:94%;border-radius:999px;background:var(--tl-accent);transform-origin:bottom bottom}
+  .tl-item-bottom .tl-stemline{transform-origin:top top}
+  .tl-item-content{margin-top:-1vw}
+  .tl-item-bottom .tl-item-content{display:flex;flex-direction:column;justify-content:flex-end;height:100%;margin-top:0}
+  .tl-item-content h4{margin:0 0 1vw;font-family:var(--serif);font-weight:400;font-size:2.5vw;line-height:1;letter-spacing:-.01em}
+  .tl-item-content p{margin:0;width:90%;font-size:1.5vw;line-height:1.15;color:var(--tl-muted)}
+
+  /* ============================================
+     ECLIPSE BUTTON EFFECT
+     Magnetic pull + spotlight reveal + inverted overlay
+     ============================================ */
+  .btn,.nav-cta{
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+    transform:translate(var(--pull-x,0),var(--pull-y,0));
+    transition:transform .4s var(--ease), background .22s ease, border-color .22s ease, color .22s ease;
+  }
+  .btn-eclipse{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:10px;
+    padding:inherit;
+    border-radius:inherit;
+    pointer-events:none;
+    white-space:nowrap;
+    font:inherit;
+    font-size:inherit;
+    font-weight:inherit;
+    letter-spacing:inherit;
+    line-height:inherit;
+    text-align:inherit;
+    clip-path:circle(0px at var(--mx,50%) var(--my,50%));
+    -webkit-clip-path:circle(0px at var(--mx,50%) var(--my,50%));
+    transition:clip-path .5s var(--ease), -webkit-clip-path .5s var(--ease);
+  }
+  .btn:hover .btn-eclipse,
+  .btn:focus-visible .btn-eclipse,
+  .nav-cta:hover .btn-eclipse,
+  .nav-cta:focus-visible .btn-eclipse{
+    clip-path:circle(160px at var(--mx,50%) var(--my,50%));
+    -webkit-clip-path:circle(160px at var(--mx,50%) var(--my,50%));
+  }
+  .btn-eclipse svg{flex:0 0 auto}
+  .btn-primary .btn-eclipse{
+    background:#050506;
+    color:var(--gold-lt);
+    box-shadow:inset 0 0 0 1px var(--gold-line);
+  }
+  .btn-secondary .btn-eclipse{
+    background:var(--gold);
+    color:#0a0a0b;
+  }
+  .nav-cta .btn-eclipse{
+    background:var(--gold);
+    color:#0a0a0b;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .btn,.nav-cta{transform:none!important}
+    .btn-eclipse{transition:none!important}
+    .btn:hover .btn-eclipse,
+    .btn:focus-visible .btn-eclipse,
+    .nav-cta:hover .btn-eclipse,
+    .nav-cta:focus-visible .btn-eclipse{
+      clip-path:circle(160% at 50% 50%)!important;
+      -webkit-clip-path:circle(160% at 50% 50%)!important;
+    }
+  }
+
   @media (max-width:1080px){.footer-grid{grid-template-columns:1fr 1fr;gap:44px}}
   @media (max-width:1000px){
     .section{padding:100px 0}
-    .hero{grid-template-columns:1fr;text-align:center;gap:60px;padding-top:150px;min-height:0}
-    .hero-role,.hero-ctas,.hero-metrics{justify-content:center}
+    .hero-inner{grid-template-columns:1fr;text-align:center;gap:60px;padding-top:150px;min-height:0}
+    .hero-role,.hero-ctas,.hero-metrics,.hero-socials{justify-content:center}
     .hero-metrics{justify-content:center}
     .hero-sub,.hero-lede{margin-inline:auto}
     .hero-visual{order:-1}
@@ -228,7 +377,7 @@
   }
   @media (max-width:620px){
     .wrap{padding:0 20px}
-    .hero{padding:128px 20px 88px}
+    .hero-inner{padding:128px 20px 88px}
     .section{padding:84px 0}
     .stats{grid-template-columns:1fr}
     .hero-metrics{grid-template-columns:1fr;gap:28px}
@@ -239,10 +388,31 @@
     .cform .row{grid-template-columns:1fr}
     .to-top{right:18px;bottom:88px}
   }
+  @media (max-width:600px){
+    .timeline{height:420vh}
+    .tl-sticky{padding-top:5%}
+    .tl-track{gap:5vw;width:800vw;height:80vh;padding:0 7vw;margin-right:2vw}
+    .tl-photo{height:65vw;width:85vw;border-radius:5vw}
+    .tl-cap{width:2vw;height:2vw}
+    .tl-titlecol{width:30%;height:auto;padding-top:5vw}
+    .tl-titlecol h2{font-size:8.5vw}
+    .tl-periodcol{width:30%;height:100%;padding-top:5vw}
+    .tl-periodcol p{font-size:4.2vw}
+    .tl-items{column-gap:40vw}
+    .tl-items-bottom{column-gap:40vw;margin-left:7vw}
+    .tl-item{display:flex;flex-direction:column;width:70vw;padding:0 7vw}
+    .tl-item-bottom{width:70vw}
+    .tl-dot{width:2.5vw;height:2.5vw;margin-left:-1.25vw}
+    .tl-item-content{margin-top:-2vw}
+    .tl-item-content h4{font-size:6.4vw;margin-bottom:2vw}
+    .tl-item-content p{font-size:4.8vw;width:90%}
+  }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
     .reveal{opacity:1;transform:none}
+    .aurora-base,.aurora-blobs,.blob,.star{animation:none!important}
+    .aurora-blobs{opacity:1}
   }
 </style>
 </head>
@@ -262,6 +432,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
+      <li><a href="#journey">Journey</a></li>
       <li><a href="#work">Work</a></li>
       <li><a href="#mentorship">Mentorship</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -277,25 +448,52 @@
 <main id="top">
 
   <section class="hero">
-    <div class="hero-copy">
-      <span class="hero-role reveal"><span class="dot"></span> Available for new projects</span>
-      <h1 class="reveal" style="--d:60ms">Pramik<span class="accent">Maharajan</span></h1>
-      <p class="hero-sub reveal" style="--d:120ms">Helping businesses get seen, grow &amp; stand out.</p>
-      <p class="hero-lede reveal" style="--d:180ms">Marketing strategist, business growth consultant and mentor. I help founders and teams build the clarity, positioning and systems that turn ambitious businesses into <strong>recognizable brands</strong>.</p>
-      <div class="hero-ctas reveal" style="--d:240ms">
-        <a class="btn btn-primary" href="#contact">Get your free strategy plan <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-secondary" href="#services">View services</a>
+    <div class="aurora" aria-hidden="true">
+      <div class="aurora-base"></div>
+      <div class="aurora-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
       </div>
-      <div class="hero-metrics reveal" style="--d:300ms">
-        <div class="metric"><b data-count="40" data-suffix="+">0</b><span>Businesses helped</span></div>
-        <div class="metric"><b data-count="120" data-suffix="+">0</b><span>Mentees guided</span></div>
-        <div class="metric"><b data-count="6" data-suffix="+">0</b><span>Years in field</span></div>
-      </div>
+      <div class="aurora-stars" id="auroraStars"></div>
     </div>
-    <div class="hero-visual reveal" style="--d:200ms">
-      <div class="portrait">
-        <img src="https://i.postimg.cc/pV8Zkd5q/received-901499128285805-(1)-(1).jpg" alt="Pramik Maharajan" loading="eager">
-        <div class="portrait-tag">Kathmandu, Nepal<small>Strategy · Growth · Mentorship</small></div>
+
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="hero-role reveal"><span class="dot"></span> Available for new projects</span>
+        <h1 class="reveal" style="--d:60ms">Pramik<span class="accent">Maharajan</span></h1>
+        <p class="hero-sub reveal" style="--d:120ms">Helping businesses get seen, grow &amp; stand out.</p>
+        <p class="hero-lede reveal" style="--d:180ms">Marketing strategist, business growth consultant and mentor. I help founders and teams build the clarity, positioning and systems that turn ambitious businesses into <strong>recognizable brands</strong>.</p>
+        <div class="hero-ctas reveal" style="--d:240ms">
+          <a class="btn btn-primary" href="#contact">Get your free strategy plan <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-secondary" href="#services">View services</a>
+        </div>
+        <div class="hero-socials reveal" style="--d:280ms">
+          <span class="lbl">Follow</span>
+          <a class="social-pill" href="https://www.instagram.com/i_am_pramik?stkn=ZzN4aGR0eWltNnp0" target="_blank" rel="noopener noreferrer" aria-label="Open Pramik's Instagram profile">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/></svg>
+            Instagram
+          </a>
+          <a class="social-pill" href="https://www.facebook.com/share/19eK3QyLr5/" target="_blank" rel="noopener noreferrer" aria-label="Open Pramik's Facebook profile">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook
+          </a>
+          <a class="social-pill" href="https://wa.me/9779803812716" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.4 8.4 0 0 1-1.2 4.3L21 21l-5.4-1.4a8.5 8.5 0 1 1 5.4-8.1z"/><path d="M8.5 9c.3 1.5 1.4 2.6 2.9 3.4l1-.9 2 .7-.2 1.2c-2.8.5-5.7-2-6-4.5l1.2-.2.7 2-.9 1z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+        <div class="hero-metrics reveal" style="--d:320ms">
+          <div class="metric"><b data-count="40" data-suffix="+">0</b><span>Businesses helped</span></div>
+          <div class="metric"><b data-count="120" data-suffix="+">0</b><span>Mentees guided</span></div>
+          <div class="metric"><b data-count="6" data-suffix="+">0</b><span>Years in field</span></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal" style="--d:200ms">
+        <div class="portrait">
+          <img src="https://i.postimg.cc/pV8Zkd5q/received-901499128285805-(1)-(1).jpg" alt="Pramik Maharajan" loading="eager">
+          <div class="portrait-tag">Kathmandu, Nepal<small>Strategy · Growth · Mentorship</small></div>
+        </div>
       </div>
     </div>
   </section>
@@ -368,6 +566,33 @@
         <div class="step"><span class="step-n">02 — Strategise</span><h4>Plan</h4><p>A focused plan: positioning, message, channels and priorities. Practical, sequenced, and built around the resources you actually have.</p></div>
         <div class="step"><span class="step-n">03 — Execute</span><h4>Build</h4><p>We turn the plan into action — campaigns, content, systems and processes. I stay close so things get done, not just discussed.</p></div>
         <div class="step"><span class="step-n">04 — Scale</span><h4>Grow</h4><p>Measure what works, cut what doesn't, and double down. The goal is a growth engine you keep running long after we're done.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline" id="journey" aria-label="Journey timeline">
+    <div class="tl-sticky">
+      <div class="tl-track">
+        <div class="tl-photo">
+          <img src="https://i.postimg.cc/pV8Zkd5q/received-901499128285805-(1)-(1).jpg" alt="Pramik Maharajan" loading="lazy" draggable="false">
+        </div>
+        <div class="tl-stage">
+          <div class="tl-axis">
+            <span class="tl-cap"></span>
+            <span class="tl-line"></span>
+            <span class="tl-cap"></span>
+          </div>
+          <div class="tl-half">
+            <div class="tl-titlecol">
+              <h2>The journey <em>so far</em></h2>
+            </div>
+            <div class="tl-items tl-items-top"></div>
+          </div>
+          <div class="tl-half">
+            <div class="tl-periodcol"><p>2020 — 2026</p></div>
+            <div class="tl-items tl-items-bottom"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -504,6 +729,18 @@
                 <span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
                 <span><span class="label">Phone</span><span class="value">+977 980-3812716</span></span>
               </a>
+              <a class="channel" href="https://wa.me/9779803812716" target="_blank" rel="noopener noreferrer">
+                <span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.4 8.4 0 0 1-1.2 4.3L21 21l-5.4-1.4a8.5 8.5 0 1 1 5.4-8.1z"/><path d="M8.5 9c.3 1.5 1.4 2.6 2.9 3.4l1-.9 2 .7-.2 1.2c-2.8.5-5.7-2-6-4.5l1.2-.2.7 2-.9 1z"/></svg></span>
+                <span><span class="label">WhatsApp</span><span class="value">+977 980-3812716</span></span>
+              </a>
+              <a class="channel" href="https://www.instagram.com/i_am_pramik?stkn=ZzN4aGR0eWltNnp0" target="_blank" rel="noopener noreferrer">
+                <span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/></svg></span>
+                <span><span class="label">Instagram</span><span class="value">@i_am_pramik</span></span>
+              </a>
+              <a class="channel" href="https://www.facebook.com/share/19eK3QyLr5/" target="_blank" rel="noopener noreferrer">
+                <span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></span>
+                <span><span class="label">Facebook</span><span class="value">Pramik Maharajan</span></span>
+              </a>
               <div class="channel">
                 <span class="ci"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
                 <span><span class="label">Based in</span><span class="value">Kathmandu, Nepal</span></span>
@@ -556,6 +793,17 @@
           <span class="brand-text"><strong>Pramik Maharajan</strong><small>Strategist &amp; Mentor</small></span>
         </a>
         <p>Helping businesses get seen, grow and stand out — through practical marketing strategy, honest advice and mentorship that actually builds skill.</p>
+        <div class="footer-socials">
+          <a class="fs-link" href="https://www.instagram.com/i_am_pramik?stkn=ZzN4aGR0eWltNnp0" target="_blank" rel="noopener noreferrer" aria-label="Open Pramik's Instagram profile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="fs-link" href="https://www.facebook.com/share/19eK3QyLr5/" target="_blank" rel="noopener noreferrer" aria-label="Open Pramik's Facebook profile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a class="fs-link" href="https://wa.me/9779803812716" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.4 8.4 0 0 1-1.2 4.3L21 21l-5.4-1.4a8.5 8.5 0 1 1 5.4-8.1z"/><path d="M8.5 9c.3 1.5 1.4 2.6 2.9 3.4l1-.9 2 .7-.2 1.2c-2.8.5-5.7-2-6-4.5l1.2-.2.7 2-.9 1z"/></svg>
+          </a>
+        </div>
       </div>
       <div class="footer-col">
         <h5>Services</h5>
@@ -571,6 +819,7 @@
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#process">Process</a></li>
+          <li><a href="#journey">Journey</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Get free strategy plan</a></li>
         </ul>
@@ -578,6 +827,7 @@
       <div class="footer-col footer-contact">
         <h5>Get in touch</h5>
         <a href="mailto:pramikmaharjan51@gmail.com">pramikmaharjan51@gmail.com</a>
+        <a href="https://wa.me/9779803812716" target="_blank" rel="noopener noreferrer">WhatsApp: +977 980-3812716</a>
         <a href="tel:+9779803812716">+977 980-3812716</a>
         <small>Kathmandu, Nepal<br>Working with clients worldwide</small>
       </div>
@@ -607,6 +857,67 @@
   "use strict";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ===== Aurora stars ===== */
+  (function initAuroraStars(){
+    var starWrap = document.getElementById("auroraStars");
+    if (!starWrap) return;
+    if (reduceMotion) return;
+    var starCount = window.innerWidth < 620 ? 30 : 60;
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < starCount; i++) {
+      var s = document.createElement("span");
+      s.className = "star";
+      s.style.left = (Math.random() * 100).toFixed(2) + "%";
+      s.style.top  = (Math.random() * 100).toFixed(2) + "%";
+      s.style.animationDuration = (Math.random() * 3 + 2).toFixed(2) + "s";
+      s.style.animationDelay = (Math.random() * 5).toFixed(2) + "s";
+      s.style.setProperty("--peak", (0.4 + Math.random() * 0.5).toFixed(2));
+      frag.appendChild(s);
+    }
+    starWrap.appendChild(frag);
+  })();
+
+  /* ===== Eclipse button enhancement ===== */
+  (function initEclipse(){
+    var buttons = document.querySelectorAll('.btn, .nav-cta');
+    buttons.forEach(function(btn){
+      // Duplicate inner content into an absolutely positioned overlay layer
+      var overlay = document.createElement('span');
+      overlay.className = 'btn-eclipse';
+      overlay.setAttribute('aria-hidden', 'true');
+      overlay.innerHTML = btn.innerHTML;
+      btn.appendChild(overlay);
+
+      // Cache rect to avoid layout thrash
+      var rect = null;
+      function onMove(e){
+        if (!rect) rect = btn.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        btn.style.setProperty('--mx', x + 'px');
+        btn.style.setProperty('--my', y + 'px');
+        // Magnetic pull: subtle offset toward the cursor
+        var px = (x / rect.width - 0.5) * 8;
+        var py = (y / rect.height - 0.5) * 5;
+        btn.style.setProperty('--pull-x', px.toFixed(2) + 'px');
+        btn.style.setProperty('--pull-y', py.toFixed(2) + 'px');
+      }
+      function onLeave(){
+        rect = null;
+        btn.style.setProperty('--mx', '50%');
+        btn.style.setProperty('--my', '50%');
+        btn.style.setProperty('--pull-x', '0px');
+        btn.style.setProperty('--pull-y', '0px');
+      }
+      btn.addEventListener('mousemove', onMove);
+      btn.addEventListener('mouseleave', onLeave);
+      btn.addEventListener('blur', onLeave);
+    });
+
+    // Refresh cached rects on resize / scroll (they change on scroll for fixed ancestors)
+    window.addEventListener('resize', function(){ /* rects are cached per hover session */ }, { passive: true });
+  })();
 
   var progress = document.getElementById("progress");
   var header = document.getElementById("header");
@@ -732,6 +1043,160 @@
         btn.disabled = false; btn.innerHTML = originalHTML;
       }
     });
+  }
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+
+<script>
+/* Journey timeline */
+(function () {
+  "use strict";
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var hasSplit = typeof window.SplitText !== "undefined";
+  if (hasSplit) gsap.registerPlugin(SplitText);
+
+  var section = document.getElementById("journey");
+  if (!section) return;
+
+  var track      = section.querySelector(".tl-track");
+  var lineEl     = section.querySelector(".tl-line");
+  var topWrap    = section.querySelector(".tl-items-top");
+  var bottomWrap = section.querySelector(".tl-items-bottom");
+  if (!track || !topWrap || !bottomWrap) return;
+
+  var MONTHS = { January:1, February:2, March:3, April:4, May:5, June:6,
+                 July:7, August:8, September:9, October:10, November:11, December:12 };
+
+  var topData = [
+    { id:"2020-may",       year:"2020", month:"May",       content:"First marketing role — campaigns, copy, and a lot of trial and error." },
+    { id:"2022-march",     year:"2022", month:"March",     content:"Went independent and took on my first consulting clients." },
+    { id:"2024-september", year:"2024", month:"September", content:"Started mentoring students, founders and career switchers." },
+    { id:"2026-january",   year:"2026", month:"January",   content:"Working with businesses across markets, from Kathmandu outward." }
+  ];
+
+  var bottomData = [
+    { id:"2021-august", year:"2021", month:"August", content:"First full rebrand — a local business rebuilt from the ground up." },
+    { id:"2023-june",   year:"2023", month:"June",   content:"Narrowed the practice to strategy, positioning and growth." },
+    { id:"2025-april",  year:"2025", month:"April",  content:"40+ businesses helped and 120+ mentees guided." }
+  ];
+
+  var allItems = topData.concat(bottomData).sort(function (a, b) {
+    return (Number(a.year) - Number(b.year)) || (MONTHS[a.month] - MONTHS[b.month]);
+  });
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function render(list, container, isBottom) {
+    container.innerHTML = list.map(function (item) {
+      var stem = isBottom
+        ? '<div class="tl-stemline jl-' + item.id + '"></div><div class="tl-dot jd-' + item.id + '"></div>'
+        : '<div class="tl-dot jd-' + item.id + '"></div><div class="tl-stemline jl-' + item.id + '"></div>';
+      return '<div class="tl-item' + (isBottom ? ' tl-item-bottom' : '') + '">' +
+               '<div class="tl-stem">' + stem + '</div>' +
+               '<div class="tl-item-content">' +
+                 '<h4 class="title-' + item.id + '">' + esc(item.year) + ' ' + esc(item.month) + '</h4>' +
+                 '<p class="description-' + item.id + '">' + esc(item.content) + '</p>' +
+               '</div>' +
+             '</div>';
+    }).join("");
+  }
+
+  render(topData, topWrap, false);
+  render(bottomData, bottomWrap, true);
+
+  var isMobile     = window.innerWidth < 600;
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var DUR         = 1.2;
+  var slidePct    = isMobile ? -57 : -65;
+  var lineWidth   = isMobile ? "65%" : "98%";
+  var lineStart   = isMobile ? "top 30%" : "top 25%";
+  var slideEnd    = isMobile ? "82% 50%" : "92% bottom";
+  var lineEnd     = isMobile ? "80% 50%" : "92% bottom";
+
+  gsap.timeline({
+    scrollTrigger: { trigger: section, start: "top top", end: slideEnd, scrub: true },
+    defaults: { ease: "none" }
+  }).fromTo(track, { xPercent: 0 }, { xPercent: slidePct });
+
+  if (reduceMotion) {
+    gsap.set(lineEl, { width: lineWidth });
+  } else {
+    gsap.to(lineEl, {
+      width: lineWidth, ease: "none",
+      scrollTrigger: { trigger: section, start: lineStart, end: lineEnd, scrub: true }
+    });
+  }
+
+  allItems.forEach(function (item) {
+    var isTop = topData.some(function (t) { return t.id === item.id; });
+    gsap.set(section.querySelector(".jl-" + item.id), {
+      scaleY: reduceMotion ? 1 : 0,
+      transformOrigin: isTop ? "bottom bottom" : "top top"
+    });
+    gsap.set(section.querySelector(".jd-" + item.id), { scale: reduceMotion ? 1 : 0 });
+  });
+
+  if (!reduceMotion) {
+    var titleSplits = {};
+    var descSplits  = {};
+
+    if (hasSplit) {
+      allItems.forEach(function (item) {
+        titleSplits[item.id] = new SplitText(section.querySelector(".title-" + item.id),
+          { type: "chars, words, lines", mask: "lines" });
+        descSplits[item.id]  = new SplitText(section.querySelector(".description-" + item.id),
+          { type: "chars, words, lines", mask: "lines" });
+      });
+    }
+
+    var positions = isMobile
+      ? [[22,32],[28,38],[36,46],[45,55],[52,62],[60,70],[69,79]]
+      : [[6,26],[16,36],[26,46],[35,55],[45,65],[55,75],[65,85]];
+
+    allItems.forEach(function (item, i) {
+      var pos = positions[i] || positions[positions.length - 1];
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: pos[0] + "% 30%",
+          end:   pos[1] + "% 50%",
+          scrub: true
+        }
+      });
+
+      tl.to(section.querySelector(".jl-" + item.id), { scaleY: 1, duration: DUR * 0.4 })
+        .to(section.querySelector(".jd-" + item.id), { scale: 1, duration: DUR * 0.4 }, "<");
+
+      var tLines = titleSplits[item.id] ? titleSplits[item.id].lines : null;
+      var dLines = descSplits[item.id]  ? descSplits[item.id].lines  : null;
+
+      if (tLines && tLines.length) {
+        tl.fromTo(tLines, { y: 100 },
+          { y: 0, delay: -0.8 * DUR, duration: DUR, stagger: 0.02, ease: "power2.out" });
+      }
+      if (dLines && dLines.length) {
+        tl.fromTo(dLines, { y: 100 },
+          { y: 0, duration: DUR, stagger: 0.02, ease: "power2.out" }, "<");
+      }
+    });
+  }
+
+  var rt;
+  window.addEventListener("resize", function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+  window.addEventListener("load", function () { ScrollTrigger.refresh(); });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
   }
 })();
 </script>
