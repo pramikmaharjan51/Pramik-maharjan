@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pramik Maharjan — CV</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='24' r='24' fill='%23c8f169'/><path d='M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1' fill='none' stroke='%23101010' stroke-width='4.4' stroke-linecap='round' stroke-linejoin='round'/><circle cx='33.4' cy='33' r='3' fill='%23101010'/></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Phudu:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16181a; --ink-2:#3d4147; --muted:#6b6f76; --muted-2:#8b8f96;
+    --line:#e6e8eb; --line-2:#d3d7dc;
+    --accent:#5f9c12; --accent-soft:#eef7d9; --accent-ink:#3d6a08;
+    --paper:#ffffff; --shell:#eef0f3;
+    --font-body:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    --font-display:'Phudu','Manrope',sans-serif;
+    --font-mono:'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--shell);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:14.5px;
+    line-height:1.58;
+    -webkit-font-smoothing:antialiased;
+    padding:32px 20px 80px;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* ---- Screen toolbar (hidden in print) ---- */
+  .toolbar{
+    position:sticky;top:0;z-index:20;
+    max-width:860px;margin:0 auto 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--line);border-radius:12px;
+    padding:12px 16px;
+    box-shadow:0 8px 26px rgba(16,20,26,.06);
+  }
+  .tb-back{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-weight:500;padding:8px 12px;border-radius:8px;transition:.2s}
+  .tb-back:hover{background:#f4f5f7;color:var(--ink)}
+  .tb-back svg{transition:transform .25s}
+  .tb-back:hover svg{transform:translateX(-3px)}
+  .tb-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .tb-hint{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);margin-right:6px}
+  .btn-cv{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 18px;border-radius:9px;border:1px solid var(--accent);
+    background:var(--accent);color:#ffffff;
+    font-family:var(--font-body);font-weight:700;font-size:13.5px;letter-spacing:-.005em;
+    cursor:pointer;transition:.22s ease;
+  }
+  .btn-cv:hover{background:var(--accent-ink);border-color:var(--accent-ink);transform:translateY(-1px)}
+  .btn-cv svg{transition:transform .22s}
+  .btn-cv:hover svg{transform:translateY(2px)}
+
+  /* ---- The CV document ---- */
+  .cv{
+    max-width:860px;margin:0 auto;
+    background:var(--paper);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 24px 60px rgba(16,20,26,.10), 0 2px 6px rgba(16,20,26,.05);
+  }
+
+  /* ---- Header band ---- */
+  .cv-head{
+    background:#101010;color:#f4f1ea;
+    padding:36px 44px 30px;
+    position:relative;overflow:hidden;
+  }
+  .cv-head::before{
+    content:"";position:absolute;top:-90px;right:-80px;width:280px;height:280px;border-radius:50%;
+    background:radial-gradient(circle at center, rgba(200,241,105,.20), transparent 68%);
+    pointer-events:none;
+  }
+  .cv-head-top{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .cv-mark{
+    width:46px;height:46px;flex-shrink:0;display:block;
+  }
+  .cv-mark svg{display:block;width:100%;height:100%}
+  .cv-kicker{
+    font-family:var(--font-mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:#c8f169;font-weight:500;
+  }
+  .cv-head h1{
+    font-family:var(--font-display);
+    font-size:44px;line-height:1;letter-spacing:-.04em;
+    margin:0 0 8px;font-weight:700;
+  }
+  .cv-role{
+    font-family:var(--font-display);
+    font-size:19px;font-weight:500;letter-spacing:-.02em;
+    color:#c8f169;margin:0 0 18px;line-height:1.2;
+  }
+  .cv-contact{
+    display:flex;flex-wrap:wrap;gap:8px 20px;
+    font-size:12.5px;color:#cfccc4;
+  }
+  .cv-contact span{display:inline-flex;align-items:center;gap:7px}
+  .cv-contact svg{flex-shrink:0;opacity:.72}
+  .cv-contact a{color:#cfccc4}
+  .cv-contact a:hover{color:#c8f169}
+
+  /* ---- Body ---- */
+  .cv-body{padding:38px 44px 42px}
+
+  .cv-section{margin-bottom:30px;break-inside:avoid;page-break-inside:avoid}
+  .cv-section:last-child{margin-bottom:0}
+
+  .cv-section-title{
+    font-family:var(--font-mono);
+    font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+    color:var(--accent-ink);
+    display:flex;align-items:center;gap:12px;
+    margin:0 0 16px;
+  }
+  .cv-section-title::after{
+    content:"";flex:1;height:1px;background:var(--line);
+  }
+
+  .cv-lead{
+    font-size:15px;line-height:1.68;color:var(--ink-2);
+    margin:0;
+  }
+  .cv-lead strong{color:var(--ink);font-weight:700}
+
+  /* Services grid */
+  .cv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .cv-card{
+    border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;background:#fcfcfd;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .cv-card h4{
+    font-family:var(--font-body);font-size:14px;font-weight:800;
+    letter-spacing:-.01em;margin:0 0 6px;color:var(--ink);
+    display:flex;align-items:center;gap:9px;
+  }
+  .cv-card h4::before{
+    content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;
+  }
+  .cv-card p{margin:0;font-size:12.8px;line-height:1.6;color:var(--muted)}
+
+  /* Featured work */
+  .cv-work{
+    border-left:3px solid var(--accent);
+    background:var(--accent-soft);
+    border-radius:0 10px 10px 0;
+    padding:18px 22px;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .cv-work-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .cv-work h3{
+    font-family:var(--font-body);font-size:16px;font-weight:800;
+    letter-spacing:-.015em;margin:0;color:var(--ink);
+  }
+  .cv-work .tag{
+    font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent-ink);font-weight:600;
+    padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid rgba(95,156,18,.28);
+  }
+  .cv-work .link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+    color:var(--accent-ink);font-weight:600;margin-bottom:8px;
+  }
+  .cv-work .link:hover{text-decoration:underline;text-underline-offset:3px}
+  .cv-work p{margin:0;font-size:13px;line-height:1.6;color:#3a4a24}
+
+  /* Skills grid */
+  .cv-skills{display:grid;grid-template-columns:1fr 1fr;gap:12px 26px}
+  .cv-skill{
+    border-bottom:1px dashed var(--line-2);
+    padding-bottom:10px;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .cv-skill dt{
+    font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent-ink);font-weight:600;margin-bottom:3px;
+  }
+  .cv-skill dd{margin:0;font-size:13px;color:var(--ink-2);line-height:1.55}
+
+  /* Process */
+  .cv-process{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .cv-step{
+    border:1px solid var(--line);border-radius:10px;
+    padding:14px 14px 16px;background:#fcfcfd;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .cv-step .n{
+    font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;
+    color:var(--accent);font-weight:600;text-transform:uppercase;
+    display:block;margin-bottom:8px;
+  }
+  .cv-step h5{
+    font-family:var(--font-body);font-size:13.5px;font-weight:800;
+    letter-spacing:-.01em;margin:0 0 5px;color:var(--ink);
+  }
+  .cv-step p{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
+
+  /* Bottom grid: availability + languages */
+  .cv-foot-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .cv-foot-grid p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.65}
+  .cv-foot-grid .lbl{
+    font-family:var(--font-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent-ink);font-weight:600;margin-bottom:8px;display:block;
+  }
+
+  /* Bottom rule + footer line */
+  .cv-bottom{
+    border-top:1px solid var(--line);
+    padding:18px 44px 22px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted-2);
+  }
+  .cv-bottom .dot{color:var(--accent);font-weight:600}
+
+  /* ---- Print styling ---- */
+  @page { size:A4; margin:0; }
+  @media print{
+    body{background:#fff;padding:0;font-size:10.5pt;line-height:1.5}
+    .toolbar{display:none !important}
+    .cv{box-shadow:none;border-radius:0;max-width:none;margin:0}
+    .cv-head{padding:22mm 16mm 14mm}
+    .cv-head h1{font-size:30pt}
+    .cv-role{font-size:12pt}
+    .cv-body{padding:12mm 16mm 10mm}
+    .cv-section{margin-bottom:7mm}
+    .cv-section-title{font-size:8pt;margin-bottom:3mm}
+    .cv-lead{font-size:10.5pt}
+    .cv-card{padding:4mm 4.5mm}
+    .cv-card h4{font-size:10.5pt}
+    .cv-card p{font-size:9.5pt}
+    .cv-work{padding:4.5mm 5mm}
+    .cv-work h3{font-size:11.5pt}
+    .cv-work p{font-size:9.8pt}
+    .cv-skills{gap:3mm 8mm}
+    .cv-skill dd{font-size:9.8pt}
+    .cv-process{gap:3mm}
+    .cv-step{padding:3.5mm}
+    .cv-step h5{font-size:10pt}
+    .cv-step p{font-size:9pt}
+    .cv-bottom{padding:4mm 16mm 6mm;font-size:7.5pt}
+    *{
+      -webkit-print-color-adjust:exact !important;
+      print-color-adjust:exact !important;
+    }
+  }
+
+  @media (max-width:640px){
+    body{padding:16px 12px 60px}
+    .cv-head{padding:28px 24px 24px}
+    .cv-head h1{font-size:34px}
+    .cv-role{font-size:16px}
+    .cv-body{padding:28px 24px 32px}
+    .cv-grid,.cv-skills,.cv-foot-grid{grid-template-columns:1fr}
+    .cv-process{grid-template-columns:1fr 1fr}
+    .cv-bottom{padding:16px 24px 20px;font-size:9px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ==== Screen-only toolbar ==== -->
+<div class="toolbar">
+  <a class="tb-back" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 19l-7-7 7-7"/></svg>
+    Back to site
+  </a>
+  <div class="tb-actions">
+    <span class="tb-hint">Tip: choose “Save as PDF”</span>
+    <button class="btn-cv" onclick="window.print()">
+      Download as PDF
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ==== CV document ==== -->
+<article class="cv">
+
+  <header class="cv-head">
+    <div class="cv-head-top">
+      <span class="cv-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="#c8f169"/>
+          <path d="M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1" fill="none" stroke="#101010" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33.4" cy="33" r="3" fill="#101010"/>
+        </svg>
+      </span>
+      <span class="cv-kicker">Curriculum Vitae</span>
+    </div>
+
+    <h1>Pramik Maharjan</h1>
+    <p class="cv-role">Web Developer &amp; Digital Marketer</p>
+
+    <div class="cv-contact">
+      <span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Kathmandu, Nepal · Remote worldwide
+      </span>
+      <span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+        <a href="mailto:pramikmaharjan51@gmail.com">pramikmaharjan51@gmail.com</a>
+      </span>
+      <span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        <a href="tel:+9779803812716">+977 9803812716</a>
+      </span>
+      <span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 .05 5.4.05 12c0 2.1.55 4.2 1.6 6L0 24l6.16-1.62A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.25-6.2-3.5-8.5zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.36-.2-3.66.96.98-3.57-.24-.37A9.8 9.8 0 0 1 2.2 12c0-5.45 4.43-9.88 9.88-9.88 2.64 0 5.12 1.03 6.99 2.9a9.8 9.8 0 0 1 2.9 6.99c0 5.45-4.44 9.88-9.95 9.88zm5.5-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.47-2.4-1.48-.9-.79-1.5-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.87 1.21 3.07c.15.2 2.09 3.2 5.07 4.48.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg>
+        WhatsApp: <a href="https://wa.me/9779803812716">+977 9803812716</a>
+      </span>
+    </div>
+  </header>
+
+  <div class="cv-body">
+
+    <!-- PROFILE -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Profile</h2>
+      <p class="cv-lead">
+        Independent <strong>web developer and digital marketer</strong> helping small businesses and growing brands build a credible online presence — and turn interest into real inquiries. I combine clean, responsive web development with practical marketing strategy, so every site looks sharp, loads fast, and gives visitors an obvious next step.
+      </p>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Core Services</h2>
+      <div class="cv-grid">
+        <div class="cv-card">
+          <h4>Website Design &amp; Development</h4>
+          <p>Business websites, landing pages, and responsive builds designed for clarity and conversion — mobile-first, performance-conscious, and easy to maintain.</p>
+        </div>
+        <div class="cv-card">
+          <h4>Digital Marketing Strategy</h4>
+          <p>Positioning, messaging, and campaign direction aligned with how customers search, decide, and buy. Content planning and creative direction built for consistency.</p>
+        </div>
+        <div class="cv-card">
+          <h4>Lead Generation Systems</h4>
+          <p>Landing funnels, forms, and follow-up flows that capture inquiries and make them simple to manage — with tracking set up so you can see what's working.</p>
+        </div>
+        <div class="cv-card">
+          <h4>AI Content &amp; Automation</h4>
+          <p>Practical use of AI tools for content drafts, workflows, and efficiency — keeping the human voice and the strategy behind it intact.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Selected Work</h2>
+      <div class="cv-work">
+        <div class="cv-work-head">
+          <h3>Clean Cuts — Barbershop</h3>
+          <span class="tag">Live client site</span>
+        </div>
+        <a class="link" href="https://cleancuts.com.np/" target="_blank" rel="noopener">
+          cleancuts.com.np
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+        <p>A conversion-focused online presence for a local service business. Clear service messaging, straightforward contact actions, and a responsive layout designed and built end to end.</p>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Capabilities</h2>
+      <dl class="cv-skills">
+        <div class="cv-skill">
+          <dt>Web</dt>
+          <dd>HTML, CSS, JavaScript, responsive design, landing pages, performance optimization</dd>
+        </div>
+        <div class="cv-skill">
+          <dt>Marketing</dt>
+          <dd>Digital marketing strategy, positioning, content planning, creative direction</dd>
+        </div>
+        <div class="cv-skill">
+          <dt>Growth</dt>
+          <dd>Lead funnels, form design, follow-up flows, inquiry tracking</dd>
+        </div>
+        <div class="cv-skill">
+          <dt>AI &amp; Tools</dt>
+          <dd>AI content drafting, workflow automation, chatbot setup</dd>
+        </div>
+        <div class="cv-skill">
+          <dt>Design</dt>
+          <dd>Web design, UI layout, branding direction</dd>
+        </div>
+        <div class="cv-skill">
+          <dt>Ways of working</dt>
+          <dd>Clear communication, remote collaboration, continuous learning</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">How I Work</h2>
+      <div class="cv-process">
+        <div class="cv-step"><span class="n">Step 01</span><h5>Understand</h5><p>Clarify audience, offer, goals, and the main problem to solve.</p></div>
+        <div class="cv-step"><span class="n">Step 02</span><h5>Plan</h5><p>Map the page, message, customer journey, and key action.</p></div>
+        <div class="cv-step"><span class="n">Step 03</span><h5>Build</h5><p>Create a responsive experience and test across screen sizes.</p></div>
+        <div class="cv-step"><span class="n">Step 04</span><h5>Improve</h5><p>Review real feedback and inquiry data, prioritize next steps.</p></div>
+      </div>
+    </section>
+
+    <!-- AVAILABILITY + LANGUAGES -->
+    <section class="cv-section">
+      <div class="cv-foot-grid">
+        <div>
+          <span class="lbl">Availability</span>
+          <p>Open to new projects. Working remotely worldwide. Reply within 24 hours.</p>
+        </div>
+        <div>
+          <span class="lbl">Languages</span>
+          <p>English — professional<br>Nepali — native</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="cv-bottom">
+    <span>Pramik Maharjan · Web Developer &amp; Digital Marketer</span>
+    <span><span class="dot">✳</span> pramikmaharjan51@gmail.com · +977 9803812716</span>
+  </div>
+
+</article>
+
+</body>
+</html>
