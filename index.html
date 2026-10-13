@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#101010" />
 <meta name="description" content="Pramik Maharjan — Web developer & digital marketer based in Kathmandu, Nepal." />
 <title>Pramik Maharjan — Web Developer & Digital Marketer</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='%23c8f169'/><text x='32' y='44' font-family='Arial' font-size='34' font-weight='900' text-anchor='middle' fill='%23101010'>P.</text></svg>" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='24' r='24' fill='%23c8f169'/><path d='M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1' fill='none' stroke='%23101010' stroke-width='4.4' stroke-linecap='round' stroke-linejoin='round'/><circle cx='33.4' cy='33' r='3' fill='%23101010'/></svg>" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +31,7 @@ html{scroll-behavior:smooth;scroll-padding-top:96px}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none;transition:.25s var(--ease)}
-button,input,textarea{font:inherit;color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
 ul,ol{list-style:none;padding:0;margin:0}
 h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.03em;line-height:1.05}
 p{margin:0}
@@ -41,9 +42,13 @@ p{margin:0}
 .eyebrow .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(200,241,105,.1)}
 .accent{color:var(--lime)} .muted{color:var(--muted)}
 
+.logo-svg{display:block;width:100%;height:100%}
+
 .preloader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:grid;place-items:center;transition:opacity .6s ease,visibility .6s ease}
 .preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .preloader-inner{text-align:center}
+.preloader-logo{width:76px;height:76px;margin:0 auto 24px;animation:logoIn .9s var(--ease) both;filter:drop-shadow(0 0 34px rgba(200,241,105,.4))}
+@keyframes logoIn{from{transform:scale(.55) rotate(-35deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
 .preloader-name{font-family:var(--font-display);font-weight:700;font-size:clamp(2.5rem,7vw,4.5rem);letter-spacing:-.04em;color:var(--lime);line-height:1;overflow:hidden}
 .preloader-name span{display:inline-block;animation:rise .7s var(--ease) backwards}
 @keyframes rise{from{transform:translateY(110%);opacity:0}to{transform:translateY(0);opacity:1}}
@@ -54,8 +59,9 @@ p{margin:0}
 header.site-header{position:sticky;top:0;z-index:100;background:rgba(16,16,16,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s var(--ease),box-shadow .3s var(--ease)}
 header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-weight:700;font-size:1.1rem;letter-spacing:-.02em}
-.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--lime);color:#101010;display:grid;place-items:center;font-family:var(--font-display);font-size:.9rem;font-weight:800}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:-.02em}
+.brand-mark{width:34px;height:34px;flex-shrink:0;display:block;transition:transform .45s var(--ease)}
+.brand:hover .brand-mark{transform:rotate(-10deg) scale(1.06)}
 .nav-links{display:flex;align-items:center;gap:32px;font-size:.86rem;color:#d1cec6}
 .nav-links a{position:relative}
 .nav-links a:hover{color:var(--lime)}
@@ -64,9 +70,13 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
 .nav-cta{padding:11px 17px;border:1px solid #5b5b54;border-radius:var(--radius);color:var(--text)}
 .nav-cta:hover{background:var(--lime);border-color:var(--lime);color:#101010}
 .menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);padding:9px 12px;border-radius:var(--radius);font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
-.mobile-nav{position:fixed;inset:0 0 0 auto;width:min(360px,90vw);background:#0d0d0d;z-index:110;padding:32px 26px;transform:translateX(100%);transition:transform .4s var(--ease);border-left:1px solid var(--line);overflow-y:auto}
+
+.mobile-nav{position:fixed;inset:0 0 0 auto;width:min(360px,90vw);background:#0d0d0d;z-index:110;padding:28px 26px;transform:translateX(100%);transition:transform .4s var(--ease);border-left:1px solid var(--line);overflow-y:auto}
 .mobile-nav.open{transform:translateX(0)}
-.mobile-nav .close{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);display:grid;place-items:center;margin-left:auto;margin-bottom:36px;font-size:20px;color:#fff;cursor:pointer}
+.mobile-nav .top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:34px}
+.mobile-nav .brand{font-size:1rem}
+.mobile-nav .brand-mark{width:30px;height:30px}
+.mobile-nav .close{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);display:grid;place-items:center;font-size:20px;color:#fff;cursor:pointer;flex-shrink:0;border:0}
 .mobile-nav ul a{display:block;color:#fff;font-family:var(--font-display);font-size:24px;font-weight:600;text-transform:uppercase;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);letter-spacing:.01em}
 .mobile-nav ul a:hover{color:var(--lime);padding-left:8px}
 .mobile-nav .meta{margin-top:36px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -74,9 +84,15 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
 .nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:105;opacity:0;visibility:hidden;transition:.3s var(--ease)}
 .nav-overlay.show{opacity:1;visibility:visible}
 
+/* ---------- hero ---------- */
 .hero{padding:70px 0 90px;position:relative;overflow:hidden}
-.hero-giant{font-family:var(--font-display);font-weight:700;font-size:clamp(4rem,17vw,15rem);line-height:.88;letter-spacing:-.05em;text-align:center;margin:0 0 -.1em;text-transform:lowercase;user-select:none;pointer-events:none;background:linear-gradient(180deg,#d9f594 0%,#c8f169 45%,#7a9438 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 80px rgba(200,241,105,.15)}
-.hero-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;margin:0 auto 60px;max-width:880px;position:relative;z-index:2}
+
+/* ✅ FIX: removed the negative bottom margin and added a responsive gap below */
+.hero-giant{font-family:var(--font-display);font-weight:700;font-size:clamp(4rem,17vw,15rem);line-height:.88;letter-spacing:-.05em;text-align:center;margin:0 0 clamp(28px,4vw,56px);text-transform:lowercase;user-select:none;pointer-events:none;background:linear-gradient(180deg,#d9f594 0%,#c8f169 45%,#7a9438 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 80px rgba(200,241,105,.15)}
+
+/* ✅ FIX: added padding-top so the eyebrow always sits clear of the giant word */
+.hero-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;margin:0 auto 60px;padding-top:clamp(16px,3vw,32px);max-width:880px;position:relative;z-index:2}
+
 .hero-head h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.4rem,6vw,4.8rem);line-height:1;letter-spacing:-.05em}
 .hero-head h1 em{font-style:normal;color:var(--lime)}
 .hero-head p{color:#bdbab2;max-width:600px;font-size:1.05rem}
@@ -108,10 +124,9 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
 .stat-num{font-family:var(--font-display);font-size:clamp(2rem,3.4vw,2.6rem);font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--text)}
 .stat-num .accent{color:var(--lime)}
 .stat-label{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:10px}
-.avatar-row{display:flex;margin-bottom:14px}
-.avatar-row img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--panel);margin-left:-12px}
-.avatar-row img:first-child{margin-left:0}
-.avatar-row .plus{width:38px;height:38px;border-radius:50%;background:var(--lime);color:#101010;display:grid;place-items:center;font-family:var(--font-mono);font-size:.7rem;font-weight:600;margin-left:-12px;border:2px solid var(--panel)}
+.avail{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-bottom:14px}
+.avail::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(200,241,105,.6);animation:pulse 2.2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(200,241,105,0)}100%{box-shadow:0 0 0 0 rgba(200,241,105,0)}}
 
 .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:32px 0;overflow:hidden;white-space:nowrap;background:#0d0d0d}
 .marquee-track{display:inline-flex;gap:56px;align-items:center;animation:scroll-x 38s linear infinite;will-change:transform}
@@ -138,13 +153,13 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
 .service-tags{display:flex;gap:8px;flex-wrap:wrap}
 .service-tags a{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);transition:.3s var(--ease)}
 .service-tags a:hover{border-color:var(--lime);color:var(--lime)}
-.service-arrow{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);flex-shrink:0;transition:.4s var(--ease)}
+.service-arrow{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);flex-shrink:0;transition:.4s var(--ease);cursor:pointer}
 .service-row:hover .service-arrow{background:var(--lime);border-color:var(--lime);color:#101010;transform:rotate(45deg)}
 
 .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .project-card{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease),border-color .3s var(--ease);display:flex;flex-direction:column}
 .project-card:hover{transform:translateY(-6px);border-color:var(--line-strong)}
-.project-thumb{aspect-ratio:16/10;overflow:hidden;position:relative;background:#0d0d0d}
+.project-thumb{aspect-ratio:16/10;overflow:hidden;position:relative;background:#0d0d0d;display:block}
 .project-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);filter:saturate(.9)}
 .project-card:hover .project-thumb img{transform:scale(1.06)}
 .project-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(16,16,16,.55));pointer-events:none}
@@ -182,8 +197,8 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
 .about-copy p{color:var(--muted);margin-bottom:18px;font-size:1rem}
 .about-copy p:last-of-type{margin-bottom:0}
 .about-skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
-.about-skills span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 13px;border:1px solid var(--line);border-radius:999px;color:#d0cdc5;transition:.3s var(--ease)}
-.about-skills span:hover{border-color:var(--lime);color:var(--lime)}
+.about-skills a{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 13px;border:1px solid var(--line);border-radius:999px;color:#d0cdc5;transition:.3s var(--ease)}
+.about-skills a:hover{border-color:var(--lime);color:var(--lime)}
 
 .faq-list{border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line);padding:26px 0}
@@ -214,13 +229,13 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
 
 .contact-form{display:grid;gap:18px;background:rgba(255,255,255,.35);border:1px solid rgba(0,0,0,.14);border-radius:var(--radius-lg);padding:28px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media (max-width:560px){.form-row{grid-template-columns:1fr;gap:18px}}
 .form-field label{display:block;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#4a5527;margin-bottom:8px}
 .form-field label .opt{opacity:.55;font-weight:400;text-transform:none;letter-spacing:.02em;font-size:.62rem}
-.form-field input,.form-field textarea{width:100%;padding:14px 16px;background:rgba(255,255,255,.65);border:1px solid rgba(0,0,0,.12);border-radius:var(--radius);color:#101010;font-family:inherit;font-size:.95rem;transition:.25s var(--ease)}
-.form-field input:focus,.form-field textarea:focus{outline:none;border-color:#101010;background:#fff}
+.form-field input,.form-field textarea,.form-field select{width:100%;padding:14px 16px;background:rgba(255,255,255,.65);border:1px solid rgba(0,0,0,.12);border-radius:var(--radius);color:#101010;font-family:inherit;font-size:.95rem;transition:.25s var(--ease)}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{outline:none;border-color:#101010;background:#fff}
 .form-field input::placeholder,.form-field textarea::placeholder{color:#6b7357}
 .form-field textarea{min-height:130px;resize:vertical;font-family:inherit}
+.form-field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23101010' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:44px;cursor:pointer}
 
 .btn-send{justify-self:start;background:#101010;color:var(--lime);border:1px solid #101010;padding:15px 26px;border-radius:var(--radius);font-weight:700;font-size:.9rem;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:10px;transition:.3s var(--ease);cursor:pointer;margin-top:6px}
 .btn-send:hover{background:#303b20;border-color:#303b20;transform:translateY(-2px)}
@@ -234,142 +249,15 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
 .form-status.error{background:rgba(140,0,0,.1);border:1px solid rgba(140,0,0,.35);color:#7a0000}
 .form-note{margin-top:6px;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:#4a5527;opacity:.75}
 
-/* ============================================================
-   INLINE THANK YOU CARD
-   ============================================================ */
-.thankyou-card{
-  background:rgba(255,255,255,.42);
-  border:1px solid rgba(0,0,0,.14);
-  border-radius:var(--radius-lg);
-  padding:44px 30px 36px;
-  text-align:center;
-  animation:tyFadeIn .55s var(--ease) both;
-}
-.thankyou-card[hidden]{display:none}
-@keyframes tyFadeIn{
-  from{opacity:0;transform:translateY(14px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.ty-check{
-  width:88px;height:88px;border-radius:50%;
-  background:#101010;
-  color:var(--lime);
-  display:grid;place-items:center;
-  margin:0 auto 26px;
-  box-shadow:0 16px 40px rgba(0,0,0,.28);
-  animation:tyPop .55s cubic-bezier(.34,1.56,.64,1) both .15s;
-}
-.ty-check svg{width:42px;height:42px}
-@keyframes tyPop{
-  0%{transform:scale(0);opacity:0}
-  100%{transform:scale(1);opacity:1}
-}
-.ty-eyebrow{
-  font-family:var(--font-mono);
-  font-size:.68rem;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:#4a5527;
-  margin-bottom:14px;
-  display:inline-block;
-}
-.thankyou-card h3{
-  font-family:var(--font-display);
-  font-size:clamp(1.8rem,3.6vw,2.5rem);
-  line-height:1.05;
-  letter-spacing:-.045em;
-  color:#101010;
-  margin:0 0 16px;
-  font-weight:700;
-}
-.thankyou-card h3 em{font-style:normal;color:#556730}
-.ty-lede{
-  color:#3a4229;
-  font-size:.98rem;
-  max-width:400px;
-  margin:0 auto 30px;
-  line-height:1.6;
-}
-.ty-actions{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-bottom:32px;
-}
-.btn-send-alt{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:15px 24px;
-  border-radius:var(--radius);
-  background:transparent;
-  border:1px solid #101010;
-  color:#101010;
-  font-weight:700;
-  font-size:.9rem;
-  letter-spacing:-.01em;
-  transition:.25s var(--ease);
-  cursor:pointer;
-  font-family:inherit;
-}
-.btn-send-alt:hover{background:#101010;color:var(--lime);transform:translateY(-2px)}
-.ty-info{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:rgba(0,0,0,.15);
-  border:1px solid rgba(0,0,0,.15);
-  border-radius:6px;
-  overflow:hidden;
-  margin-top:10px;
-}
-.ty-info > div{
-  background:rgba(255,255,255,.55);
-  padding:18px 12px;
-  text-align:center;
-}
-.ty-label{
-  font-family:var(--font-mono);
-  font-size:.62rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:#4a5527;
-  margin-bottom:6px;
-}
-.ty-info a{
-  font-size:.86rem;
-  color:#101010;
-  font-weight:600;
-  word-break:break-all;
-  text-decoration:none;
-}
-.ty-info a:hover{text-decoration:underline;text-underline-offset:4px}
-@media (max-width:560px){
-  .ty-info{grid-template-columns:1fr}
-  .thankyou-card{padding:34px 22px 28px}
-  .ty-check{width:68px;height:68px;margin-bottom:20px}
-  .ty-check svg{width:32px;height:32px}
-}
-
-.wa-float{
-  position:fixed;
-  bottom:24px;right:24px;
-  width:56px;height:56px;
-  border-radius:50%;
-  background:#25D366;
-  color:#fff;
-  display:grid;place-items:center;
-  box-shadow:0 10px 30px rgba(37,211,102,.4);
-  z-index:90;
-  transition:transform .25s var(--ease),box-shadow .25s var(--ease);
-}
+.wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.4);z-index:90;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
 .wa-float:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 14px 38px rgba(37,211,102,.55);color:#fff}
 .wa-float svg{width:28px;height:28px}
-@media (max-width:560px){.wa-float{bottom:18px;right:18px;width:50px;height:50px}.wa-float svg{width:24px;height:24px}}
 
-footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:.78rem}
+footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);font-size:.78rem}
+.footer-top{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;padding-bottom:26px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.footer-brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:-.02em;color:var(--text);text-transform:none}
+.footer-brand .brand-mark{width:34px;height:34px}
+.footer-tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase}
 .footer-links{display:flex;gap:20px;flex-wrap:wrap}
 .footer-links a:hover{color:var(--lime)}
@@ -378,6 +266,30 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
 
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
 .reveal.visible{opacity:1;transform:none}
+
+.thankyou{position:fixed;inset:0;z-index:9998;background:radial-gradient(120% 85% at 50% 0%,#1b1b18 0%,#101010 58%);overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s var(--ease)}
+.thankyou.show{opacity:1;visibility:visible}
+.thankyou-inner{width:min(780px,calc(100% - 40px));margin:auto;min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 0;position:relative}
+.ty-logo{width:64px;height:64px;margin-bottom:22px;animation:tyPop .65s var(--ease) both;filter:drop-shadow(0 0 26px rgba(200,241,105,.35))}
+@keyframes tyPop{from{transform:scale(.55) rotate(-25deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.thankyou h2{font-family:var(--font-display);font-size:clamp(2.6rem,9vw,5.4rem);line-height:.95;letter-spacing:-.06em;margin:16px 0 18px;animation:tyUp .6s .1s var(--ease) both}
+.ty-lead{color:#bdbab2;max-width:540px;font-size:1.05rem;margin-bottom:46px;animation:tyUp .6s .18s var(--ease) both}
+@keyframes tyUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+.ty-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;text-align:left;margin-bottom:44px;animation:tyUp .6s .26s var(--ease) both}
+.ty-step{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);padding:22px 20px;transition:border-color .3s var(--ease),transform .3s var(--ease)}
+.ty-step:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+.ty-step span{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.14em;color:var(--lime);text-transform:uppercase}
+.ty-step h4{font-family:var(--font-body);font-size:.97rem;font-weight:700;margin:12px 0 7px;letter-spacing:-.01em}
+.ty-step p{color:var(--muted);font-size:.83rem;line-height:1.55}
+.ty-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:tyUp .6s .34s var(--ease) both}
+.ty-ref{margin-top:36px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);line-height:1.9;animation:tyUp .6s .42s var(--ease) both}
+.ty-ref b{color:var(--lime);font-weight:500}
+.ty-ref a{color:var(--lime)}
+.ty-ref a:hover{text-decoration:underline;text-underline-offset:4px}
+@media (max-width:640px){
+  .ty-steps{grid-template-columns:1fr}
+  .thankyou-inner{padding:64px 0}
+}
 
 @media (max-width:1024px){
   .hero-grid{grid-template-columns:1fr 1fr;gap:18px}
@@ -409,9 +321,13 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
   .step{min-height:180px}
   .faq-item p{padding-left:0}
   .contact-form{padding:22px}
+  .form-row{grid-template-columns:1fr}
   .marquee-track span{font-size:2rem;gap:32px}
   .marquee-track{gap:32px}
   .about-photo .stamp-badge{width:90px;height:90px;top:-20px;right:-14px;font-size:.55rem}
+  .wa-float{bottom:18px;right:18px;width:50px;height:50px}
+  .wa-float svg{width:24px;height:24px}
+  .footer-top{flex-direction:column;align-items:flex-start;gap:14px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -424,16 +340,90 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
 
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="pramikGrad" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#dcf7a4"/>
+      <stop offset="1" stop-color="#a8d24a"/>
+    </linearGradient>
+  </defs>
+</svg>
+
 <div class="preloader" id="preloader">
   <div class="preloader-inner">
+    <div class="preloader-logo">
+      <svg class="logo-svg" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="24" fill="url(#pramikGrad)"/>
+        <path d="M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1" fill="none" stroke="#101010" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="33.4" cy="33" r="3" fill="#101010"/>
+      </svg>
+    </div>
     <div class="preloader-name" id="preloaderName">PRAMIK</div>
     <div class="preloader-bar"></div>
   </div>
 </div>
 
+<div class="thankyou" id="thankYou" role="dialog" aria-modal="true" aria-labelledby="tyTitle" aria-hidden="true">
+  <div class="thankyou-inner">
+    <div class="ty-logo">
+      <svg class="logo-svg" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="24" fill="url(#pramikGrad)"/>
+        <path d="M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1" fill="none" stroke="#101010" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="33.4" cy="33" r="3" fill="#101010"/>
+      </svg>
+    </div>
+    <span class="eyebrow"><span class="dot"></span> Message received</span>
+    <h2 id="tyTitle">Thank you<span class="accent">.</span></h2>
+    <p class="ty-lead" id="tyLead">Your inquiry has landed in my inbox. I'll read it properly and reply within 24 hours / 1 day.</p>
+
+    <div class="ty-steps">
+      <div class="ty-step">
+        <span>01</span>
+        <h4>I read your message</h4>
+        <p>Every inquiry is read personally — no auto-replies, no bots, no templates.</p>
+      </div>
+      <div class="ty-step">
+        <span>02</span>
+        <h4>You hear back within 24 hours</h4>
+        <p>Usually with a couple of clarifying questions plus a rough scope or starting point.</p>
+      </div>
+      <div class="ty-step">
+        <span>03</span>
+        <h4>We plan the next step</h4>
+        <p>A short call or message thread to agree on goals, timeline, and cost.</p>
+      </div>
+    </div>
+
+    <div class="ty-actions">
+      <a class="btn btn-primary" href="#home" id="tyHome">Back to home
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+      <a class="btn btn-secondary" href="https://wa.me/9779803812716?text=Hi%20Pramik%2C%20I%20just%20sent%20an%20inquiry%20through%20your%20website" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      <a class="btn btn-secondary" href="#work" id="tyWork">See my work</a>
+    </div>
+
+    <p class="ty-ref">
+      Reference <b id="tyRef">—</b><br>
+      Need it faster? Call <a href="tel:+9779803812716">+977 9803812716</a> · <a href="mailto:pramikmaharjan51@gmail.com">pramikmaharjan51@gmail.com</a>
+    </p>
+  </div>
+</div>
+
 <div class="nav-overlay" id="navOverlay"></div>
 <aside class="mobile-nav" id="mobileNav" aria-hidden="true">
-  <button class="close" id="closeNav" aria-label="Close menu">×</button>
+  <div class="top">
+    <a class="brand" href="#home" aria-label="Pramik Maharjan home">
+      <span class="brand-mark">
+        <svg class="logo-svg" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="24" fill="url(#pramikGrad)"/>
+          <path d="M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1" fill="none" stroke="#101010" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33.4" cy="33" r="3" fill="#101010"/>
+        </svg>
+      </span>
+      <span>Pramik<span class="accent">.</span></span>
+    </a>
+    <button class="close" id="closeNav" aria-label="Close menu">×</button>
+  </div>
   <ul>
     <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
@@ -455,7 +445,13 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
 <header class="site-header" id="siteHeader">
   <div class="wrap nav">
     <a class="brand" href="#home" aria-label="Pramik Maharjan home">
-      <span class="brand-mark">P.</span>
+      <span class="brand-mark">
+        <svg class="logo-svg" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="24" fill="url(#pramikGrad)"/>
+          <path d="M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1" fill="none" stroke="#101010" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33.4" cy="33" r="3" fill="#101010"/>
+        </svg>
+      </span>
       <span>Pramik<span class="accent">.</span></span>
     </a>
     <nav class="nav-links" aria-label="Main navigation">
@@ -525,12 +521,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
           </div>
           <div class="stat-card">
             <div>
-              <div class="avatar-row">
-                <img src="https://i.pravatar.cc/100?img=11" alt="Client" loading="lazy">
-                <img src="https://i.pravatar.cc/100?img=12" alt="Client" loading="lazy">
-                <img src="https://i.pravatar.cc/100?img=14" alt="Client" loading="lazy">
-                <span class="plus">+</span>
-              </div>
+              <span class="avail">Available now</span>
               <div class="stat-num" style="font-size:1.15rem;font-family:var(--font-body);font-weight:700;letter-spacing:-.02em;">Open to new projects</div>
               <div class="stat-label">Kathmandu · Remote worldwide</div>
             </div>
@@ -570,7 +561,9 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
               <a href="#contact">Performance</a>
             </div>
           </div>
-          <div class="service-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+          <a class="service-arrow" href="#contact" aria-label="Enquire about website design and development">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
         </div>
         <div class="service-row reveal">
           <div class="service-num">02 / Growth</div>
@@ -583,7 +576,9 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
               <a href="#contact">Creative direction</a>
             </div>
           </div>
-          <div class="service-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+          <a class="service-arrow" href="#contact" aria-label="Enquire about digital marketing strategy">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
         </div>
         <div class="service-row reveal">
           <div class="service-num">03 / Leads</div>
@@ -596,7 +591,9 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
               <a href="#contact">Tracking</a>
             </div>
           </div>
-          <div class="service-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+          <a class="service-arrow" href="#contact" aria-label="Enquire about lead generation systems">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
         </div>
         <div class="service-row reveal">
           <div class="service-num">04 / AI</div>
@@ -609,7 +606,9 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
               <a href="#contact">Efficiency</a>
             </div>
           </div>
-          <div class="service-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+          <a class="service-arrow" href="#contact" aria-label="Enquire about AI content and automation">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -731,12 +730,12 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
         <p>My approach is hands-on: understand the business first, keep the message clear, and build digital experiences that make the next step obvious. I value honest communication, thoughtful design and continuous improvement over exaggerated promises.</p>
         <p>I work with small businesses and growing teams that want a stronger online presence and a practical path to getting more inquiries.</p>
         <div class="about-skills">
-          <span>Web design</span>
-          <span>Landing pages</span>
-          <span>Marketing strategy</span>
-          <span>Lead funnels</span>
-          <span>Content planning</span>
-          <span>Continuous learning</span>
+          <a href="#contact">Web design</a>
+          <a href="#contact">Landing pages</a>
+          <a href="#contact">Marketing strategy</a>
+          <a href="#contact">Lead funnels</a>
+          <a href="#contact">Content planning</a>
+          <a href="#contact">Continuous learning</a>
         </div>
       </div>
     </div>
@@ -785,7 +784,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
       <div class="reveal">
         <div class="eyebrow"><span class="dot"></span> 06 / Have a project in mind?</div>
         <h2>Let's make<br>something <span class="accent-dark">useful.</span></h2>
-        <p>Tell me what you're building, what isn't working, or where you want to grow. I read every message and reply within 1–2 days.</p>
+        <p>Tell me what you're building, what isn't working, or where you want to grow. I read every message and reply within 24 hours / 1 day.</p>
         <div class="contact-details">
           <div>
             <strong>Phone</strong>
@@ -816,11 +815,11 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
           action="https://formsubmit.co/pramikmaharjan51@gmail.com"
           method="POST"
           accept-charset="UTF-8"
+          novalidate
         >
           <input type="hidden" name="_subject" value="New project inquiry — Pramik Maharjan portfolio">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://www.pramikmaharjan.com.np/?submitted=1#contact">
 
           <input type="text" name="_honey" tabindex="-1" autocomplete="off"
                  style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
@@ -836,9 +835,21 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
             </div>
           </div>
 
-          <div class="form-field">
-            <label for="cf-email">Your email</label>
-            <input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="cf-email">Your email</label>
+              <input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+            </div>
+            <div class="form-field">
+              <label for="cf-service">What do you need?</label>
+              <select id="cf-service" name="service">
+                <option value="Website design &amp; development">Website design &amp; development</option>
+                <option value="Digital marketing strategy">Digital marketing strategy</option>
+                <option value="Lead generation system">Lead generation system</option>
+                <option value="AI content &amp; automation">AI content &amp; automation</option>
+                <option value="Not sure yet — need advice">Not sure yet — need advice</option>
+              </select>
+            </div>
           </div>
 
           <div class="form-field">
@@ -852,44 +863,8 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
           </button>
 
           <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-          <p class="form-note">✳ Your message goes straight to my inbox · I reply within 1–2 days</p>
+          <p class="form-note">✳ Your message goes straight to my inbox · I reply within 24 hours / 1 day</p>
         </form>
-
-        <div class="thankyou-card" id="thankYouCard" hidden>
-          <div class="ty-check" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          </div>
-          <div class="ty-eyebrow">Message received</div>
-          <h3>Thank you for <em>reaching out.</em></h3>
-          <p class="ty-lede">
-            Your message just landed in my inbox. I read every enquiry personally
-            and I'll get back to you within 1–2 business days.
-          </p>
-          <div class="ty-actions">
-            <button type="button" class="btn-send-alt" id="sendAnother">
-              Send another message
-            </button>
-            <a class="btn-send-alt" href="https://wa.me/9779803812716?text=Hi%20Pramik%2C%20I%20just%20submitted%20the%20form%20on%20your%20website" target="_blank" rel="noopener">
-              Message on WhatsApp
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </a>
-          </div>
-          <div class="ty-info">
-            <div>
-              <div class="ty-label">Email</div>
-              <a href="mailto:pramikmaharjan51@gmail.com">pramikmaharjan51@gmail.com</a>
-            </div>
-            <div>
-              <div class="ty-label">Phone</div>
-              <a href="tel:+9779803812716">+977 9803812716</a>
-            </div>
-            <div>
-              <div class="ty-label">WhatsApp</div>
-              <a href="https://wa.me/9779803812716" target="_blank" rel="noopener">Chat now</a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -901,28 +876,47 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
 </a>
 
 <footer>
-  <div class="wrap footer-inner">
-    <span>© <span id="year"></span> Pramik Maharjan · Kathmandu, Nepal</span>
-    <div class="footer-links">
-      <a href="tel:+9779803812716">+977 9803812716</a>
-      <a href="https://wa.me/9779803812716" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+  <div class="wrap">
+    <div class="footer-top">
+      <a class="footer-brand" href="#home" aria-label="Pramik Maharjan home">
+        <span class="brand-mark">
+          <svg class="logo-svg" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="24" fill="url(#pramikGrad)"/>
+            <path d="M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1" fill="none" stroke="#101010" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="33.4" cy="33" r="3" fill="#101010"/>
+          </svg>
+        </span>
+        <span>Pramik<span class="accent">.</span></span>
+      </a>
+      <span class="footer-tag">Web · Marketing · Leads · AI</span>
     </div>
-    <a class="back-to-top" href="#home" aria-label="Back to top">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-    </a>
+
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Pramik Maharjan · Kathmandu, Nepal</span>
+      <div class="footer-links">
+        <a href="tel:+9779803812716">+977 9803812716</a>
+        <a href="https://wa.me/9779803812716" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="back-to-top" href="#home" aria-label="Back to top">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      </a>
+    </div>
   </div>
 </footer>
 
 <script>
 (function () {
   "use strict";
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* PRELOADER */
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var FORM_ENDPOINT = "https://formsubmit.co/ajax/pramikmaharjan51@gmail.com";
+  var OWNER_EMAIL = "pramikmaharjan51@gmail.com";
+
+  /* ---------------- preloader ---------------- */
   var preloader = document.getElementById("preloader");
   var nameEl = document.getElementById("preloaderName");
   if (nameEl && !reduced) {
@@ -941,7 +935,7 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
   window.addEventListener("load", function () { setTimeout(hidePreloader, 500); });
   setTimeout(hidePreloader, 2400);
 
-  /* HEADER */
+  /* ---------------- sticky header ---------------- */
   var header = document.getElementById("siteHeader");
   function onScroll() {
     header.classList.toggle("scrolled", (window.scrollY || window.pageYOffset) > 12);
@@ -949,11 +943,12 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  /* MOBILE NAV */
+  /* ---------------- mobile nav ---------------- */
   var menuBtn = document.getElementById("menuBtn");
   var mobileNav = document.getElementById("mobileNav");
   var navOverlay = document.getElementById("navOverlay");
   var closeNav = document.getElementById("closeNav");
+
   function openMobileNav() {
     mobileNav.classList.add("open");
     mobileNav.setAttribute("aria-hidden", "false");
@@ -976,10 +971,11 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
   });
   closeNav.addEventListener("click", closeMobileNav);
   navOverlay.addEventListener("click", closeMobileNav);
-  mobileNav.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", closeMobileNav); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMobileNav(); });
+  mobileNav.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", closeMobileNav);
+  });
 
-  /* SCROLL REVEAL */
+  /* ---------------- reveal on scroll ---------------- */
   var revealEls = document.querySelectorAll(".reveal");
   if (reduced || !("IntersectionObserver" in window)) {
     revealEls.forEach(function (el) { el.classList.add("visible"); });
@@ -988,7 +984,9 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         var el = entry.target;
-        var siblings = el.parentElement ? Array.prototype.slice.call(el.parentElement.querySelectorAll(".reveal")) : [];
+        var siblings = el.parentElement
+          ? Array.prototype.slice.call(el.parentElement.querySelectorAll(".reveal"))
+          : [];
         var idx = siblings.indexOf(el);
         var delay = Math.min(idx < 0 ? 0 : idx, 6) * 80;
         setTimeout(function () { el.classList.add("visible"); }, delay);
@@ -998,77 +996,101 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
-  /* YEAR */
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* ============================================================
-     CONTACT FORM — AJAX with inline thank-you + native fallback
-     ============================================================ */
-  var form = document.getElementById("contactForm");
+  /* =========================================================
+     CUSTOM THANK-YOU PAGE
+     ========================================================= */
+  var thankYou = document.getElementById("thankYou");
+  var tyLead = document.getElementById("tyLead");
+  var tyRef = document.getElementById("tyRef");
+  var tyHome = document.getElementById("tyHome");
+  var tyWork = document.getElementById("tyWork");
+
+  function makeRef() {
+    var stamp = Date.now().toString(36).toUpperCase().slice(-5);
+    var rand = Math.random().toString(36).toUpperCase().slice(2, 4);
+    return "PM-" + stamp + rand;
+  }
+
+  function openThankYou(name) {
+    if (!thankYou) return;
+    if (tyRef) tyRef.textContent = makeRef();
+    if (tyLead) {
+      var first = (name || "").trim().split(/\s+/)[0];
+      tyLead.textContent = first
+        ? "Thanks, " + first + " — your inquiry has landed in my inbox. I'll read it properly and reply within 24 hours / 1 day."
+        : "Your inquiry has landed in my inbox. I'll read it properly and reply within 24 hours / 1 day.";
+    }
+    thankYou.classList.add("show");
+    thankYou.setAttribute("aria-hidden", "false");
+    thankYou.scrollTop = 0;
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeThankYou() {
+    if (!thankYou || !thankYou.classList.contains("show")) return;
+    thankYou.classList.remove("show");
+    thankYou.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  if (tyHome) tyHome.addEventListener("click", closeThankYou);
+  if (tyWork) tyWork.addEventListener("click", closeThankYou);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    closeMobileNav();
+    closeThankYou();
+  });
+
+  /* =========================================================
+     CONTACT FORM
+     ========================================================= */
   var statusEl = document.getElementById("formStatus");
-  var submitBtn = document.getElementById("submitBtn");
-  var thankYouCard = document.getElementById("thankYouCard");
-  var sendAnother = document.getElementById("sendAnother");
-  var usingFallback = false;
+  var form = document.getElementById("contactForm");
 
   function showStatus(type, msg) {
     if (!statusEl) return;
     statusEl.className = "form-status show " + type;
     statusEl.textContent = msg;
   }
-  function hideStatus() {
+  function clearStatus() {
+    if (!statusEl) return;
     statusEl.className = "form-status";
     statusEl.textContent = "";
   }
-  function showThankYou() {
-    if (form) form.hidden = true;
-    if (thankYouCard) {
-      thankYouCard.hidden = false;
-      setTimeout(function () {
-        thankYouCard.scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 100);
-    }
-  }
-  function showFormAgain() {
-    if (thankYouCard) thankYouCard.hidden = true;
-    if (form) {
-      form.hidden = false;
-      form.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }
 
-  if (sendAnother) {
-    sendAnother.addEventListener("click", showFormAgain);
-  }
+  function buildMailto(name, email, phone, service, message) {
+    var subject = "New project inquiry from " + name;
+    var body =
+      "Name: " + name + "\n" +
+      "Email: " + email + "\n" +
+      "Phone: " + (phone || "Not provided") + "\n" +
+      "Service: " + (service || "Not specified") + "\n\n" +
+      "Message:\n" + message;
 
-  /* If redirected back with ?submitted=1, show the thank-you state */
-  if (window.location.search.indexOf("submitted=1") !== -1) {
-    setTimeout(function () {
-      showThankYou();
-      var contact = document.getElementById("contact");
-      if (contact) contact.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 300);
-    if (window.history && window.history.replaceState) {
-      window.history.replaceState({}, document.title, window.location.pathname + "#contact");
-    }
+    return "mailto:" + OWNER_EMAIL +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
   }
 
   if (form) {
     form.addEventListener("submit", function (e) {
-      if (usingFallback) return;
       e.preventDefault();
 
-      if (window.location.protocol === "file:") {
-        showStatus("error",
-          "The form can't send from a local file. Upload the site to Nepal Cloud " +
-          "or email me directly at pramikmaharjan51@gmail.com");
-        return;
-      }
+      var nameInput = form.querySelector('[name="name"]');
+      var emailInput = form.querySelector('[name="email"]');
+      var phoneInput = form.querySelector('[name="phone"]');
+      var serviceInput = form.querySelector('[name="service"]');
+      var messageInput = form.querySelector('[name="message"]');
+      var honey = form.querySelector('[name="_honey"]');
 
-      var name = form.querySelector('[name="name"]').value.trim();
-      var email = form.querySelector('[name="email"]').value.trim();
-      var message = form.querySelector('[name="message"]').value.trim();
-      var phone = form.querySelector('[name="phone"]').value.trim();
+      var name = nameInput ? nameInput.value.trim() : "";
+      var email = emailInput ? emailInput.value.trim() : "";
+      var phone = phoneInput ? phoneInput.value.trim() : "";
+      var service = serviceInput ? serviceInput.value : "";
+      var message = messageInput ? messageInput.value.trim() : "";
 
       if (!name || !email || !message) {
         showStatus("error", "Please fill in your name, email, and message.");
@@ -1078,49 +1100,72 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
         showStatus("error", "Please enter a valid email address.");
         return;
       }
+      if (honey && honey.value) { return; }
 
-      submitBtn.disabled = true;
-      var originalHTML = submitBtn.innerHTML;
-      submitBtn.innerHTML = "Sending…";
-      hideStatus();
+      var btn = document.getElementById("submitBtn");
+      var originalBtn = btn ? btn.innerHTML : "";
 
-      fetch("https://formsubmit.co/ajax/pramikmaharjan51@gmail.com", {
+      if (window.location.protocol === "file:") {
+        showStatus("success", "Opening your email app to send this message directly…");
+        if (btn) { btn.disabled = true; btn.innerHTML = "Opening email…"; }
+
+        var mailto = buildMailto(name, email, phone, service, message);
+
+        setTimeout(function () {
+          window.location.href = mailto;
+          setTimeout(function () {
+            form.reset();
+            clearStatus();
+            if (btn) { btn.disabled = false; btn.innerHTML = originalBtn; }
+            openThankYou(name);
+          }, 700);
+        }, 350);
+        return;
+      }
+
+      if (btn) { btn.disabled = true; btn.innerHTML = "Sending…"; }
+      showStatus("success", "Sending your message…");
+
+      var payload = {
+        name: name,
+        email: email,
+        phone: phone || "Not provided",
+        service: service || "Not specified",
+        message: message,
+        _subject: "New project inquiry from " + name,
+        _template: "table",
+        _captcha: "false"
+      };
+
+      fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          phone: phone,
-          message: message,
-          _subject: "New project inquiry — Pramik Maharjan portfolio",
-          _template: "table",
-          _captcha: "false"
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          return res.json()
+            .catch(function () { return {}; })
+            .then(function (data) { return { ok: res.ok, data: data }; });
         })
-      })
-      .then(function (response) {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
-      .then(function (data) {
-        console.log("[FormSubmit] response:", data);
-        var ok = data && (data.success === "true" || data.success === true);
-        if (ok) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalHTML;
+        .then(function (result) {
+          if (!result.ok) {
+            throw new Error((result.data && result.data.message) || "Send failed");
+          }
           form.reset();
-          showThankYou();
-        } else {
-          throw new Error("Not activated or unexpected response");
-        }
-      })
-      .catch(function (err) {
-        console.warn("[FormSubmit] AJAX failed, using native fallback.", err);
-        usingFallback = true;
-        form.submit();
-      });
+          clearStatus();
+          openThankYou(name);
+        })
+        .catch(function () {
+          var mailto = buildMailto(name, email, phone, service, message);
+          showStatus("success", "Direct send failed — opening your email app so you can still send this…");
+          setTimeout(function () { window.location.href = mailto; }, 400);
+        })
+        .then(function () {
+          if (btn) { btn.disabled = false; btn.innerHTML = originalBtn; }
+        });
     });
   }
 })();
