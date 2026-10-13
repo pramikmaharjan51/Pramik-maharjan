@@ -234,7 +234,6 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
 .form-status.error{background:rgba(140,0,0,.1);border:1px solid rgba(140,0,0,.35);color:#7a0000}
 .form-note{margin-top:6px;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:#4a5527;opacity:.75}
 
-/* Floating WhatsApp button */
 .wa-float{
   position:fixed;
   bottom:24px;right:24px;
@@ -702,7 +701,8 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
           <input type="hidden" name="_subject" value="New project inquiry — Pramik Maharjan portfolio">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://pramikmaharjan.com.np/?submitted=1#contact">
+          <!-- ⭐ UPDATED: now redirects to thank-you.html -->
+          <input type="hidden" name="_next" value="thank-you.html">
 
           <input type="text" name="_honey" tabindex="-1" autocomplete="off"
                  style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
@@ -742,7 +742,6 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
 
 </main>
 
-<!-- Floating WhatsApp button -->
 <a class="wa-float" href="https://wa.me/9779803812716?text=Hi%20Pramik%2C%20I%27d%20like%20to%20talk%20about%20a%20project" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.9 11.9 0 0 0 12.05 0C5.43 0 .05 5.38.05 12c0 2.11.55 4.17 1.6 5.99L0 24l6.16-1.62a11.93 11.93 0 0 0 5.88 1.5h.01c6.62 0 12-5.38 12-12 0-3.2-1.25-6.22-3.53-8.4zM12.05 21.8h-.01a9.86 9.86 0 0 1-5.02-1.37l-.36-.21-3.66.96.98-3.57-.24-.37a9.83 9.83 0 0 1-1.51-5.24c0-5.45 4.43-9.88 9.88-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.9 6.99c0 5.45-4.44 9.88-9.95 9.88zM17.47 14.5c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.47-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.48.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg>
 </a>
@@ -850,22 +849,6 @@ footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-s
     if (!statusEl) return;
     statusEl.className = "form-status show " + type;
     statusEl.textContent = msg;
-  }
-
-  if (window.location.search.indexOf("submitted=1") !== -1) {
-    var contact = document.getElementById("contact");
-    if (contact) {
-      setTimeout(function () {
-        contact.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 300);
-    }
-    setTimeout(function () {
-      showStatus("success", "Thanks! Your message was sent. I'll get back to you within 1–2 days.");
-      if (form) form.reset();
-    }, 700);
-    if (window.history && window.history.replaceState) {
-      window.history.replaceState({}, document.title, window.location.pathname + "#contact");
-    }
   }
 
   if (form) {
