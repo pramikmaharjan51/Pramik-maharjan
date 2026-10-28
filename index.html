@@ -1136,26 +1136,24 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         >
           <input type="hidden" name="_subject" value="New project inquiry — Pramik Maharjan portfolio">
           <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-
           <input type="text" name="_honey" tabindex="-1" autocomplete="off"
                  style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
 
           <div class="form-row">
             <div class="form-field">
               <label for="cf-name">Your name</label>
-              <input id="cf-name" name="name" type="text" placeholder="Jane Doe" autocomplete="name" required>
+              <input id="cf-name" name="name" type="text" placeholder="Jane Doe" autocomplete="name" maxlength="120" required>
             </div>
             <div class="form-field">
               <label for="cf-phone">Phone number <span class="opt">(optional)</span></label>
-              <input id="cf-phone" name="phone" type="tel" placeholder="+977 98XX XXX XXX" autocomplete="tel" inputmode="tel">
+              <input id="cf-phone" name="phone" type="tel" placeholder="+977 98XX XXX XXX" autocomplete="tel" inputmode="tel" maxlength="32">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-field">
               <label for="cf-email">Your email</label>
-              <input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+              <input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
             </div>
             <div class="form-field">
               <label for="cf-service">What do you need?</label>
@@ -1171,7 +1169,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
 
           <div class="form-field">
             <label for="cf-message">Message</label>
-            <textarea id="cf-message" name="message" placeholder="Tell me about your project, what isn't working, or where you want to grow…" required></textarea>
+            <textarea id="cf-message" name="message" placeholder="Tell me about your project, what isn't working, or where you want to grow…" maxlength="5000" required></textarea>
           </div>
 
           <button type="submit" class="btn-send" id="submitBtn">
@@ -1241,9 +1239,13 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
   var nameEl = document.getElementById("preloaderName");
   if (nameEl && !reduced) {
     var letters = nameEl.textContent.split("");
-    nameEl.innerHTML = letters.map(function (ch, i) {
-      return '<span style="animation-delay:' + (i * 0.06) + 's">' + ch + "</span>";
-    }).join("");
+    nameEl.replaceChildren();
+    letters.forEach(function (ch, i) {
+      var span = document.createElement("span");
+      span.textContent = ch;
+      span.style.animationDelay = (i * 0.06) + "s";
+      nameEl.appendChild(span);
+    });
   }
   function hidePreloader() {
     if (!preloader || preloader.classList.contains("hidden")) return;
@@ -1370,10 +1372,10 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
   var statusEl = document.getElementById("formStatus");
   var form = document.getElementById("contactForm");
 
-  function showStatus(type, html) {
+  function showStatus(type, message) {
     if (!statusEl) return;
     statusEl.className = "form-status show " + type;
-    statusEl.innerHTML = html;
+    statusEl.textContent = message;
   }
   function clearStatus() {
     if (!statusEl) return;
@@ -1396,18 +1398,30 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
   }
 
   function showFallback(name, email, phone, service, message, headingText) {
+    if (!statusEl) return;
     var mailto = buildMailtoHref(name, email, phone, service, message);
     var waHref = WA_LINK + "?text=" + encodeURIComponent("Hi Pramik, I just tried your website form. Message: " + message);
-
-    showStatus(
-      "error",
-      '<strong>' + headingText + '</strong><br>' +
-      'You can still reach me right now — tap one of these:' +
-      '<span class="fallback-actions">' +
-        '<a class="fb-mail" href="' + mailto + '">✉ Open email app</a>' +
-        '<a class="fb-wa" href="' + waHref + '" target="_blank" rel="noopener">✆ WhatsApp me</a>' +
-      '</span>'
-    );
+    statusEl.className = "form-status show error";
+    statusEl.replaceChildren();
+    var heading = document.createElement("strong");
+    heading.textContent = headingText;
+    statusEl.appendChild(heading);
+    statusEl.appendChild(document.createElement("br"));
+    statusEl.appendChild(document.createTextNode("You can still reach me right now — tap one of these:"));
+    var actions = document.createElement("span");
+    actions.className = "fallback-actions";
+    var mailLink = document.createElement("a");
+    mailLink.className = "fb-mail";
+    mailLink.href = mailto;
+    mailLink.textContent = "✉ Open email app";
+    var waLink = document.createElement("a");
+    waLink.className = "fb-wa";
+    waLink.href = waHref;
+    waLink.target = "_blank";
+    waLink.rel = "noopener noreferrer";
+    waLink.textContent = "✆ WhatsApp me";
+    actions.append(mailLink, waLink);
+    statusEl.appendChild(actions);
   }
 
   function fetchWithTimeout(url, options, ms) {
@@ -1441,6 +1455,10 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         showStatus("error", "Please fill in your name, email, and message.");
         return;
       }
+      if (name.length > 120 || email.length > 254 || phone.length > 32 || message.length > 5000) {
+        showStatus("error", "Please shorten your details: name (120 characters), email (254), phone (32), message (5,000).");
+        return;
+      }
       if (!/^\S+@\S+\.\S+$/.test(email)) {
         showStatus("error", "Please enter a valid email address.");
         return;
@@ -1448,12 +1466,17 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
       if (honey && honey.value) { return; }
 
       var btn = document.getElementById("submitBtn");
-      var originalBtn = btn ? btn.innerHTML : "";
-      if (btn) { btn.disabled = true; btn.innerHTML = "Sending…"; }
+      var originalBtnNodes = btn ? Array.prototype.map.call(btn.childNodes, function (node) { return node.cloneNode(true); }) : [];
+      function restoreButton() {
+        if (!btn) return;
+        btn.disabled = false;
+        btn.replaceChildren.apply(btn, originalBtnNodes.map(function (node) { return node.cloneNode(true); }));
+      }
+      if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
       showStatus("success", "Sending your message…");
 
       if (window.location.protocol === "file:") {
-        if (btn) { btn.disabled = false; btn.innerHTML = originalBtn; }
+        restoreButton();
         showFallback(
           name, email, phone, service, message,
           "The form can't send automatically from a local file."
@@ -1468,8 +1491,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         service: service || "Not specified",
         message: message,
         _subject: "New project inquiry from " + name,
-        _template: "table",
-        _captcha: "false"
+        _template: "table"
       };
 
       fetchWithTimeout(FORM_ENDPOINT, {
@@ -1499,11 +1521,11 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
           }
           form.reset();
           clearStatus();
-          if (btn) { btn.disabled = false; btn.innerHTML = originalBtn; }
+          restoreButton();
           openThankYou(name);
         })
         .catch(function (err) {
-          if (btn) { btn.disabled = false; btn.innerHTML = originalBtn; }
+          restoreButton();
           var heading = "Couldn't send automatically right now.";
           if (err && err.name === "AbortError") {
             heading = "The send timed out.";
