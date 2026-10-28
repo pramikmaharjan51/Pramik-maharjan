@@ -1504,19 +1504,19 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
       }, 12000)
         .then(function (res) {
           var contentType = (res.headers.get("content-type") || "").toLowerCase();
-          if (contentType.indexOf("application/json") !== -1) {
-            return res.json()
-              .catch(function () { return {}; })
-              .then(function (data) { return { ok: res.ok, data: data }; });
+          if (contentType.indexOf("application/json") === -1) {
+            throw new Error("Unexpected response from form service");
           }
-          return res.text().then(function (text) {
-            return { ok: res.ok, data: { message: text.slice(0, 240) } };
-          });
+          return res.json()
+            .catch(function () {
+              throw new Error("Invalid JSON response from form service");
+            })
+            .then(function (data) { return { ok: res.ok, data: data }; });
         })
         .then(function (result) {
           var data = result.data || {};
-          var successFlag = String(data.success || "true").toLowerCase();
-          if (!result.ok || successFlag === "false") {
+          var successFlag = String(data.success || "").toLowerCase();
+          if (!result.ok || successFlag !== "true") {
             throw new Error(data.message || "Send failed");
           }
           form.reset();
