@@ -1129,13 +1129,13 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         <form
           class="contact-form"
           id="contactForm"
-          action="https://formsubmit.co/pramikmaharjan51@gmail.com"
+          action="https://formspree.io/f/xoeerezv"
           method="POST"
           accept-charset="UTF-8"
+          novalidate
         >
           <input type="hidden" name="_subject" value="New project inquiry — Pramik Maharjan portfolio">
-          <input type="hidden" name="_template" value="table">
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off"
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"
                  style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
 
           <div class="form-row">
@@ -1229,7 +1229,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
   "use strict";
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var FORM_ENDPOINT = "https://formsubmit.co/ajax/pramikmaharjan51@gmail.com";
+  var FORM_ENDPOINT = "https://formspree.io/f/xoeerezv";
   var OWNER_EMAIL = "pramikmaharjan51@gmail.com";
   var WA_LINK = "https://wa.me/9779803812716";
 
@@ -1366,7 +1366,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
   });
 
   /* =========================================================
-     CONTACT FORM
+     CONTACT FORM (Formspree)
      ========================================================= */
   var statusEl = document.getElementById("formStatus");
   var form = document.getElementById("contactForm");
@@ -1433,8 +1433,109 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
     );
   }
 
-  // Let the browser submit the form directly to FormSubmit.
-  // This avoids a JavaScript/AJAX failure preventing the Send message button from working.
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var nameInput    = form.querySelector('[name="name"]');
+      var emailInput   = form.querySelector('[name="email"]');
+      var phoneInput   = form.querySelector('[name="phone"]');
+      var serviceInput = form.querySelector('[name="service"]');
+      var messageInput = form.querySelector('[name="message"]');
+      var honey        = form.querySelector('[name="_gotcha"]');
+
+      var name    = nameInput    ? nameInput.value.trim()    : "";
+      var email   = emailInput   ? emailInput.value.trim()   : "";
+      var phone   = phoneInput   ? phoneInput.value.trim()   : "";
+      var service = serviceInput ? serviceInput.value        : "";
+      var message = messageInput ? messageInput.value.trim() : "";
+
+      if (!name || !email || !message) {
+        showStatus("error", "Please fill in your name, email, and message.");
+        return;
+      }
+      if (name.length > 120 || email.length > 254 || phone.length > 32 || message.length > 5000) {
+        showStatus("error", "Please shorten your details: name (120 characters), email (254), phone (32), message (5,000).");
+        return;
+      }
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+        showStatus("error", "Please enter a valid email address.");
+        return;
+      }
+      if (honey && honey.value) return;
+
+      var btn = document.getElementById("submitBtn");
+      var originalHTML = btn ? btn.innerHTML : "";
+      function restoreButton() {
+        if (!btn) return;
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+      }
+      if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+      showStatus("success", "Sending your message…");
+
+      if (window.location.protocol === "file:") {
+        restoreButton();
+        showFallback(
+          name, email, phone, service, message,
+          "The form can't send automatically from a local file. Upload to your live site to test."
+        );
+        return;
+      }
+
+      var payload = {
+        name: name,
+        email: email,
+        phone: phone || "Not provided",
+        service: service || "Not specified",
+        message: message,
+        _subject: "New project inquiry from " + name
+      };
+
+      fetchWithTimeout(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }, 15000)
+        .then(function (res) {
+          return res.text().then(function (text) {
+            var data = {};
+            try { data = JSON.parse(text); } catch (_) { data = { message: text.slice(0, 240) }; }
+            return { ok: res.ok, status: res.status, data: data };
+          });
+        })
+        .then(function (result) {
+          var data = result.data || {};
+
+          if (!result.ok) {
+            var msg = "Send failed (" + result.status + ").";
+            if (data.errors && data.errors.length) {
+              msg = data.errors.map(function (x) { return x.message; }).join(" ");
+            } else if (data.error) {
+              msg = data.error;
+            } else if (data.message) {
+              msg = data.message;
+            }
+            throw new Error(msg);
+          }
+
+          form.reset();
+          clearStatus();
+          restoreButton();
+          openThankYou(name);
+        })
+        .catch(function (err) {
+          restoreButton();
+          var heading = "Couldn't send automatically right now.";
+          if (err && err.name === "AbortError") heading = "The send timed out.";
+          else if (err && err.message) heading = err.message;
+          showFallback(name, email, phone, service, message, heading);
+        });
+    });
+  }
 })();
 </script>
 
