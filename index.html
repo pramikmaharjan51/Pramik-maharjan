@@ -1487,11 +1487,13 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
       var payload = {
         name: name,
         email: email,
+        _replyto: email,
         phone: phone || "Not provided",
         service: service || "Not specified",
         message: message,
         _subject: "New project inquiry from " + name,
-        _template: "table"
+        _template: "table",
+        _honey: ""
       };
 
       fetchWithTimeout(FORM_ENDPOINT, {
@@ -1501,24 +1503,25 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
           "Accept": "application/json"
         },
         body: JSON.stringify(payload)
-      }, 12000)
+      }, 15000)
         .then(function (res) {
-          var contentType = (res.headers.get("content-type") || "").toLowerCase();
-          if (contentType.indexOf("application/json") !== -1) {
-            return res.json()
-              .catch(function () { return {}; })
-              .then(function (data) { return { ok: res.ok, data: data }; });
-          }
           return res.text().then(function (text) {
-            return { ok: res.ok, data: { message: text.slice(0, 240) } };
+            var data;
+            try {
+              data = JSON.parse(text);
+            } catch (parseError) {
+              throw new Error("Unexpected response from the email service (HTTP " + res.status + ").");
+            }
+            if (!res.ok) {
+              throw new Error(data.message || ("Email service error (HTTP " + res.status + ")."));
+            }
+            if (String(data.success).toLowerCase() !== "true") {
+              throw new Error(data.message || "The email service did not confirm the message.");
+            }
+            return data;
           });
         })
-        .then(function (result) {
-          var data = result.data || {};
-          var successFlag = String(data.success || "true").toLowerCase();
-          if (!result.ok || successFlag === "false") {
-            throw new Error(data.message || "Send failed");
-          }
+        .then(function () {
           form.reset();
           clearStatus();
           restoreButton();
@@ -1526,9 +1529,11 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         })
         .catch(function (err) {
           restoreButton();
-          var heading = "Couldn't send automatically right now.";
+          var heading = "Your message was not confirmed as sent.";
           if (err && err.name === "AbortError") {
-            heading = "The send timed out.";
+            heading = "The request timed out before delivery was confirmed.";
+          } else if (err && err.message) {
+            heading += " " + err.message;
           }
           showFallback(name, email, phone, service, message, heading);
         });
