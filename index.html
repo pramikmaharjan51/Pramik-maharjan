@@ -1329,23 +1329,18 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         return;
       }
 
-      var payload = {
-        name: name,
-        email: email,
-        phone: phone || "Not provided",
-        service: service || "Not specified",
-        message: message,
-        _subject: "New project inquiry from " + name,
-        _replyto: email
-      };
+      // Formspree's AJAX endpoint accepts FormData. Do not manually set
+      // Content-Type: the browser must add the multipart boundary.
+      var formData = new FormData(form);
+      formData.set("_subject", "New project inquiry from " + name);
+      formData.set("_replyto", email);
 
       fetchWithTimeout(FORM_ENDPOINT, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           "Accept": "application/json"
         },
-        body: JSON.stringify(payload)
+        body: formData
       }, 15000)
         .then(function (res) {
           return res.text().then(function (text) {
