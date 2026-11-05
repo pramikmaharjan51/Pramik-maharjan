@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#101010" />
 
-<!-- Primary SEO Meta Tags -->
 <title>Pramik Maharjan — Web Developer &amp; Digital Marketer in Kathmandu</title>
 <meta name="description" content="Pramik Maharjan is a web developer and digital marketer based in Kathmandu, Nepal, helping small businesses build credible online presences and generate leads." />
 <link rel="canonical" href="https://pramikmaharjan.com.np/" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
-<!-- Open Graph / Facebook / LinkedIn -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://pramikmaharjan.com.np/" />
 <meta property="og:title" content="Pramik Maharjan — Web Developer &amp; Digital Marketer" />
@@ -22,7 +20,6 @@
 <meta property="og:locale" content="en_US" />
 <meta property="og:site_name" content="Pramik Maharjan" />
 
-<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Pramik Maharjan — Web Developer &amp; Digital Marketer" />
 <meta name="twitter:description" content="Helping small businesses build credible online presences and turn interest into real inquiries." />
@@ -1338,7 +1335,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         phone: phone || "Not provided",
         service: service || "Not specified",
         message: message,
-        _subject: "New project inquiry from " + name
+        _subject: "New project inquiry from " + name,
+        _replyto: email
       };
 
       fetchWithTimeout(FORM_ENDPOINT, {
