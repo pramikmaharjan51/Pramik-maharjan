@@ -605,6 +605,15 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
 @media(prefers-reduced-motion:reduce){.audio-level i{animation:none!important}}
 @media print{.audio-control{display:none!important}}
 
+
+/* High-contrast consultation buttons */
+.btn.btn-book{background:var(--lime);border-color:var(--lime);color:#101010;font-weight:800;min-height:46px;white-space:normal;text-align:center}
+.btn.btn-book:hover{background:var(--lime-dark);border-color:var(--lime-dark);color:#101010}
+.contact .btn.btn-book{background:#101010;border-color:#101010;color:#c8f169}
+.contact .btn.btn-book:hover{background:#303b20;border-color:#303b20;color:#f4f1ea}
+.btn.btn-book:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+.contact .btn.btn-book:focus-visible{outline-color:#101010}
+
 </style>
 <noscript><style>.preloader{display:none}.reveal{opacity:1;transform:none}</style></noscript>
 </head>
