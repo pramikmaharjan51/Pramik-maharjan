@@ -614,11 +614,39 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
 .btn.btn-book:focus-visible{outline:2px solid currentColor;outline-offset:4px}
 .contact .btn.btn-book:focus-visible{outline-color:#101010}
 
+
+/* Signature motion system: small, composited effects only */
+.motion-progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:101;background:var(--lime);transform:scaleX(0);transform-origin:left;pointer-events:none}
+.hero{isolation:isolate}
+.hero-motion-light{position:absolute;z-index:-1;inset:0 0 auto;height:min(660px,100%);pointer-events:none;overflow:hidden}
+.hero-motion-light::before{content:"";position:absolute;left:50%;top:32%;width:min(740px,110vw);aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(200,241,105,.10),transparent 65%);opacity:.85}
+.hero-motion-light::after{content:"";position:absolute;left:50%;top:25%;width:min(940px,120vw);height:240px;transform:translate(-50%,-50%) rotate(-9deg);border-top:1px solid rgba(200,241,105,.12);border-bottom:1px solid rgba(200,241,105,.07);border-radius:50%}
+.hero-giant{padding-block:.06em;animation:motion-title-in .95s cubic-bezier(.16,1,.3,1) both}
+@keyframes motion-title-in{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.hero-head.visible h1{animation:motion-head-in .72s cubic-bezier(.16,1,.3,1) both}
+.hero-head.visible .hero-role{animation:motion-head-in .7s .08s cubic-bezier(.16,1,.3,1) both}
+.hero-head.visible .hero-actions{animation:motion-head-in .7s .15s cubic-bezier(.16,1,.3,1) both}
+@keyframes motion-head-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.motion-rule{height:1px;display:block;width:100%;margin-top:18px;background:linear-gradient(90deg,var(--lime),rgba(200,241,105,.22) 35%,transparent 85%);transform:scaleX(.08);transform-origin:left;opacity:0;transition:transform .85s cubic-bezier(.16,1,.3,1),opacity .5s}
+.motion-in .motion-rule{transform:scaleX(1);opacity:1}
+.project-card.motion-card,.cert-card.motion-card{isolation:isolate}
+.motion-card .motion-glint{position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;opacity:0;background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(200,241,105,.12),transparent 75%);transition:opacity .25s}
+.motion-card:hover .motion-glint,.motion-card:focus-within .motion-glint{opacity:1}
+.service-row{isolation:isolate}
+.service-row .motion-service-line{position:absolute;bottom:-1px;left:0;width:100%;height:2px;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--lime),transparent 75%);transition:transform .55s var(--ease);pointer-events:none}
+.service-row:hover .motion-service-line,.service-row:focus-within .motion-service-line{transform:scaleX(1)}
+.hero-actions .btn-primary{position:relative;overflow:hidden;isolation:isolate}
+.hero-actions .btn-primary::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s var(--ease)}
+.hero-actions .btn-primary:hover::after,.hero-actions .btn-primary:focus-visible::after{transform:translateX(120%)}
+@media(hover:none),(pointer:coarse){.motion-card .motion-glint{display:none}}
+@media(prefers-reduced-motion:reduce){.motion-progress,.hero-motion-light,.motion-glint,.motion-service-line{display:none!important}.hero-giant,.hero-head.visible h1,.hero-head.visible .hero-role,.hero-head.visible .hero-actions{animation:none!important}.motion-rule{opacity:1;transform:none;transition:none}.hero-actions .btn-primary::after{display:none}}
+
 </style>
 <noscript><style>.preloader{display:none}.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 
 <body>
+<div class="motion-progress" id="pageMotionProgress" aria-hidden="true"></div>
 <a class="skip-link" href="#home">Skip to content</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -745,6 +773,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
 <main id="home">
 
   <section class="hero">
+    <div class="hero-motion-light" aria-hidden="true"></div>
     <div class="wrap">
       <div class="hero-giant" aria-hidden="true">developer</div>
       <div class="hero-head reveal">
@@ -1908,5 +1937,27 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
  a.volume=.15;a.muted=false;a.autoplay=true;sync();start();
 })();
 </script>
+
+<script>
+(function(){
+  const mq=matchMedia('(prefers-reduced-motion: reduce)');
+  const bar=document.getElementById('pageMotionProgress');
+  let queued=false;
+  function paint(){queued=false;if(mq.matches)return;const root=document.documentElement;const max=Math.max(0,root.scrollHeight-innerHeight);bar.style.transform='scaleX('+ (max?Math.min(1,Math.max(0,scrollY/max)):0) +')';}
+  function request(){if(!queued&&!mq.matches){queued=true;requestAnimationFrame(paint);}}
+  addEventListener('scroll',request,{passive:true});addEventListener('resize',request,{passive:true});addEventListener('load',request,{once:true});request();
+  const heads=document.querySelectorAll('.section-head');
+  heads.forEach(h=>{const title=h.querySelector('h2');if(!title)return;const line=document.createElement('span');line.className='motion-rule';line.setAttribute('aria-hidden','true');title.append(line);});
+  if('IntersectionObserver'in window&&!mq.matches){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('motion-in');io.unobserve(e.target)}})},{threshold:.12});heads.forEach(h=>io.observe(h));}else heads.forEach(h=>h.classList.add('motion-in'));
+  if(matchMedia('(hover: hover) and (pointer: fine)').matches&&!mq.matches){
+    document.querySelectorAll('.project-card,.cert-card').forEach(card=>{
+      card.classList.add('motion-card');const glint=document.createElement('span');glint.className='motion-glint';glint.setAttribute('aria-hidden','true');card.append(glint);
+      let frame=0,x=0,y=0;card.addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;if(frame)return;frame=requestAnimationFrame(()=>{frame=0;const rect=card.getBoundingClientRect();card.style.setProperty('--mx',(x-rect.left)+'px');card.style.setProperty('--my',(y-rect.top)+'px');});},{passive:true});
+    });
+  }
+  document.querySelectorAll('.service-row').forEach(row=>{const line=document.createElement('span');line.className='motion-service-line';line.setAttribute('aria-hidden','true');row.append(line);});
+})();
+</script>
+
 </body>
 </html>
