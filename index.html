@@ -635,6 +635,15 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
 @media(max-width:420px){.hero-actions .btn-primary{flex-basis:100%}.hero-actions .btn-secondary,.hero-actions .btn-cv{flex:1 1 0}}
 @media(max-width:760px) and (max-height:600px){.hero-head{gap:8px}.hero-giant{margin-bottom:8px}.hero-head h1{font-size:clamp(1.65rem,6.8vw,2.5rem)}.hero-head p{font-size:.88rem}.hero-role{padding:3px 12px;min-height:30px}}
 
+
+/* Signature lettering: a restrained metallic reflection, without layout changes. */
+@media (prefers-reduced-motion:no-preference){
+ .hero-giant{background-image:linear-gradient(112deg,transparent 42%,rgba(248,255,220,.12) 46%,rgba(249,255,228,.7) 49%,rgba(244,255,209,.32) 51%,transparent 56%),linear-gradient(180deg,#d9f594 0%,#c8f169 45%,#7a9438 100%);background-size:300% 100%,100% 100%;background-position:100% 0,0 0;background-repeat:no-repeat}
+ .hero.motion-ready .hero-giant{animation:signature-rise .85s cubic-bezier(.16,1,.3,1) both,signature-metal-sweep 11s 1s ease-in-out infinite}
+ @keyframes signature-metal-sweep{0%{background-position:100% 0,0 0}17%,100%{background-position:0% 0,0 0}}
+ .hero.motion-ready.shine-paused .hero-giant{animation-play-state:running,paused}
+}
+
 </style>
 <noscript><style>.preloader{display:none}.reveal{opacity:1;transform:none}</style></noscript>
 </head>
@@ -1903,5 +1912,6 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
 })();
 </script>
 <script>(function(){const mq=matchMedia('(prefers-reduced-motion: reduce)'),bar=document.getElementById('pageMotionProgress');let queued=false;function paint(){queued=false;if(mq.matches)return;const max=Math.max(0,document.documentElement.scrollHeight-innerHeight);bar.style.transform='scaleX('+(max?Math.min(1,Math.max(0,scrollY/max)):0)+')';}function request(){if(!queued&&!mq.matches){queued=true;requestAnimationFrame(paint);}}addEventListener('scroll',request,{passive:true});addEventListener('resize',request,{passive:true});addEventListener('load',request,{once:true});request();const heads=document.querySelectorAll('.section-head');heads.forEach(h=>{const title=h.querySelector('h2');if(!title)return;const line=document.createElement('span');line.className='motion-rule';line.setAttribute('aria-hidden','true');title.append(line);});if('IntersectionObserver'in window&&!mq.matches){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('motion-in');io.unobserve(e.target)}})},{threshold:.12});heads.forEach(h=>io.observe(h));}else heads.forEach(h=>h.classList.add('motion-in'));if(matchMedia('(hover: hover) and (pointer: fine)').matches&&!mq.matches){document.querySelectorAll('.project-card,.cert-card').forEach(card=>{card.classList.add('motion-card');const glint=document.createElement('span');glint.className='motion-glint';glint.setAttribute('aria-hidden','true');card.append(glint);let frame=0,x=0,y=0;card.addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;if(frame)return;frame=requestAnimationFrame(()=>{frame=0;const rect=card.getBoundingClientRect();card.style.setProperty('--mx',(x-rect.left)+'px');card.style.setProperty('--my',(y-rect.top)+'px');});},{passive:true});});}document.querySelectorAll('.service-row').forEach(row=>{const line=document.createElement('span');line.className='motion-service-line';line.setAttribute('aria-hidden','true');row.append(line);});})();</script>
+<script>(function(){const hero=document.querySelector('.hero'),title=hero&&hero.querySelector('.hero-giant');if(!title)return;let visible=true;function sync(){hero.classList.toggle('shine-paused',document.hidden||!visible)}if('IntersectionObserver'in window){new IntersectionObserver(es=>{visible=es[0].isIntersecting;sync()},{threshold:.01}).observe(title)}document.addEventListener('visibilitychange',sync);sync()})();</script>
 </body>
 </html>
