@@ -741,6 +741,50 @@ footer{background:#0b0e0b}
 .service-row{position:relative}
 @media(prefers-reduced-motion:reduce){.hero.motion-ready .hero-giant,.hero.motion-ready .hero-head>*{animation:none!important}.hero-role .r-text span{transition:none;transform:none}.hero-actions .btn{transition:none;transform:none!important}}
 
+
+/* Above-the-fold signature hero — scale to both width and available height. */
+.hero{padding-top:clamp(14px,3.2vh,38px)}
+.hero-giant{font-size:clamp(3.5rem,min(17vw,29vh),15rem);font-size:clamp(3.5rem,min(17vw,29svh),15rem);margin-bottom:clamp(15px,3.3vh,36px);padding-block:.025em}
+.hero-head{gap:clamp(11px,2vh,20px);margin-bottom:clamp(36px,7vh,68px)}
+.hero-head h1{font-size:clamp(2.3rem,min(6vw,9.4vh),4.8rem);font-size:clamp(2.3rem,min(6vw,9.4svh),4.8rem)}
+.hero-role{margin-top:0}
+.hero-actions{margin-top:4px;gap:10px}
+.hero-actions .btn{min-height:46px}
+@media(min-width:761px) and (max-height:800px){
+ .hero{padding-top:clamp(10px,1.8vh,16px)}
+ .hero-giant{font-size:clamp(3.5rem,min(17vw,27vh),15rem);font-size:clamp(3.5rem,min(17vw,27svh),15rem);margin-bottom:clamp(12px,2.5vh,22px)}
+ .hero-head{gap:clamp(10px,1.65vh,14px)}
+ .hero-head h1{font-size:clamp(2.1rem,min(6vw,8.8vh),4.8rem);font-size:clamp(2.1rem,min(6vw,8.8svh),4.8rem)}
+ .hero-head p{font-size:1rem;line-height:1.55}
+ .hero-actions .btn{padding:12px 19px;min-height:46px}
+}
+@media(min-width:761px) and (max-height:600px){
+ .nav{height:62px}
+ .hero{padding-top:8px}
+ .hero-giant{font-size:clamp(3rem,min(16vw,24vh),13rem);margin-bottom:9px}
+ .hero-head{gap:9px}
+ .hero-head h1{font-size:clamp(1.8rem,min(5.4vw,8vh),3.5rem)}
+ .hero-role{padding:5px 12px;min-height:32px}
+ .hero-head p{font-size:.94rem;line-height:1.45}
+ .hero-actions .btn{padding:10px 16px;min-height:44px}
+}
+@media(max-width:760px){
+ .hero{padding-top:clamp(14px,3vh,28px)}
+ .hero-giant{font-size:clamp(2rem,min(17vw,20vh),8rem);line-height:1.05;margin-bottom:clamp(14px,2.7vh,25px)}
+ .hero-head{gap:14px;margin-bottom:36px}
+ .hero-head h1{font-size:clamp(1.9rem,min(7vw,6.5vh),3.2rem)}
+ .hero-head p{font-size:.95rem;line-height:1.55}
+ .hero-actions{width:100%;gap:8px}
+ .hero-actions .btn{padding:10px 14px;min-height:44px;font-size:.82rem}
+ .hero-head>.eyebrow{font-size:.64rem;letter-spacing:.09em;line-height:1.5}
+}
+@media(max-width:420px){
+ .hero-actions .btn-primary{flex-basis:100%}
+ .hero-actions .btn-secondary,.hero-actions .btn-cv{flex:1 1 0}
+ .hero-head{gap:12px}
+ .hero-giant{margin-bottom:14px}
+}
+
 </style>
 <noscript><style>.preloader{display:none}.reveal{opacity:1;transform:none}</style></noscript>
 </head>
