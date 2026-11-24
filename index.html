@@ -553,6 +553,21 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
 .cert-meta{line-height:1.7;overflow-wrap:anywhere;letter-spacing:.04em}
 .cert-issuer strong{display:inline-block;margin-bottom:8px}
 @media(max-width:560px){.hero-role{padding:8px 13px;gap:9px;letter-spacing:.1em;font-size:.7rem}.hero-giant{font-size:clamp(2rem,15vw,5rem);line-height:1.05}.cert-card{padding:22px 18px}}
+
+/* Branded CV navigation transition */
+.cv-transition{position:fixed;inset:0;z-index:10001;background:#101010;display:grid;place-items:center;padding:24px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .23s var(--ease),visibility .23s;overflow:hidden}
+.cv-transition.is-active{opacity:1;visibility:visible;pointer-events:auto}
+.cv-transition-inner{text-align:center;width:min(340px,100%);transform:translateY(12px) scale(.97);transition:transform .35s var(--ease)}
+.cv-transition.is-active .cv-transition-inner{transform:none}
+.cv-transition-logo{width:68px;height:68px;margin:0 auto 22px}
+.cv-transition-title{font-family:var(--font-display);font-size:clamp(1.65rem,6vw,2.5rem);line-height:1.15;letter-spacing:-.025em;color:var(--text)}
+.cv-transition-label{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);margin-top:12px}
+.cv-transition-bar{height:2px;background:var(--line);overflow:hidden;border-radius:3px;margin:22px auto 0;width:170px;max-width:100%}
+.cv-transition-bar::after{content:"";display:block;width:100%;height:100%;background:var(--lime);transform:scaleX(0);transform-origin:left}
+.cv-transition.is-active .cv-transition-bar::after{animation:cv-progress .48s var(--ease) forwards}
+@keyframes cv-progress{to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){.cv-transition,.cv-transition-inner{transition:none}.cv-transition.is-active .cv-transition-bar::after{animation:none}}
+
 </style>
 </head>
 
@@ -640,7 +655,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
     <li><a href="#certifications">Credentials</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="cv.html" target="_blank" rel="noopener">View CV</a></li>
+    <li><a href="cv.html">View CV</a></li>
   </ul>
   <div class="meta">
     Phone
@@ -711,7 +726,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
           <a class="btn btn-secondary" href="#work">Explore my work
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
           </a>
-          <a class="btn btn-cv" href="cv.html" target="_blank" rel="noopener">View CV
+          <a class="btn btn-cv" href="cv.html">View CV
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
           </a>
         </div>
@@ -1059,7 +1074,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         </div>
         <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
           <a class="btn btn-book" href="https://calendly.com/pramikmaharjan51/free-consultation-call" target="_blank" rel="noopener">Book free call</a>
-          <a class="btn btn-cv" href="cv.html" target="_blank" rel="noopener">View CV</a>
+          <a class="btn btn-cv" href="cv.html">View CV</a>
         </div>
       </div>
     </div>
@@ -1219,7 +1234,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         <a href="tel:+9779803812716">+977 9803812716</a>
         <a href="https://wa.me/9779803812716" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://shop.pramikmaharjan.com.np" target="_blank" rel="noopener">Shop</a>
-        <a href="cv.html" target="_blank" rel="noopener">CV</a>
+        <a href="cv.html">CV</a>
         <a href="#services">Services</a>
         <a href="#work">Work</a>
         <a href="#testimonials">Clients</a>
@@ -1653,6 +1668,42 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         });
     });
   }
+})();
+</script>
+
+
+<div class="cv-transition" id="cvTransition" aria-hidden="true">
+  <div class="cv-transition-inner">
+    <div class="cv-transition-logo" aria-hidden="true"><svg class="logo-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#c8f169"/><path d="M17.2 33.6V14.4h8.1a6.7 6.7 0 0 1 0 13.4h-8.1" fill="none" stroke="#101010" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="33.4" cy="33" r="3" fill="#101010"/></svg></div>
+    <p class="cv-transition-title">Pramik Maharjan<span class="accent">.</span></p>
+    <p class="cv-transition-label" role="status">Opening curriculum vitae</p>
+    <div class="cv-transition-bar" aria-hidden="true"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var overlay=document.getElementById("cvTransition");
+  if(!overlay)return;
+  var timer=null, pending=false;
+  function reset(){
+    if(timer!==null)window.clearTimeout(timer);
+    timer=null;pending=false;
+    overlay.classList.remove("is-active");
+    overlay.setAttribute("aria-hidden","true");
+  }
+  window.addEventListener("pageshow",reset);
+  document.addEventListener("click",function(e){
+    var link=e.target.closest&&e.target.closest('a[href="cv.html"]');
+    if(!link||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||link.hasAttribute("download"))return;
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    e.preventDefault();
+    if(pending)return;
+    pending=true;
+    overlay.setAttribute("aria-hidden","false");
+    overlay.classList.add("is-active");
+    timer=window.setTimeout(function(){timer=null;window.location.assign(link.href);},500);
+  });
 })();
 </script>
 
