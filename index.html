@@ -1850,7 +1850,7 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
 </script>
 
 
-<audio id="ambientAudio" loop preload="none" src="assets/audio/beyond-the-ordinary.mp3"></audio>
+<audio id="ambientAudio" loop preload="metadata" src="assets/audio/beyond-the-ordinary.mp3"></audio>
 <div class="audio-control" id="ambientControl" data-playing="false" role="group" aria-label="Background music — Beyond the Ordinary">
  <button type="button" class="audio-toggle" id="ambientToggle" aria-pressed="false" aria-label="Turn background music on" title="Turn background music on">
  <span class="audio-icon" aria-hidden="true"><svg id="ambientOffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM16 9l5 6m0-6-5 6"/></svg><svg id="ambientOnIcon" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8a6 6 0 0 1 0 8M18.5 5a10 10 0 0 1 0 14"/></svg></span><span id="ambientText">Play sound</span></button>
@@ -1867,15 +1867,15 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
  if(v===0)enabled=false;
  function save(){try{localStorage.setItem('digital-pramik-ambient-volume',String(v));localStorage.setItem('digital-pramik-sound-enabled',String(enabled));}catch(_){}}
  function sync(){const on=!a.paused&&!a.muted&&a.volume>0;box.dataset.playing=String(on);b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',on?'Mute background music':'Play background music');b.title=on?'Mute background music':'Play background music';label.textContent=on?'Mute sound':pending?'Starting…':'Play sound';document.getElementById('ambientOffIcon').hidden=on;document.getElementById('ambientOnIcon').hidden=!on;slider.value=String(v);value.textContent=v+'%';}
- function stop(){enabled=false;blocked=false;a.pause();status.hidden=true;save();sync();}
- async function start(){if(!enabled||pending||!a.paused||v===0)return;pending=true;blocked=false;a.muted=false;a.volume=v/100;sync();try{await a.play();if(!enabled)a.pause();else status.hidden=true;}catch(_){if(enabled){blocked=true;status.textContent='Tap anywhere or Play sound to start music.';status.hidden=false;}}finally{pending=false;sync();}}
+ function stop(){enabled=false;blocked=false;a.autoplay=false;a.pause();status.hidden=true;save();sync();}
+ async function start(gesture=false){if(!enabled||(!gesture&&pending)||!a.paused||v===0)return;pending=true;blocked=false;a.muted=false;a.volume=v/100;sync();try{await a.play();if(!enabled)a.pause();else status.hidden=true;}catch(_){if(enabled){blocked=true;status.textContent='Tap anywhere or Play sound to start music.';status.hidden=false;}}finally{pending=false;sync();}}
  b.addEventListener('click',function(){if(!a.paused||pending){stop();return;}enabled=true;if(v===0)v=15;save();start();});
  slider.addEventListener('input',function(){v=Number(slider.value);a.volume=v/100;if(v===0)stop();save();sync();});
- function firstGesture(e){if(!enabled||pending||!a.paused||box.contains(e.target))return;if(e.type==='keydown'&&e.key!=='Enter'&&e.key!==' ')return;start();}
- document.addEventListener('pointerdown',firstGesture,{passive:true});document.addEventListener('keydown',firstGesture);
+ function firstGesture(e){if(!enabled||!a.paused||box.contains(e.target)||e.isTrusted===false)return;if(e.type==='keydown'&&(e.key==='Escape'||e.metaKey||e.ctrlKey||e.altKey))return;start(true);}
+ document.addEventListener('pointerup',firstGesture,{passive:true,capture:true});document.addEventListener('click',firstGesture,{capture:true});document.addEventListener('keydown',firstGesture,{capture:true});
  a.addEventListener('play',sync);a.addEventListener('pause',sync);a.addEventListener('volumechange',sync);a.addEventListener('error',function(){status.textContent='Audio unavailable.';status.hidden=false;sync();});
  window.addEventListener('pagehide',function(){a.pause();});window.addEventListener('pageshow',function(e){if(e.persisted&&enabled)start();});
- a.volume=v/100;sync();if(enabled){requestAnimationFrame(function(){requestAnimationFrame(function(){if(enabled)start();});});}
+ a.volume=v/100;a.muted=false;a.autoplay=enabled;sync();if(enabled)start();
 })();
 </script>
 </body>
