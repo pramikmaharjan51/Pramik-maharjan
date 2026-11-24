@@ -664,17 +664,6 @@ header.site-header.scrolled{background:#0b0d0cf5}
 .btn-primary{background:linear-gradient(130deg,#d9fa9a,#b8e568);border-color:#c8f169;color:#111710;box-shadow:0 4px 18px #b6ef4c16}
 .btn-primary:hover{background:#e0ffa1;color:#111710;border-color:#d9fa9a}
 .btn-secondary,.btn-cv{border-color:#424b3d;background:#ffffff03}
-.lux-hero-stage{position:relative;min-width:0;aspect-ratio:1.1;display:grid;place-items:center;overflow:hidden;border:1px solid #344032;border-radius:22px;background:radial-gradient(ellipse at 50% 50%,#25352355,transparent 65%),linear-gradient(145deg,#151b15,#0c100d 70%);box-shadow:0 25px 75px #0004,inset 0 1px 0 #ffffff08;isolation:isolate}
-.lux-hero-stage::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(#b9dba709 1px,transparent 1px),linear-gradient(90deg,#b9dba709 1px,transparent 1px);background-size:30px 30px;mask-image:radial-gradient(ellipse,#000,transparent 80%);pointer-events:none}
-.lux-orbit-art{display:block;width:100%;height:auto;max-height:100%;overflow:visible}
-.lux-stage-top,.lux-stage-bottom{position:absolute;left:20px;right:20px;display:flex;justify-content:space-between;gap:8px;align-items:center;z-index:1;font:500 .59rem/1.35 var(--font-mono);letter-spacing:.1em;color:#a3b29a}
-.lux-stage-top{top:18px}.lux-stage-bottom{bottom:18px}
-.lux-stage-top span:first-child{color:var(--lime);display:flex;align-items:center;gap:7px}
-.lux-stage-top i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px #c8f16977}
-.lux-sculpture{transform-box:view-box;transform-origin:50% 50%}
-.lux-orbit-spin{transform-box:view-box;transform-origin:50% 50%}
-.lux-hero-stage.lux-active .lux-sculpture{animation:lux-float 6s ease-in-out infinite}
-.lux-hero-stage.lux-active .lux-orbit-spin{animation:lux-orbit 32s linear infinite}
 @keyframes lux-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes lux-orbit{to{transform:rotate(360deg)}}
 .lux-proof-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;background:#101410;margin-bottom:36px;overflow:hidden}
@@ -705,6 +694,16 @@ footer{background:#0b0e0b}
 @media(max-width:370px){.lux-stage-top,.lux-stage-bottom{font-size:.49rem}.lux-proof-strip span{font-size:.68rem}}
 @media(prefers-reduced-motion:reduce){.lux-hero-stage .lux-sculpture,.lux-hero-stage .lux-orbit-spin{animation:none!important}}
 
+
+/* Center the cinematic hero after removing the orbital artwork */
+.lux-hero-layout{display:block;margin:0 auto 36px;max-width:900px;padding:clamp(14px,3vw,40px) 0}
+.lux-hero-layout .hero-head{align-items:center;text-align:center;max-width:900px;margin:auto}
+.lux-hero-layout .hero-head h1{font-size:clamp(2.8rem,8vw,6.1rem);line-height:1.02}
+.lux-hero-layout .hero-head p{max-width:58ch}
+.lux-hero-layout .hero-actions{justify-content:center}
+.lux-desktop-break{display:none}
+.hero{background:radial-gradient(ellipse at 50% 8%,#1b2b1a55,transparent 38%)}
+@media(max-width:760px){.lux-hero-layout{padding:12px 0 20px;margin-bottom:20px}.lux-hero-layout .hero-head{text-align:center;align-items:center}}
 </style>
 <noscript><style>.preloader{display:none}.reveal{opacity:1;transform:none}</style></noscript>
 </head>
@@ -872,38 +871,7 @@ footer{background:#0b0e0b}
         </div>
       </div>
 
-        <div class="lux-hero-stage" aria-hidden="true">
-          <div class="lux-stage-top"><span><i></i> DIGITAL PRAMIK</span><span>01 / SIGNATURE</span></div>
-          <svg class="lux-orbit-art" viewBox="0 0 560 490" xmlns="http://www.w3.org/2000/svg" fill="none" focusable="false">
-            <defs>
-              <linearGradient id="luxMetal" x1="132" y1="80" x2="443" y2="422" gradientUnits="userSpaceOnUse"><stop stop-color="#f3f7e8"/><stop offset=".18" stop-color="#b9c5ad"/><stop offset=".37" stop-color="#424a3d"/><stop offset=".52" stop-color="#f4ffda"/><stop offset=".64" stop-color="#839574"/><stop offset=".83" stop-color="#242c24"/><stop offset="1" stop-color="#a0b58d"/></linearGradient>
-              <linearGradient id="luxLime" x1="180" y1="95" x2="386" y2="390" gradientUnits="userSpaceOnUse"><stop stop-color="#f2ffd1"/><stop offset=".24" stop-color="#d4f994"/><stop offset=".55" stop-color="#9bbb4c"/><stop offset=".78" stop-color="#3d5428"/><stop offset="1" stop-color="#b7eb63"/></linearGradient>
-              <linearGradient id="luxSide" x1="180" y1="104" x2="401" y2="390" gradientUnits="userSpaceOnUse"><stop stop-color="#778b53"/><stop offset=".42" stop-color="#23321c"/><stop offset="1" stop-color="#0a1009"/></linearGradient>
-              <radialGradient id="luxCore"><stop stop-color="#baf56b" stop-opacity=".23"/><stop offset=".55" stop-color="#87af43" stop-opacity=".06"/><stop offset="1" stop-color="#101210" stop-opacity="0"/></radialGradient>
-              <linearGradient id="luxGlass" x1="116" y1="85" x2="412" y2="410" gradientUnits="userSpaceOnUse"><stop stop-color="#303b2b"/><stop offset=".45" stop-color="#101510"/><stop offset="1" stop-color="#080a08"/></linearGradient>
-            </defs>
-            <ellipse cx="280" cy="246" rx="240" ry="218" fill="url(#luxCore)"/>
-            <g stroke="#b7d69e" stroke-opacity=".15"><circle cx="280" cy="245" r="190" stroke-dasharray="2 8"/><circle cx="280" cy="245" r="210"/><path d="M280 21V469M56 245H504"/><path d="M80 45l400 400M480 45L80 445" stroke-opacity=".05"/></g>
-            <g class="lux-orbit-spin"><ellipse cx="280" cy="245" rx="218" ry="93" transform="rotate(-32 280 245)" stroke="#526247" stroke-width="1.1"/><ellipse cx="280" cy="245" rx="218" ry="93" transform="rotate(32 280 245)" stroke="#526247" stroke-width="1.1"/><circle cx="280" cy="35" r="3.5" fill="#c8f169"/><circle cx="280" cy="455" r="2" fill="#879d6d"/></g>
-            <g class="lux-sculpture">
-              <ellipse cx="295" cy="259" rx="141" ry="143" fill="#080a08" stroke="#303a2d" stroke-width="3"/>
-              <circle cx="280" cy="245" r="145" fill="url(#luxGlass)" stroke="#879779" stroke-width="1.5"/>
-              <circle cx="280" cy="245" r="135" stroke="url(#luxMetal)" stroke-width="8"/>
-              <circle cx="280" cy="245" r="125" stroke="#bddea0" stroke-opacity=".15"/>
-              <path d="M167 172A133 133 0 0 1 361 136M399 310A133 133 0 0 1 230 369" stroke="#e6ffc7" stroke-opacity=".72" stroke-width="2.4" stroke-linecap="round"/>
-              <g stroke-linecap="round" stroke-linejoin="round">
-                <path d="M241 328V173h66a55 55 0 0 1 0 110h-66" stroke="#090d08" stroke-width="39" transform="translate(15 14)"/>
-                <path d="M241 328V173h66a55 55 0 0 1 0 110h-66" stroke="url(#luxSide)" stroke-width="33" transform="translate(10 9)"/>
-                <path d="M241 328V173h66a55 55 0 0 1 0 110h-66" stroke="url(#luxLime)" stroke-width="31"/>
-                <path d="M234 322V167h65a55 55 0 0 1 39 17" stroke="#f6ffd9" stroke-opacity=".62" stroke-width="2.1"/>
-              </g>
-              <circle cx="337" cy="328" r="13" fill="#10170d" transform="translate(8 7)"/><circle cx="337" cy="328" r="13" fill="url(#luxLime)"/><circle cx="333" cy="324" r="4" fill="#f3ffd2" fill-opacity=".65"/>
-            </g>
-            <g class="lux-orbit-front"><path d="M77 340C166 399 411 296 483 149" stroke="url(#luxMetal)" stroke-width="2.5" stroke-linecap="round"/><path d="M77 340C166 399 411 296 483 149" stroke="#c8f169" stroke-opacity=".12" stroke-width="7"/><circle cx="455" cy="194" r="4" fill="#d8ff9e"/><circle cx="119" cy="353" r="3" fill="#d8ff9e"/></g>
-            <g stroke="#a6bc8c" stroke-opacity=".65" stroke-width="1"><path d="M58 84V58h26M476 58h26v26M58 406v26h26M476 432h26v-26"/><path d="M112 245h-13m362 0h-13M280 74V63m0 364v-11"/></g>
-          </svg>
-          <div class="lux-stage-bottom"><span>DESIGN · CODE · GROWTH</span><span>EST. KATHMANDU, NP</span></div>
-        </div>
+        
       </div>
       <div class="lux-proof-strip" aria-label="Areas of expertise"><span><b>01</b> Web development</span><span><b>02</b> Digital marketing</span><span><b>03</b> AI automation</span><span><b>04</b> Lead generation</span></div>
 
@@ -2058,14 +2026,6 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
 </script>
 
 
-<script>
-(function(){
- const stage=document.querySelector('.lux-hero-stage');if(!stage)return;
- const mq=matchMedia('(prefers-reduced-motion: reduce)');let visible=true;
- function update(){stage.classList.toggle('lux-active',visible&&!document.hidden&&!mq.matches);}
- if('IntersectionObserver'in window){new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;update()},{threshold:.05}).observe(stage);}
- document.addEventListener('visibilitychange',update);if(mq.addEventListener)mq.addEventListener('change',update);update();
-})();
-</script>
+
 </body>
 </html>
