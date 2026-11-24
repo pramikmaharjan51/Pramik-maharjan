@@ -639,11 +639,147 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
 /* Signature lettering: a restrained metallic reflection, without layout changes. */
 @media (prefers-reduced-motion:no-preference){
  .hero-giant{background-image:linear-gradient(112deg,transparent 42%,rgba(248,255,220,.12) 46%,rgba(249,255,228,.7) 49%,rgba(244,255,209,.32) 51%,transparent 56%),linear-gradient(180deg,#d9f594 0%,#c8f169 45%,#7a9438 100%);background-size:300% 100%,100% 100%;background-position:100% 0,0 0;background-repeat:no-repeat}
- .hero.motion-ready .hero-giant{animation:signature-rise .85s cubic-bezier(.16,1,.3,1) both,signature-metal-sweep 11s 1s ease-in-out infinite}
- @keyframes signature-metal-sweep{0%{background-position:100% 0,0 0}17%,100%{background-position:0% 0,0 0}}
+ .hero.motion-ready .hero-giant{animation:signature-rise .85s cubic-bezier(.16,1,.3,1) both,signature-metal-sweep 3s .85s ease-in-out infinite}
+ @keyframes signature-metal-sweep{0%{background-position:100% 0,0 0}48%,100%{background-position:0% 0,0 0}}
  .hero.motion-ready.shine-paused .hero-giant{animation-play-state:running,paused}
 }
 
+
+/* Ambient circuit field: decorative only; never changes the hero's geometry. */
+.hero-atmosphere{position:absolute;z-index:-1;pointer-events:none;inset:0 0 auto;height:min(680px,100vh);height:min(680px,100svh);overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 50% 15%,rgba(126,169,57,.09),transparent 58%),radial-gradient(ellipse at 3% 46%,rgba(150,201,78,.10),transparent 32%),radial-gradient(ellipse at 97% 42%,rgba(150,201,78,.10),transparent 32%);mask-image:linear-gradient(#000 0%,#000 64%,transparent 100%)}
+.hero-atmosphere::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(191,231,126,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(191,231,126,.055) 1px,transparent 1px);background-size:58px 58px;mask-image:linear-gradient(90deg,#000,transparent 29%,transparent 71%,#000);opacity:.8}
+.hero-circuit-art{position:absolute;inset:0;width:100%;height:100%;opacity:.62}
+.hero-ambient-pulse{position:absolute;left:-14%;top:10%;width:40%;height:70%;background:radial-gradient(ellipse,rgba(161,218,81,.11),transparent 65%);opacity:.45;transform:translate3d(0,0,0)}
+.hero.motion-ready:not(.shine-paused) .hero-ambient-pulse{animation:ambient-drift 9s ease-in-out infinite alternate}
+@keyframes ambient-drift{to{opacity:.85;transform:translate3d(12%,8%,0)}}
+@media(max-width:760px){.hero-atmosphere::before{background-size:38px 38px;opacity:.65}.hero-circuit-art{opacity:.42}.hero-ambient-pulse{width:60%;left:-28%}}
+@media(prefers-reduced-motion:reduce){.hero-ambient-pulse{animation:none!important}}
+
+
+/* LUMINA — responsive light field and kinetic circuit signals. */
+.hero-atmosphere .hero-light-field{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse 330px 220px at var(--light-x,50%) var(--light-y,25%),rgba(200,241,105,.16),rgba(153,195,78,.04) 58%,transparent 100%);transition:opacity .55s ease;pointer-events:none}
+.hero-atmosphere .hero-light-field.is-lit{opacity:1}
+.hero-constellation{position:absolute;inset:0;width:100%;height:100%;opacity:.76;pointer-events:none}
+.hero-constellation .fine-line{stroke:#a6ca71;stroke-opacity:.23;stroke-width:.8}
+.hero-constellation .signal{stroke:#d9f8a1;stroke-width:2;stroke-linecap:round;stroke-dasharray:18 390;stroke-dashoffset:0;opacity:0}
+.hero.motion-ready:not(.shine-paused) .signal{animation:lumina-signal 4.8s linear infinite;animation-delay:var(--delay,0s)}
+@keyframes lumina-signal{0%{stroke-dashoffset:408;opacity:0}12%{opacity:.9}60%{opacity:.65}85%,100%{stroke-dashoffset:0;opacity:0}}
+.hero-constellation .star{transform-box:fill-box;transform-origin:center;opacity:.48}
+.hero.motion-ready:not(.shine-paused) .star{animation:lumina-star 3.6s ease-in-out infinite alternate;animation-delay:var(--delay,0s)}
+@keyframes lumina-star{0%,18%{opacity:.25;transform:scale(.7)}85%,100%{opacity:1;transform:scale(1.12)}}
+.hero-constellation .halo{fill:none;stroke:#c8f169;stroke-width:.65;opacity:.22}
+@media(max-width:760px){.hero-constellation{opacity:.5}.hero-atmosphere .hero-light-field{display:none}}
+@media(prefers-reduced-motion:reduce){.hero-constellation .signal,.hero-atmosphere .hero-light-field{display:none}.hero-constellation .star{animation:none!important;opacity:.55}}
+
+
+/* Growth suite: independent from the signature hero. */
+.gs{--gs-line:#30382b;--gs-bg:#121712;--gs-muted:#a8afa4;color:var(--text)}
+
+.gs-proof-note,.gs-project-note{margin-top:18px;padding:18px 20px;border:1px solid var(--gs-line);border-radius:14px;background:linear-gradient(145deg,#171d16,#0f1310)}
+.gs-proof-note blockquote,.gs-project-note blockquote{margin:0;font-size:1rem;line-height:1.7;color:var(--text)}
+.gs-proof-note footer,.gs-project-note footer{margin-top:14px;font:500 .72rem/1.5 var(--font-mono);text-transform:uppercase;letter-spacing:.12em;color:var(--lime)}
+.gs-proof-note small,.gs-project-note small{display:block;margin-top:10px;color:var(--gs-muted);font-size:.78rem;line-height:1.6}
+.gs-inline-projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.gs-mini-card{padding:22px;border:1px solid var(--gs-line);border-radius:14px;background:linear-gradient(145deg,#171d16,#0f1310)}
+.gs-mini-card h4{font-family:var(--font-display);font-size:1.28rem;line-height:1.1}
+.gs-mini-card p{margin-top:10px}
+.gs-mini-card .gs-actions{margin-top:16px}
+.gs-compare{background:#d6d0c8;border-color:#565b51;box-shadow:0 20px 45px rgba(0,0,0,.28)}
+.gs-old{background:linear-gradient(180deg,#e8dfd2 0%,#d8d0c3 100%);color:#312d29}
+.gs-old .gs-mock-nav{border-bottom:1px solid #b3a898;padding-bottom:8px;font-family:Georgia,serif;color:#5c5248}
+.gs-old h4{font-family:Georgia,serif;font-size:clamp(1rem,2.4vw,2.1rem);letter-spacing:0;line-height:1.06;color:#2a2722;max-width:70%}
+.gs-old .gs-mock-copy{font-size:.75em;line-height:1.48;max-width:70%;color:#4a453e}
+.gs-old .gs-mock-btn{background:#b74d38;color:#fff;padding:6px 11px;align-self:flex-start;border-radius:2px;font-weight:700}
+.gs-bad-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:999px;background:#b74d38;color:#fff;font:700 .63rem/1 var(--font-mono);text-transform:uppercase;letter-spacing:.08em;width:max-content}
+.gs-old .gs-bad-stack{display:grid;grid-template-columns:1.2fr .8fr;gap:10px;margin-top:4px;align-items:start}
+.gs-old .gs-bad-panel{background:#efe6da;border:1px solid #c6bcaf;padding:10px;border-radius:2px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.gs-old .gs-bad-list{display:grid;gap:7px}
+.gs-old .gs-bad-line{height:10px;background:#c8beb1;border-radius:2px}
+.gs-old .gs-bad-line.short{width:62%}.gs-old .gs-bad-line.mid{width:82%}
+.gs-old .gs-bad-sidebar{display:grid;gap:8px}
+.gs-old .gs-bad-box{background:#f1ebdf;border:1px dashed #b8ac9c;padding:8px 9px;font-size:.7em;line-height:1.45;color:#665d53}
+.gs-old .gs-bad-cta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.gs-old .gs-bad-mini{padding:6px 8px;background:#d1c5b6;border:1px solid #b3a898;font-size:.67em;color:#453f38;border-radius:2px}
+.gs-new{background:radial-gradient(ellipse at 92% 0%,#395229,#101510 62%);color:#f4f1ea;clip-path:inset(0 calc(100% - var(--split)) 0 0)}
+.gs-new .gs-mock-nav{font-size:.72em;letter-spacing:.12em;color:#c8d5c1}
+.gs-new h4{font-family:var(--font-display);font-size:clamp(1.36rem,3.1vw,2.7rem);line-height:1.02;max-width:75%}
+.gs-new h4 em{color:#c8f169;font-style:normal}
+.gs-new .gs-mock-copy{max-width:72%;color:#c0cbbb;font-size:.83em}
+.gs-new .gs-mock-btn{background:#c8f169;color:#101010;font-weight:800;padding:8px 12px;border-radius:6px;align-self:flex-start}
+.gs-new .gs-good-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:auto}
+.gs-new .gs-good-card{background:rgba(255,255,255,.05);border:1px solid rgba(200,241,105,.17);border-radius:10px;padding:10px 9px;backdrop-filter:blur(2px)}
+.gs-new .gs-good-card b{display:block;font:500 .66rem/1.45 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:#c8f169;margin-bottom:6px}
+.gs-new .gs-good-card span{display:block;font-size:.73em;line-height:1.45;color:#dbe2d5}
+.gs-new .gs-trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;color:#d7dfd2;font:500 .67rem/1.45 var(--font-mono);letter-spacing:.1em;text-transform:uppercase}
+.gs-new .gs-trust i{font-style:normal;color:#c8f169}
+@media(max-width:850px){.gs-inline-projects{grid-template-columns:1fr}}
+@media(max-width:480px){.gs-old h4,.gs-new h4,.gs-old .gs-mock-copy,.gs-new .gs-mock-copy{max-width:100%}.gs-old .gs-bad-stack,.gs-new .gs-good-grid{grid-template-columns:1fr}}
+.gs *{min-width:0}.gs h3{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.3rem);line-height:1.12}.gs p{color:var(--gs-muted);line-height:1.65}.gs-label{font:500 .67rem/1.5 var(--font-mono);text-transform:uppercase;letter-spacing:.12em;color:var(--lime);display:block;margin-bottom:12px}.gs-card{background:linear-gradient(145deg,#1b2118,#101410 80%);border:1px solid var(--gs-line);border-radius:16px;padding:clamp(18px,3.2vw,36px);overflow:hidden;position:relative}.gs-card>p{margin-top:13px}.gs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}.gs-feature{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:center;margin-top:24px}.gs-feature .gs-summary{display:grid;gap:12px;margin:22px 0}.gs-summary div{border-top:1px solid var(--gs-line);padding-top:12px}.gs-summary b{display:block;color:var(--text);font-size:.84rem}.gs-summary span{font-size:.84rem;color:var(--gs-muted)}.gs-browser{border:1px solid #495143;border-radius:12px;background:#141814;overflow:hidden;box-shadow:0 20px 48px #0007;transform:perspective(950px) rotateY(-5deg) rotateX(2deg);transition:transform .5s var(--ease)}.gs-browser:hover{transform:none}.gs-bar{display:flex;align-items:center;gap:5px;padding:10px;background:#222a21;font:400 .6rem var(--font-mono);color:#d5d9d1}.gs-bar i{width:6px;height:6px;background:#829578;border-radius:50%;flex:none}.gs-bar span{margin-left:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.gs-browser img{aspect-ratio:16/10;object-fit:cover;width:100%}.gs-browser-note{padding:10px 12px;font-size:.72rem;color:var(--gs-muted)}.gs-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.gs .btn{white-space:normal;text-align:center;min-height:44px}.gs-compare{margin-top:20px;position:relative;isolation:isolate;overflow:hidden;aspect-ratio:16/10;border:1px solid #424940;border-radius:10px;background:#d5d5d2;--split:50%}.gs-mock{position:absolute;inset:0;display:flex;flex-direction:column;padding:clamp(12px,3vw,24px);gap:10px;font-family:var(--font-body);font-size:clamp(.65rem,1.2vw,.9rem);overflow:hidden}.gs-old{background:#e3e3e0;color:#262626}.gs-old h4{font-family:Georgia,serif;font-size:clamp(1rem,2.3vw,2rem);letter-spacing:0}.gs-old .gs-mock-nav{border-bottom:1px solid #a9a9a3;padding-bottom:10px;font-family:Georgia,serif}.gs-old .gs-mock-copy{font-size:.72em;line-height:1.5}.gs-old .gs-mock-btn{background:#b9b9b9;color:#292929;padding:5px 10px;align-self:flex-start}.gs-new{background:radial-gradient(ellipse at 92% 0%,#344b24,#111711 60%);color:#f4f1ea;clip-path:inset(0 calc(100% - var(--split)) 0 0)}.gs-new h4{font-family:var(--font-display);font-size:clamp(1.3rem,3.1vw,2.5rem);line-height:1.05}.gs-new h4 em{color:#c8f169;font-style:normal}.gs-mock-nav{display:flex;justify-content:space-between;gap:5px;font-size:.72em;letter-spacing:.08em}.gs-new .gs-mock-copy{max-width:75%;color:#b7c1b1}.gs-new .gs-mock-btn{background:#c8f169;color:#101010;font-weight:700;padding:7px 10px;border-radius:4px;align-self:flex-start}.gs-divider{position:absolute;top:0;bottom:0;left:var(--split);width:2px;background:#c8f169;pointer-events:none;transform:translateX(-50%);box-shadow:0 0 15px #c8f16988}.gs-divider::after{content:'↔';display:grid;place-items:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;background:#c8f169;color:#101010;font-weight:800}.gs-range{width:100%;accent-color:var(--lime);cursor:ew-resize;min-height:35px}.gs-legend{display:flex;justify-content:space-between;color:var(--gs-muted);font-size:.72rem}.gs-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.gs-field{display:grid;gap:6px;font-size:.8rem;color:#cdd3c8}.gs-field select,.gs-field input:not([type=checkbox]){width:100%;border-radius:7px;background:#0c100c;border:1px solid #414b3b;padding:11px;color:#e6e9e3;min-height:44px}.gs-field select:focus,.gs-field input:focus{outline:2px solid var(--lime);outline-offset:2px}.gs-checks{display:grid;gap:8px;margin:16px 0}.gs-checks label{display:flex;align-items:center;gap:10px;color:#d1d7cd;font-size:.88rem;cursor:pointer}.gs-checks input{accent-color:var(--lime);width:18px;height:18px;flex:none}.gs-result{padding:16px;background:#0c100c;border:1px solid var(--gs-line);border-radius:10px;margin-top:16px}.gs-result strong{font-family:var(--font-display);font-size:clamp(1.4rem,2.6vw,2.2rem);color:var(--lime);display:block;line-height:1.1}.gs-result p{font-size:.84rem;margin:8px 0 0}.gs-result ul{list-style:disc;margin:10px 0 0;padding-left:18px;color:var(--gs-muted);font-size:.84rem}.gs-fine{font-size:.75rem!important;color:#a6afa1!important;margin-top:12px}.gs-tool-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.gs-tool-nav button{background:#151b13;border:1px solid #394735;padding:9px 12px;border-radius:8px;cursor:pointer;color:var(--text);font-size:.83rem;min-height:44px}.gs-tool-nav button[aria-pressed=true]{border-color:var(--lime);color:var(--lime);background:#c8f16912}.gs-assistant{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;margin-top:16px}.gs-assistant .gs-result{margin-top:0}.gs-standalone{margin-top:44px}.gs-standalone>h3{margin-bottom:8px}.gs-standalone>p{max-width:680px}.gs a:focus-visible,.gs button:focus-visible,.gs input:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+@media(max-width:850px){.gs-grid,.gs-feature,.gs-assistant{grid-template-columns:1fr}.gs-browser{transform:none}}@media(max-width:480px){.gs-fields{grid-template-columns:1fr}.gs-actions .btn{flex:1 1 100%}.gs-compare{aspect-ratio:4/3}.gs-card{border-radius:12px}}@media(prefers-reduced-motion:reduce){.gs-browser{transform:none!important;transition:none}}
+
+
+/* Integrated proof of work: client words and developer notes live with each project. */
+.gs-inline-testimonial{margin:28px 0 0;scroll-margin-top:96px}
+.gs-inline-testimonial .section-head{margin:0 0 18px;align-items:end;gap:12px 28px}
+.gs-inline-testimonial .section-head h2{font-size:clamp(1.7rem,3.3vw,2.9rem);line-height:1.05}
+.gs-inline-testimonial .section-head p{max-width:390px;font-size:.88rem}
+.gs-inline-testimonial .testimonial-featured,.gs-own-words{padding:clamp(24px,4vw,42px);border-radius:16px}
+.gs-inline-testimonial blockquote,.gs-own-words blockquote{font-size:clamp(1.08rem,1.8vw,1.4rem);max-width:920px}
+.gs-inline-testimonial .testimonial-author,.gs-own-words .testimonial-author{background:transparent;margin-top:22px;padding:20px 0 0}
+.gs-bottle{margin-top:42px}.gs-own-words{margin-top:16px;margin-bottom:40px}
+.bottle-visual{background:radial-gradient(ellipse at 50% 50%,#33412b,#111711 73%);aspect-ratio:16/10;display:grid;place-items:center;overflow:hidden}.bottle-visual svg{width:100%;height:100%;max-height:310px}
+.gs-new{clip-path:inset(0 0 0 calc(100% - var(--split)))}.gs-divider{left:calc(100% - var(--split))}
+@media(max-width:600px){.gs-inline-testimonial .section-head{display:block}.gs-inline-testimonial .section-head p{margin-top:12px}.gs-bottle{margin-top:30px}.gs-inline-testimonial .testimonial-author,.gs-own-words .testimonial-author{gap:12px}.gs-inline-testimonial .testimonial-link,.gs-own-words .testimonial-link{margin-left:0}}
+
+
+/* Compact services section: localized, responsive, no content removed. */
+#services.section{padding-block:clamp(34px,4.2vw,58px)}
+#services .section-head{margin-bottom:22px;gap:12px 28px;align-items:end}
+#services .section-head h2{font-size:clamp(1.9rem,3.2vw,2.85rem);line-height:1.04;margin-top:8px}
+#services .section-head p{font-size:.86rem;line-height:1.5;max-width:340px}
+#services .service-row{grid-template-columns:86px minmax(0,1fr) auto;gap:16px;padding:13px 0;min-height:70px;transition:padding-left .3s var(--ease)}
+#services .service-num{font-size:.67rem;letter-spacing:.07em}
+#services .service-body h3{font-size:clamp(1.1rem,2vw,1.65rem);line-height:1.12;margin-bottom:6px}
+#services .service-tags{gap:5px}
+#services .service-tags a{padding:3px 9px;font-size:.59rem;letter-spacing:.06em;line-height:1.45}
+#services .service-arrow{width:40px;height:40px}
+#services .service-arrow svg{width:15px;height:15px}
+@media(hover:hover){#services .service-row:hover{padding-left:10px}}
+@media(max-width:760px){#services.section{padding-block:30px}#services .section-head{margin-bottom:18px;gap:10px}#services .service-row{grid-template-columns:minmax(0,1fr) 44px;gap:5px 10px;padding:12px 0}#services .service-num{grid-column:1;grid-row:1}#services .service-body{grid-column:1;grid-row:2}#services .service-arrow{grid-column:2;grid-row:1 / span 2;width:44px;height:44px}#services .service-body h3{font-size:1.2rem}#services .service-tags a{padding:4px 8px;font-size:.61rem;min-height:25px}#services .section-head h2{font-size:clamp(1.9rem,6vw,2.4rem)}}
+@media(prefers-reduced-motion:reduce){#services .service-row{transition:none}}
+
+
+/* Studio motion — composited accents, no layout movement in the signature hero. */
+.gs-compare{aspect-ratio:auto;min-height:344px;--split:50%;touch-action:pan-y}
+.gs-compare .gs-mock{padding:18px;gap:10px}
+.gs-compare .gs-new{background:#101611;display:flex;isolation:isolate}
+.gs-new .studio-orbit{position:absolute;z-index:-1;width:220px;height:220px;border:1px solid #b8ed6830;border-radius:50%;right:-65px;top:-66px;box-shadow:0 0 0 28px #c8f16908,0 0 0 57px #c8f16906;pointer-events:none}
+.gs-new .studio-orbit::after{content:'';position:absolute;inset:-1px;border-radius:50%;border:1px solid transparent;border-top-color:#c8f169b0;border-right-color:#c8f16930}
+.gs-new .studio-visual{position:absolute;right:4px;top:62px;width:36%;height:152px;z-index:-1;display:grid;place-items:center;pointer-events:none;opacity:.95}
+.studio-visual svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 15px #a1cb4940)}
+.gs-new h4{font-size:clamp(1.5rem,2.4vw,2.35rem);max-width:67%;line-height:1.03}
+.gs-new .gs-mock-copy{max-width:61%;font-size:.76rem;line-height:1.45}
+.gs-new .gs-mock-btn{position:relative;overflow:hidden;isolation:isolate;font-size:.73rem}
+.gs-new .gs-mock-btn::after,.gs-feature .btn-primary::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 30%,#ffffff65 50%,transparent 70%);transform:translateX(-130%)}
+.gs-new .gs-good-grid{margin-top:auto;gap:7px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.gs-new .gs-good-card{padding:9px 7px;position:relative;overflow:hidden;backdrop-filter:none;background:#ffffff07;border-color:#b8ed682c}
+.gs-new .gs-good-card::after{content:'';height:2px;width:32%;position:absolute;bottom:0;left:0;background:#c8f169;opacity:.6;transform-origin:left}
+.gs-new .gs-good-card b{font-size:.59rem;letter-spacing:.05em}.gs-new .gs-good-card span{font-size:.67rem}
+.gs-new .gs-trust{font-size:.58rem;gap:6px 8px;letter-spacing:.03em}
+.gs-compare-controls{display:flex;gap:7px;margin-top:8px}.gs-compare-controls button{border:1px solid #40503a;border-radius:7px;padding:8px 11px;background:#151d14;color:#d9e4d1;cursor:pointer;min-height:40px;font-size:.73rem;transition:background .2s,border-color .2s,color .2s}.gs-compare-controls button[aria-pressed=true]{border-color:#c8f169;background:#c8f16912;color:#c8f169}
+.gs-feature .btn-primary{position:relative;overflow:hidden;isolation:isolate}.gs-feature .btn-primary:hover::after,.gs-feature .btn-primary:focus-visible::after{animation:studio-sheen .65s ease-out both}
+.gs-feature .gs-browser{position:relative}.gs-feature .gs-browser::after{content:'';height:1px;position:absolute;top:0;left:10%;right:10%;background:linear-gradient(90deg,transparent,#c8f169,transparent);pointer-events:none;opacity:.65}
+.gs-feature .gs-summary div{transition:background .25s,border-color .25s}.gs-feature .gs-summary div:hover{border-color:#b6dc75;background:#c8f16908}
+.gs-card .gs-result{transition:border-color .24s,box-shadow .24s}.gs-card:focus-within .gs-result{border-color:#789c48;box-shadow:0 0 18px #c8f1690c}
+#services .service-tags a{transition:color .2s,border-color .2s,background .2s,transform .2s}#services .service-tags a:hover{background:#c8f16914;transform:translateY(-1px)}
+.studio-inview .studio-orbit::after{animation:studio-rotate 12s linear infinite}.studio-inview .studio-visual svg{animation:studio-float 4s ease-in-out infinite}.studio-inview .gs-mock-btn::after{animation:studio-sheen 3s ease-in-out infinite}.studio-inview .gs-good-card::after{animation:studio-bar 3s ease-in-out infinite alternate}.studio-inview .gs-good-card:nth-child(2)::after{animation-delay:.4s}.studio-inview .gs-good-card:nth-child(3)::after{animation-delay:.8s}
+.studio-inview.bottle-visual svg{animation:studio-float 5s ease-in-out infinite}
+.studio-flash{animation:studio-feedback .5s ease-out both}
+@keyframes studio-rotate{to{transform:rotate(360deg)}}@keyframes studio-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}@keyframes studio-sheen{0%,24%{transform:translateX(-130%)}64%,100%{transform:translateX(130%)}}@keyframes studio-bar{from{transform:scaleX(.5);opacity:.3}to{transform:scaleX(2.5);opacity:.8}}@keyframes studio-feedback{0%{opacity:.6;transform:translateY(3px)}100%{opacity:1;transform:none}}
+@media(max-width:480px){.gs-compare{min-height:354px;aspect-ratio:auto}.gs-compare .gs-mock{padding:12px;gap:8px}.gs-new h4{font-size:1.6rem;max-width:72%}.gs-new .gs-mock-copy{font-size:.68rem;max-width:68%}.gs-new .studio-visual{width:31%;top:74px;height:118px}.gs-new .gs-good-card{padding:7px 5px}.gs-new .gs-good-card span{font-size:.61rem}.gs-new .gs-good-card b{font-size:.55rem}.gs-compare-controls button{flex:1;min-width:0;padding:8px 5px}.gs-new .gs-trust{font-size:.53rem}}
+@media(prefers-reduced-motion:reduce){.studio-inview .studio-orbit::after,.studio-inview .studio-visual svg,.studio-inview .gs-mock-btn::after,.studio-inview .gs-good-card::after,.studio-inview.bottle-visual svg,.studio-flash,.gs-feature .btn-primary:hover::after,.gs-feature .btn-primary:focus-visible::after{animation:none!important}#services .service-tags a:hover{transform:none}}
+
+.gs-new .studio-visual{display:block;max-height:145px}.gs-new .studio-visual svg{display:block;height:100%;width:100%;max-height:145px}.gs-compare[data-full="true"] .gs-divider{opacity:0}@media(max-width:480px){.gs-new .studio-visual{max-height:118px}.gs-new .studio-visual svg{max-height:118px}}
 </style>
 <noscript><style>.preloader{display:none}.reveal{opacity:1;transform:none}</style></noscript>
 </head>
@@ -776,6 +912,26 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
 <main id="home">
 
   <section class="hero">
+    <div class="hero-atmosphere" aria-hidden="true">
+      <div class="hero-ambient-pulse"></div>
+      <div class="hero-light-field" aria-hidden="true"></div>
+      <svg class="hero-constellation" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice" fill="none" focusable="false" aria-hidden="true">
+        <g class="fine-line"><path d="M55 45L144 83L214 35L292 79M144 83L180 133L292 79M54 455L103 397L185 432L238 381M103 397L84 345M1385 45L1296 83L1226 35L1148 79M1296 83L1260 133L1148 79M1386 455L1337 397L1255 432L1202 381M1337 397L1356 345"/></g>
+        <g class="signal"><path d="M0 115H62L108 161H234"/><path d="M1440 202H1407L1354 255H1274L1231 298H1120"/></g>
+        <g class="signal" style="--delay:-2.2s"><path d="M0 202H33L86 255H166L209 298H320"/><path d="M1440 115H1378L1332 161H1206"/></g>
+        <g class="signal" style="--delay:-3.5s"><path d="M0 392H98L136 354H226"/><path d="M1440 392H1342L1304 354H1214"/></g>
+        <g fill="#d5f6a0"><circle class="star" cx="144" cy="83" r="2.7"/><circle class="star" cx="214" cy="35" r="1.8" style="--delay:-1.4s"/><circle class="star" cx="180" cy="133" r="1.5" style="--delay:-2.4s"/><circle class="star" cx="103" cy="397" r="2.4" style="--delay:-.7s"/><circle class="star" cx="185" cy="432" r="1.5" style="--delay:-2s"/><circle class="star" cx="1296" cy="83" r="2.7" style="--delay:-1.8s"/><circle class="star" cx="1226" cy="35" r="1.8"/><circle class="star" cx="1260" cy="133" r="1.5" style="--delay:-.8s"/><circle class="star" cx="1337" cy="397" r="2.4" style="--delay:-2.8s"/><circle class="star" cx="1255" cy="432" r="1.5" style="--delay:-1s"/></g>
+        <g class="halo"><circle cx="144" cy="83" r="8"/><circle cx="1296" cy="83" r="8"/><circle cx="103" cy="397" r="6"/><circle cx="1337" cy="397" r="6"/></g>
+      </svg>
+
+      <svg class="hero-circuit-art" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <defs><linearGradient id="circuitFadeL" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#a8ce72" stop-opacity=".6"/><stop offset="1" stop-color="#a8ce72" stop-opacity="0"/></linearGradient><linearGradient id="circuitFadeR" x1="1" y1="0" x2="0" y2="0"><stop stop-color="#a8ce72" stop-opacity=".6"/><stop offset="1" stop-color="#a8ce72" stop-opacity="0"/></linearGradient></defs>
+        <g stroke="url(#circuitFadeL)" stroke-width="1"><path d="M0 115H62L108 161H234"/><path d="M0 202H33L86 255H166L209 298H320"/><path d="M0 392H98L136 354H226"/><path d="M23 498H122L172 448H274"/><path d="M28 75V43H60M28 438V470H60"/></g>
+        <g stroke="url(#circuitFadeR)" stroke-width="1"><path d="M1440 115H1378L1332 161H1206"/><path d="M1440 202H1407L1354 255H1274L1231 298H1120"/><path d="M1440 392H1342L1304 354H1214"/><path d="M1417 498H1318L1268 448H1166"/><path d="M1412 75V43H1380M1412 438V470H1380"/></g>
+        <g fill="#c8f169"><circle cx="108" cy="161" r="2.5" opacity=".7"/><circle cx="86" cy="255" r="2" opacity=".6"/><circle cx="136" cy="354" r="2.5" opacity=".55"/><circle cx="172" cy="448" r="2" opacity=".55"/><circle cx="1332" cy="161" r="2.5" opacity=".7"/><circle cx="1354" cy="255" r="2" opacity=".6"/><circle cx="1304" cy="354" r="2.5" opacity=".55"/><circle cx="1268" cy="448" r="2" opacity=".55"/></g>
+        <g stroke="#b7d889" stroke-opacity=".25"><circle cx="64" cy="314" r="19" stroke-dasharray="2 5"/><circle cx="1376" cy="314" r="19" stroke-dasharray="2 5"/><path d="M59 314h10m-5-5v10m1307-5h10m-5-5v10"/></g>
+      </svg>
+    </div>
     <div class="wrap">
       <div class="hero-giant" aria-hidden="true">developer</div>
       <div class="hero-head reveal">
@@ -976,10 +1132,10 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
             <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=1000&q=80" alt="Everyday Bottle ecommerce website preview" loading="lazy" decoding="async">
           </div>
           <div class="project-body">
-            <div class="project-meta"><span>02 / Ecommerce</span><span class="year">Live site</span></div>
+            <div class="project-meta"><span>02 / Ecommerce</span><span class="year">Project showcase</span></div>
             <h3>Everyday Bottle — Ecommerce Website</h3>
-            <p>A clean, product-focused online store for a reusable bottle brand, built with a straightforward browsing and checkout experience.</p>
-            <a class="project-link" href="https://shop.pramikmaharjan.com.np" target="_blank" rel="noopener">Visit live shop
+            <p>A modern product website concept focused on better product storytelling, clearer browsing and a more premium shopping feel.</p>
+            <a class="project-link" href="https://shop.pramikmaharjan.com.np" target="_blank" rel="noopener">View project
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
@@ -1007,7 +1163,105 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
           </div>
         </article>
       </div>
-      <p class="portfolio-note">✳ Portfolio note: I'll expand this section with verified screenshots, live links, and measured outcomes as more real projects are completed.</p>
+      
+
+<div class="gs gs-standalone" id="project-stories">
+  <span class="gs-label">Featured projects / proof of work</span>
+  <h3>From rough ideas to stronger digital presentation.</h3>
+  <p>Explore the thinking behind the work, compare a weak version against a stronger redesign, and see real project notes without exaggerated claims.</p>
+  <article class="gs-card gs-feature">
+    <div><span class="gs-label">01 / Clean Cuts · Dhalko, Kathmandu · live project</span><h3>A cleaner digital presence for Clean Cuts.</h3><p>A barbershop website designed around the customer's next step: discover the business, understand its services and get in touch.</p>
+      <div class="gs-summary"><div><b>Objective</b><span>Present grooming services clearly and make contacting the shop straightforward.</span></div><div><b>Design approach</b><span>Responsive layout, a consistent visual identity and prominent contact actions.</span></div><div><b>Delivered</b><span>A published business website with a clearer structure, stronger presentation and an easier path for inquiries.</span></div></div>
+      <div class="gs-actions"><a class="btn btn-primary" href="https://cleancuts.com.np/" target="_blank" rel="noopener">Explore live project ↗</a><button class="btn btn-secondary" type="button" data-gs-inquiry="case">Build something similar ↗</button></div>
+    </div>
+    <div class="gs-browser"><div class="gs-bar" aria-hidden="true"><i></i><i></i><i></i><span>cleancuts.com.np</span></div><img src="https://i.imgur.com/3hzALfu.png" alt="Clean Cuts portfolio project image" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.textContent='Visit the live site to see the project.'"><div class="gs-browser-note">Portfolio project image · Visit the live site for the actual experience.</div></div>
+  </article>
+  <section id="testimonials" class="gs-inline-testimonial" aria-label="Clean Cuts client feedback">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> 05 / Client words</div>
+          <h2>What clients<br><span class="accent">actually say.</span></h2>
+        </div>
+        <p>Feedback from the businesses I've worked with — starting with Clean Cuts, my first live client project.</p>
+      </div>
+      <article class="testimonial-featured reveal">
+        <span class="testimonial-badge">Verified client · Live project</span>
+        <span class="testimonial-mark" aria-hidden="true">"</span>
+        <blockquote>
+          Working with Pramik was straightforward from start to finish. He understood what our barbershop actually needed, kept the design clean and easy to read, and made it simple for new customers to find us and get in touch. The site looks sharp on every device and does exactly what we hoped it would.
+        </blockquote>
+        <footer class="testimonial-author">
+          <div class="testimonial-avatar" aria-hidden="true">CC</div>
+          <div class="testimonial-meta">
+            <strong>Owner, Clean Cuts</strong>
+            <span>Barbershop · Kathmandu, Nepal</span>
+          </div>
+          <a class="testimonial-link" href="https://cleancuts.com.np/" target="_blank" rel="noopener">View live site
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </footer>
+      </article>
+</section>
+  <article class="gs-card gs-feature gs-bottle" id="everyday-bottle">
+    <div><span class="gs-label">02 / Everyday Bottle · ecommerce project</span><h3>Everyday Bottle.<br><span class="accent">A better way to shop.</span></h3><p>A product-focused online shopping experience with clear navigation, polished presentation and a simpler customer journey.</p>
+    <div class="gs-summary"><div><b>Focus</b><span>Product storytelling, responsive design and a clear path from browsing to purchase.</span></div></div>
+    <div class="gs-actions"><a class="btn btn-primary" href="https://shop.pramikmaharjan.com.np/" target="_blank" rel="noopener">Explore Everyday Bottle ↗</a></div></div>
+    <div class="gs-browser"><div class="gs-bar" aria-hidden="true"><i></i><i></i><i></i><span>shop.pramikmaharjan.com.np</span></div><div class="bottle-visual"><svg viewBox="0 0 440 240" role="img" aria-label="Illustrative reusable bottle product artwork"><defs><linearGradient id="btl" x1="0" x2="1"><stop stop-color="#354333"/><stop offset=".43" stop-color="#b8c8a2"/><stop offset=".72" stop-color="#74876b"/><stop offset="1" stop-color="#283629"/></linearGradient></defs><ellipse cx="220" cy="211" rx="84" ry="13" fill="#000" opacity=".4"/><rect x="190" y="23" width="60" height="26" rx="9" fill="#b5c4a2"/><path d="M190 48H250L265 67V188Q265 205 249 205H191Q175 205 175 188V67Z" fill="url(#btl)" stroke="#b9cda0" stroke-opacity=".45"/><path d="M184 78V181" stroke="#eaf7dd" stroke-width="2" opacity=".42"/><text x="220" y="125" font-size="12" font-family="Arial,sans-serif" text-anchor="middle" fill="#182619" font-weight="bold">EVERYDAY</text><text x="220" y="140" font-size="8" font-family="Arial,sans-serif" text-anchor="middle" fill="#182619" letter-spacing="3">BOTTLE</text></svg></div><div class="gs-browser-note">Illustrative product artwork · View the actual project via the live link.</div></div>
+  </article>
+  <article class="testimonial-featured gs-own-words" aria-label="My words about Everyday Bottle">
+    <span class="testimonial-badge">My project · Developer's perspective</span>
+    <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+    <blockquote>I built Everyday Bottle to explore how a product brand can feel modern, trustworthy and easy to shop. My focus was simple navigation, better product storytelling and a smoother path from browsing to checkout.</blockquote>
+    <footer class="testimonial-author"><div class="testimonial-avatar" aria-hidden="true">PM</div><div class="testimonial-meta"><strong>Pramik Maharjan</strong><span>Developer · Everyday Bottle</span></div><a class="testimonial-link" href="https://shop.pramikmaharjan.com.np/" target="_blank" rel="noopener">View project ↗</a></footer>
+  </article>
+
+  <div class="gs-grid">
+    <article class="gs-card"><span class="gs-label">03 / Before vs after</span><h3>See why the redesign feels stronger.</h3><p>Drag to compare a weaker, cluttered service-page concept with a clearer, modern redesign. Both are illustrative examples, not historical client screenshots.</p>
+      <div class="gs-compare" id="gsCompare" aria-hidden="true">
+        <div class="gs-mock gs-old">
+          <div class="gs-mock-nav"><b>LOCAL STUDIO</b><span>HOME · ABOUT · OFFERS · INFO</span></div>
+          <span class="gs-bad-badge">Outdated look</span>
+          <h4>Welcome to our website.</h4>
+          <div class="gs-mock-copy">Too generic, too crowded and not very persuasive. The visitor has to work hard to understand what the business offers or what to do next.</div>
+          <div class="gs-bad-stack">
+            <div class="gs-bad-panel">
+              <div class="gs-bad-list">
+                <div class="gs-bad-line"></div>
+                <div class="gs-bad-line mid"></div>
+                <div class="gs-bad-line short"></div>
+                <div class="gs-bad-cta-row"><span class="gs-mock-btn">Learn more</span><span class="gs-bad-mini">Our services</span></div>
+              </div>
+            </div>
+            <div class="gs-bad-sidebar">
+              <div class="gs-bad-box">Stock image</div>
+              <div class="gs-bad-box">Hard-to-find contact</div>
+              <div class="gs-bad-box">Weak visual trust</div>
+            </div>
+          </div>
+        </div>
+        <div class="gs-mock gs-new">
+          <div class="studio-orbit"></div><div class="studio-visual"><svg viewBox="0 0 120 170" aria-hidden="true"><defs><linearGradient id="studio-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5ffc1"/><stop offset=".5" stop-color="#9cbf74"/><stop offset="1" stop-color="#4b6437"/></linearGradient></defs><circle cx="60" cy="78" r="49" fill="#c8f16908" stroke="#c8f16938"/><circle cx="60" cy="78" r="43" fill="none" stroke="#c8f16917" stroke-dasharray="3 5"/><g transform="translate(60 75) rotate(-18)" fill="none" stroke="url(#studio-metal)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M-10 12L24 -45Q30 -22 8 4L-9 28M10 12L-24 -45Q-30 -22 -8 4L9 28"/><ellipse cx="-15" cy="38" rx="11" ry="15"/><ellipse cx="15" cy="38" rx="11" ry="15"/><circle cx="0" cy="8" r="2" fill="#c8f169"/></g></svg></div>
+          <div class="gs-mock-nav"><b>STUDIO<span style="color:#c8f169">.</span></b><span>SERVICES · GALLERY · CONTACT</span></div>
+          <h4>Look sharp.<br><em>Feel confident.</em></h4>
+          <div class="gs-mock-copy">Precision grooming, considered style and a booking experience made simple.</div>
+          <span class="gs-mock-btn">Book a visit ↗</span>
+          <div class="gs-trust"><span><i>●</i> Clear services</span><span><i>●</i> Easy booking</span></div>
+          <div class="gs-good-grid">
+            <div class="gs-good-card"><b>01 / Services</b><span>Find the right cut.</span></div>
+            <div class="gs-good-card"><b>02 / Gallery</b><span>Explore our style.</span></div>
+            <div class="gs-good-card"><b>03 / Visit</b><span>Plan your next visit.</span></div>
+          </div>
+        </div>
+        <div class="gs-divider"></div>
+      </div>
+      <label for="gsSlider" class="gs-field" style="margin-top:10px">Reveal the redesigned concept <span id="gsSplit">50%</span></label><input id="gsSlider" class="gs-range" type="range" min="0" max="100" value="50" aria-label="Percentage of redesigned concept visible"><div class="gs-legend"><span>Weaker version</span><span>Improved version</span></div><div class="gs-compare-controls" aria-label="Comparison views"><button type="button" data-split="0" aria-pressed="false">Before</button><button type="button" data-split="50" aria-pressed="true">Compare</button><button type="button" data-split="100" aria-pressed="false">After ↗</button></div>
+    </article>
+    <article class="gs-card"><span class="gs-label">04 / Project decisions</span><h3>Design that serves a purpose.</h3><p>A better visual experience is only one part of a business website. These are the decisions worth getting right.</p><div class="gs-summary"><div><b>Clarity</b><span>State what the business offers and who it serves immediately.</span></div><div><b>Trust</b><span>Show relevant work, genuine reviews and useful business details.</span></div><div><b>Conversion</b><span>Make the next action obvious on every screen.</span></div><div><b>Measurement</b><span>Track meaningful inquiries and improve based on actual behavior, not assumed results.</span></div></div><div class="gs-actions"><a class="btn btn-secondary" href="#growth-audit">Find your opportunities ↓</a></div></article>
+  </div>
+</div>
+
+<p class="portfolio-note">✳ Portfolio note: I keep this section honest — real client work is labelled as real, and concept work is labelled as concept work.</p>
+
     </div>
   </section>
 
@@ -1034,7 +1288,24 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
     </div>
   </section>
 
-  <section class="section" id="service-finder">
+  
+<section class="section gs" id="project-planner"><div class="wrap">
+<div class="section-head"><div><div class="eyebrow"><span class="dot"></span> Growth toolkit / Plan your next move</div><h2>Know what you need.<br><span class="accent">Before we talk.</span></h2></div><p>Review your website, shape your project brief and prepare a useful inquiry — no signup, no automatic submission.</p></div>
+<div class="gs-grid">
+<article class="gs-card"><span class="gs-label">01 / Website readiness check</span><h3>How ready is your website?</h3><p>Check the items you have personally confirmed. This is a self-assessment, not an automated SEO scan.</p>
+<label class="gs-field" style="margin-top:16px">Website address (optional)<input id="gsUrl" type="url" placeholder="https://yourbusiness.com" maxlength="250"></label>
+<div class="gs-checks" id="gsAuditChecks"><label><input type="checkbox" value="Test the mobile layout and fix overlapping content.">Works well on mobile</label><label><input type="checkbox" value="Make your main contact or booking button easy to find.">Clear contact or booking action</label><label><input type="checkbox" value="Check loading performance and optimize large images.">Loads quickly</label><label><input type="checkbox" value="Add clear service descriptions and genuine proof of work.">Clear services and trust signals</label><label><input type="checkbox" value="Set up privacy-conscious inquiry tracking.">Tracks meaningful inquiries</label><label><input type="checkbox" value="Review page titles, descriptions and search visibility.">Basic search visibility setup</label></div>
+<div class="gs-result" aria-live="polite"><strong id="gsAuditScore">0 / 6 confirmed</strong><p id="gsAuditMessage">Start by confirming the essentials.</p><ul id="gsAuditList"></ul></div><div class="gs-actions"><button class="btn btn-primary" type="button" data-gs-inquiry="audit">Discuss my checklist ↗</button></div></article>
+
+<article class="gs-card"><span class="gs-label">02 / Project brief builder</span><h3>Shape your project brief.</h3><p>Tell me what kind of project you need, your preferred timeline and the features that matter most. This helps start the conversation without exposing pricing before the discussion.</p><div class="gs-fields"><label class="gs-field">Project type<select id="gsType"><option value="landing">Landing page</option><option value="business" selected>Business website</option><option value="store">Online store</option><option value="redesign">Website redesign</option></select></label><label class="gs-field">Preferred timeline<select id="gsTimeline"><option value="soon">As soon as possible</option><option value="month" selected>Within 3–4 weeks</option><option value="flexible">Flexible / just exploring</option></select></label><label class="gs-field">Key pages or sections<input id="gsPages" type="number" value="5" min="1" max="30" step="1" inputmode="numeric"></label><label class="gs-field">Primary priority<select id="gsPriority"><option value="trust" selected>Build trust and look professional</option><option value="inquiries">Get more inquiries</option><option value="sales">Sell products or services online</option><option value="clarity">Explain services more clearly</option></select></label></div>
+<div class="gs-checks" id="gsExtras"><label><input type="checkbox" value="Clear service sections" checked>Clear service sections</label><label><input type="checkbox" value="Booking or contact integration" checked>Booking or contact integration</label><label><input type="checkbox" value="Content guidance or copy support">Content guidance or copy support</label><label><input type="checkbox" value="Custom interactions or premium presentation">Custom interactions or premium presentation</label></div>
+<div class="gs-result" aria-live="polite"><strong id="gsEstimate">Business website · 5 key pages</strong><p id="gsEstimateNote">Preferred timeline: Within 3–4 weeks · Priority: Build trust and look professional.</p></div><p class="gs-fine">This tool prepares a clearer inquiry, not a public price estimate. Final scope, timing and pricing are discussed privately after understanding the project properly.</p><div class="gs-actions"><button type="button" class="btn btn-primary" data-gs-inquiry="brief">Prepare this project brief ↗</button></div></article>
+
+</div>
+<article class="gs-card gs-assistant"><div><span class="gs-label">03 / Interactive project concierge</span><h3>Find your starting point.</h3><p>Choose your main goal. This local, rule-based guide suggests a sensible first step — no external AI connection or personal data required.</p><div class="gs-tool-nav" id="gsGuide"><button type="button" data-goal="presence" aria-pressed="true">Build my presence</button><button type="button" data-goal="leads" aria-pressed="false">Get more inquiries</button><button type="button" data-goal="sales" aria-pressed="false">Sell online</button><button type="button" data-goal="automation" aria-pressed="false">Save time</button></div></div><div class="gs-result" aria-live="polite"><strong id="gsGuideTitle">Start with a clear website.</strong><p id="gsGuideText">A responsive business site with clear services, trust signals and a direct contact action is a practical first step.</p><div class="gs-actions"><button type="button" class="btn btn-primary" data-gs-inquiry="guide">Prepare my inquiry ↗</button></div></div></article>
+</div></section>
+
+<section class="section" id="service-finder">
     <div class="wrap">
       <div class="section-head reveal">
         <div><div class="eyebrow"><span class="dot"></span> 04 / Find the right support</div><h2>Not sure what<br><span class="accent">you need?</span></h2></div>
@@ -1049,35 +1320,7 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
     </div>
   </section>
 
-  <section class="section" id="testimonials">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <div>
-          <div class="eyebrow"><span class="dot"></span> 05 / Client words</div>
-          <h2>What clients<br><span class="accent">actually say.</span></h2>
-        </div>
-        <p>Feedback from the businesses I've worked with — starting with Clean Cuts, my first live client project.</p>
-      </div>
-      <article class="testimonial-featured reveal">
-        <span class="testimonial-badge">Verified client · Live project</span>
-        <span class="testimonial-mark" aria-hidden="true">"</span>
-        <blockquote>
-          Working with Pramik was straightforward from start to finish. He understood what our barbershop actually needed, kept the design clean and easy to read, and made it simple for new customers to find us and get in touch. The site looks sharp on every device and does exactly what we hoped it would.
-        </blockquote>
-        <footer class="testimonial-author">
-          <div class="testimonial-avatar" aria-hidden="true">CC</div>
-          <div class="testimonial-meta">
-            <strong>Owner, Clean Cuts</strong>
-            <span>Barbershop · Kathmandu, Nepal</span>
-          </div>
-          <a class="testimonial-link" href="https://cleancuts.com.np/" target="_blank" rel="noopener">View live site
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-          </a>
-        </footer>
-      </article>
-      <p class="testimonial-note">✳ More client words will be added here as projects wrap up — I only publish feedback from real, verified clients. No paid or invented reviews, ever.</p>
-    </div>
-  </section>
+  
 
   <section class="section tool-section" id="digital-lab">
     <div class="wrap">
@@ -1895,7 +2138,7 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
 <audio id="ambientAudio" loop preload="metadata" src="assets/audio/beyond-the-ordinary.mp3"></audio>
 <div class="audio-control" id="ambientControl" data-playing="false" role="group" aria-label="Background music — Beyond the Ordinary">
  <button type="button" class="audio-toggle" id="ambientToggle" aria-pressed="false" aria-label="Turn background music on" title="Turn background music on">
- <span class="audio-icon" aria-hidden="true"><svg id="ambientOffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM16 9l5 6m0-6-5 6"/></svg><svg id="ambientOnIcon" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8a6 6 0 0 1 0 8M18.5 5a10 10 0 0 1 0 14"/></svg></span><span id="ambientText">Play sound</span></button>
+ <span class="audio-icon" aria-hidden="true"><svg id="ambientOffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM16 9l5 6m0-6-5 6"/></svg><svg id="ambientOnIcon" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8a6 6 0 0 1 0 8M18.5 5a10 10 0 0 1 0 14"/></svg></span><span id="ambientText">Tap for sound</span></button>
  <span class="audio-level" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
  <label class="audio-sr" for="ambientVolume">Background music volume</label><input class="audio-volume" id="ambientVolume" type="range" min="0" max="100" step="1" value="25" aria-label="Background music volume"/><span class="audio-volume-label" id="ambientValue" aria-hidden="true">25%</span>
  <span class="audio-status" id="ambientStatus" role="status" hidden></span>
@@ -1908,10 +2151,48 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
  function sync(){const on=playing&&!a.paused&&!a.muted&&a.volume>0;box.dataset.playing=String(on);b.setAttribute('aria-pressed',String(on));const action=on?'Mute background music':!enabled?'Unmute background music':'Start background music';b.setAttribute('aria-label',action);b.title=action;label.textContent=on?'Mute sound':!enabled?'Unmute':failed?'Retry sound':blocked?'Tap for sound':'Starting…';document.getElementById('ambientOffIcon').hidden=on;document.getElementById('ambientOnIcon').hidden=!on;slider.value=String(v);value.textContent=v+'%';status.hidden=!enabled||(!blocked&&!failed);if(blocked)status.textContent='Your browser requires a click or tap to start sound.';if(failed)status.textContent='Music could not load. Tap to retry.';}
  function stop(){++attempt;enabled=false;pending=false;blocked=false;failed=false;playing=false;a.autoplay=false;a.pause();sync();}
  async function start(gesture=false){if(!enabled||v===0||(!a.paused&&playing)||(!gesture&&pending))return;const id=++attempt;pending=true;blocked=false;failed=false;a.muted=false;a.volume=v/100;sync();try{await a.play();if(id!==attempt)return;if(!enabled)a.pause();else playing=!a.paused;}catch(err){if(id!==attempt)return;if(enabled){blocked=err&&err.name==='NotAllowedError';failed=!blocked;playing=false;}}finally{if(id===attempt){pending=false;sync();}}}
- b.addEventListener('click',()=>{if(playing&&!a.paused){stop();return;}enabled=true;if(v===0)v=25;if(a.error)a.load();start(true);});slider.addEventListener('input',()=>{v=Number(slider.value);a.volume=v/100;if(v===0)stop();else if(enabled&&a.paused)start(true);sync();});function firstGesture(e){if(!enabled||playing||box.contains(e.target)||e.isTrusted===false)return;if(e.type==='keydown'&&(e.key==='Escape'||e.metaKey||e.ctrlKey||e.altKey))return;start(true);}document.addEventListener('pointerup',firstGesture,{passive:true,capture:true});document.addEventListener('click',firstGesture,{capture:true});document.addEventListener('keydown',firstGesture,{capture:true});a.addEventListener('playing',()=>{if(!enabled){a.pause();return;}playing=true;blocked=false;failed=false;sync();});a.addEventListener('pause',()=>{playing=false;sync();});a.addEventListener('volumechange',sync);a.addEventListener('error',()=>{failed=true;pending=false;playing=false;sync();});window.addEventListener('pagehide',()=>{++attempt;pending=false;a.pause();});window.addEventListener('pageshow',e=>{if(e.persisted&&enabled)start();});a.volume=.25;a.muted=false;a.autoplay=true;sync();start();
+ b.addEventListener('click',()=>{if(playing&&!a.paused){stop();return;}enabled=true;if(v===0)v=25;if(a.error)a.load();start(true);});slider.addEventListener('input',()=>{v=Number(slider.value);a.volume=v/100;if(v===0)stop();else{enabled=true;if(a.paused)start(true);}sync();});function firstGesture(e){if(!enabled||playing||box.contains(e.target)||e.isTrusted===false)return;if(e.type==='keydown'&&(e.key==='Escape'||e.metaKey||e.ctrlKey||e.altKey))return;start(true);}document.addEventListener('pointerup',firstGesture,{passive:true,capture:true});document.addEventListener('touchend',firstGesture,{passive:true,capture:true});document.addEventListener('click',firstGesture,{capture:true});document.addEventListener('keydown',firstGesture,{capture:true});a.addEventListener('playing',()=>{if(!enabled){a.pause();return;}playing=true;blocked=false;failed=false;sync();});a.addEventListener('pause',()=>{playing=false;sync();});a.addEventListener('volumechange',sync);a.addEventListener('error',()=>{failed=true;pending=false;playing=false;sync();});window.addEventListener('pagehide',()=>{++attempt;pending=false;a.pause();});window.addEventListener('pageshow',e=>{if(e.persisted&&enabled)start();});a.volume=.25;a.muted=false;a.autoplay=true;sync();start();
 })();
 </script>
 <script>(function(){const mq=matchMedia('(prefers-reduced-motion: reduce)'),bar=document.getElementById('pageMotionProgress');let queued=false;function paint(){queued=false;if(mq.matches)return;const max=Math.max(0,document.documentElement.scrollHeight-innerHeight);bar.style.transform='scaleX('+(max?Math.min(1,Math.max(0,scrollY/max)):0)+')';}function request(){if(!queued&&!mq.matches){queued=true;requestAnimationFrame(paint);}}addEventListener('scroll',request,{passive:true});addEventListener('resize',request,{passive:true});addEventListener('load',request,{once:true});request();const heads=document.querySelectorAll('.section-head');heads.forEach(h=>{const title=h.querySelector('h2');if(!title)return;const line=document.createElement('span');line.className='motion-rule';line.setAttribute('aria-hidden','true');title.append(line);});if('IntersectionObserver'in window&&!mq.matches){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('motion-in');io.unobserve(e.target)}})},{threshold:.12});heads.forEach(h=>io.observe(h));}else heads.forEach(h=>h.classList.add('motion-in'));if(matchMedia('(hover: hover) and (pointer: fine)').matches&&!mq.matches){document.querySelectorAll('.project-card,.cert-card').forEach(card=>{card.classList.add('motion-card');const glint=document.createElement('span');glint.className='motion-glint';glint.setAttribute('aria-hidden','true');card.append(glint);let frame=0,x=0,y=0;card.addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;if(frame)return;frame=requestAnimationFrame(()=>{frame=0;const rect=card.getBoundingClientRect();card.style.setProperty('--mx',(x-rect.left)+'px');card.style.setProperty('--my',(y-rect.top)+'px');});},{passive:true});});}document.querySelectorAll('.service-row').forEach(row=>{const line=document.createElement('span');line.className='motion-service-line';line.setAttribute('aria-hidden','true');row.append(line);});})();</script>
 <script>(function(){const hero=document.querySelector('.hero'),title=hero&&hero.querySelector('.hero-giant');if(!title)return;let visible=true;function sync(){hero.classList.toggle('shine-paused',document.hidden||!visible)}if('IntersectionObserver'in window){new IntersectionObserver(es=>{visible=es[0].isIntersecting;sync()},{threshold:.01}).observe(title)}document.addEventListener('visibilitychange',sync);sync()})();</script>
+<script>(function(){const hero=document.querySelector('.hero'),field=hero&&hero.querySelector('.hero-light-field'),mq=matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');if(!field)return;let frame=0,x=0,y=0;function paint(){frame=0;const r=field.getBoundingClientRect();if(!mq.matches||y<r.top||y>r.bottom){field.classList.remove('is-lit');return;}field.style.setProperty('--light-x',(x-r.left)+'px');field.style.setProperty('--light-y',(y-r.top)+'px');field.classList.add('is-lit');}hero.addEventListener('pointermove',e=>{if(!mq.matches||e.pointerType==='touch')return;x=e.clientX;y=e.clientY;if(!frame)frame=requestAnimationFrame(paint)},{passive:true});hero.addEventListener('pointerleave',()=>{if(frame)cancelAnimationFrame(frame);frame=0;field.classList.remove('is-lit')});document.addEventListener('visibilitychange',()=>{if(document.hidden){if(frame)cancelAnimationFrame(frame);frame=0;field.classList.remove('is-lit')}})})();</script>
+
+<script>(function(){
+ const $=id=>document.getElementById(id);const slider=$('gsSlider');if(!slider)return;
+ slider.addEventListener('input',()=>{$('gsCompare').style.setProperty('--split',slider.value+'%');$('gsSplit').textContent=slider.value+'%'});
+ const checks=[...$('gsAuditChecks').querySelectorAll('input')];function audit(){const n=checks.filter(x=>x.checked).length;const missing=checks.filter(x=>!x.checked).map(x=>x.value);$('gsAuditScore').textContent=n+' / 6 confirmed';$('gsAuditMessage').textContent=n===6?'All six essentials are confirmed by you. Consider reviewing real inquiry data next.':'Your next priorities (unconfirmed items):';$('gsAuditList').replaceChildren(...missing.slice(0,3).map(v=>{const li=document.createElement('li');li.textContent=v;return li}));return {n,missing}}checks.forEach(x=>x.addEventListener('change',audit));audit();
+ 
+const briefTypes={landing:'Landing page',business:'Business website',store:'Online store',redesign:'Website redesign'};
+const timelineLabels={soon:'As soon as possible',month:'Within 3–4 weeks',flexible:'Flexible / just exploring'};
+const priorityLabels={trust:'Build trust and look professional',inquiries:'Get more inquiries',sales:'Sell products or services online',clarity:'Explain services more clearly'};
+const extras=[...$('gsExtras').querySelectorAll('input')];
+function projectBrief(){
+  const name=briefTypes[$('gsType').value]||'Project';
+  const pages=Math.min(30,Math.max(1,Math.floor(Number($('gsPages').value)||1)));
+  const timeline=timelineLabels[$('gsTimeline').value]||'Flexible / just exploring';
+  const priority=priorityLabels[$('gsPriority').value]||'Build trust and look professional';
+  const features=extras.filter(x=>x.checked).map(x=>x.value);
+  $('gsEstimate').textContent=name+' · '+pages+' key '+(pages===1?'page':'pages');
+  $('gsEstimateNote').textContent='Preferred timeline: '+timeline+' · Priority: '+priority+'.';
+  return {name,pages,timeline,priority,features};
+}
+['gsType','gsTimeline','gsPages','gsPriority'].forEach(id=>$(id).addEventListener('input',projectBrief));extras.forEach(x=>x.addEventListener('change',projectBrief));projectBrief();
+const guide={presence:['Start with a clear website.','A responsive business site with clear services, trust signals and a direct contact action is a practical first step.','Website design & development'],leads:['Improve the inquiry journey.','Review the landing page and offer, make the contact action easy, and measure qualified inquiries before expanding ad spend.','Lead generation system'],sales:['Build a useful shopping experience.','Start with product information, a simple checkout and clear delivery and return information.','Website design & development'],automation:['Map your repetitive tasks.','Identify one repeated workflow, define the trigger and desired outcome, and test it before automating more.','AI content & automation']};let goal='presence';$('gsGuide').addEventListener('click',e=>{const b=e.target.closest('button[data-goal]');if(!b)return;goal=b.dataset.goal;$('gsGuide').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('gsGuideTitle').textContent=guide[goal][0];$('gsGuideText').textContent=guide[goal][1]});
+document.querySelectorAll('[data-gs-inquiry]').forEach(b=>b.addEventListener('click',()=>{let service='Website design & development',message='';switch(b.dataset.gsInquiry){case 'case':message='I would like to discuss a business website similar to the Clean Cuts project.';break;case 'audit':{const a=audit();const url=$('gsUrl').value.trim();message='Website readiness self-assessment: '+a.n+'/6 confirmed.\n'+(url?'Website: '+url+'\n':'')+'Unconfirmed priorities: '+(a.missing.join('; ')||'All six confirmed')+'.\nI would like advice on the next step.';break;}case 'brief':{const a=projectBrief();message='Project type: '+a.name+'\nKey pages or sections: '+a.pages+'\nPreferred timeline: '+a.timeline+'\nPrimary priority: '+a.priority+'\nWanted features: '+(a.features.join(', ')||'None selected')+'\nI would like to discuss the right scope and next steps.';break;}case 'guide':service=guide[goal][2];message='My goal: '+$('gsGuide').querySelector('[aria-pressed=true]').textContent+'.\nSuggested starting point: '+guide[goal][1]+'\nI would like to discuss my options.';break;}const sel=$('cf-service'),msg=$('cf-message');sel.value=service;msg.value=(msg.value.trim()?msg.value.trim()+'\n\n':'')+message;msg.value=msg.value.slice(0,5000);$('contact').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});msg.focus({preventScroll:true});}));
+
+})();</script>
+
+<script>(function(){
+ const mq=matchMedia('(prefers-reduced-motion: reduce)'),slider=document.getElementById('gsSlider'),compare=document.getElementById('gsCompare');if(!slider||!compare)return;
+ const buttons=[...document.querySelectorAll('[data-split]')];let anim=0, visible=new Set();const targets=[compare,...document.querySelectorAll('.bottle-visual')];
+ function sync(){compare.dataset.full=String(Number(slider.value)===0||Number(slider.value)===100);buttons.forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.split)===Number(slider.value))))} function stop(){if(anim)cancelAnimationFrame(anim);anim=0} function go(value){slider.value=value;slider.dispatchEvent(new Event('input',{bubbles:true}))}
+ slider.addEventListener('input',sync);slider.addEventListener('pointerdown',stop);slider.addEventListener('keydown',stop);
+ buttons.forEach(b=>b.addEventListener('click',()=>{stop();const target=Number(b.dataset.split),from=Number(slider.value);if(mq.matches){go(target);return}let start=0;function frame(now){if(!start)start=now;const t=Math.min(1,(now-start)/380);go(Math.round(from+(target-from)*(1-Math.pow(1-t,3))));if(t<1)anim=requestAnimationFrame(frame);else anim=0}anim=requestAnimationFrame(frame)}));
+ function visibility(){targets.forEach(t=>t.classList.toggle('studio-inview',!document.hidden&&!mq.matches&&visible.has(t)))}
+ if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)visible.add(e.target);else visible.delete(e.target)});visibility()},{threshold:.12});targets.forEach(t=>io.observe(t))}
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();visibility()});mq.addEventListener?.('change',visibility);
+ document.querySelectorAll('#gsAuditChecks,#gsExtras,#gsGuide,#gsType,#gsTimeline,#gsPriority,#gsPages').forEach(el=>{const card=el.closest('.gs-card'),res=card&&card.querySelector('.gs-result');if(!res)return;function flash(){if(mq.matches)return;res.classList.remove('studio-flash');requestAnimationFrame(()=>requestAnimationFrame(()=>res.classList.add('studio-flash')))}el.addEventListener(el.id==='gsGuide'?'click':'change',flash)});
+})();</script>
 </body>
 </html>
