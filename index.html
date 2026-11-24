@@ -157,6 +157,9 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
   border-radius:999px;
   background:rgba(23,23,23,.5);
   margin-top:-8px;
+  max-width:100%;
+  min-height:40px;
+  line-height:1.55;
 }
 .hero-role .r-dot{
   width:7px;
@@ -167,23 +170,24 @@ header.site-header.scrolled{background:rgba(16,16,16,.95);box-shadow:0 10px 30px
   flex-shrink:0;
 }
 .hero-role .r-text{
-  position:relative;
-  display:inline-block;
-  min-width:11.5em;
-  height:1em;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  line-height:1.55;
+  padding:2px 0;
   overflow:hidden;
-  text-align:left;
-  vertical-align:middle;
+  text-align:center;
+  min-width:0;
 }
 .hero-role .r-text span{
-  position:absolute;
-  inset:0;
+  grid-area:1/1;
   opacity:0;
-  transform:translateY(100%);
+  transform:translateY(110%);
   transition:opacity .5s var(--ease),transform .5s var(--ease);
   white-space:nowrap;
   color:var(--text);
+  line-height:inherit;
 }
+
 .hero-role .r-text span.active{
   opacity:1;
   transform:translateY(0);
@@ -540,6 +544,15 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
   .hero-role .r-text span{transition:none}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
+
+/* Credential and skill updates */
+.skill-heading{font:600 .75rem var(--font-mono);color:var(--lime);letter-spacing:.12em;text-transform:uppercase;margin:24px 0 12px}
+.about-skills{margin-top:0}
+.about-skills span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.04em;padding:8px 13px;border:1px solid var(--line);border-radius:999px;color:#d0cdc5;max-width:100%;overflow-wrap:anywhere}
+.credential-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
+.cert-meta{line-height:1.7;overflow-wrap:anywhere;letter-spacing:.04em}
+.cert-issuer strong{display:inline-block;margin-bottom:8px}
+@media(max-width:560px){.hero-role{padding:8px 13px;gap:9px;letter-spacing:.1em;font-size:.7rem}.hero-giant{font-size:clamp(2rem,15vw,5rem);line-height:1.05}.cert-card{padding:22px 18px}}
 </style>
 </head>
 
@@ -684,6 +697,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
             <span>Digital Marketer</span>
             <span>AI Automation</span>
             <span>Lead Generation</span>
+            <span>Google Ads</span>
+            <span>Google Analytics</span>
+            <span>Generative AI</span>
           </span>
         </div>
 
@@ -1011,15 +1027,35 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
         <p>My approach is hands-on: understand the business first, keep the message clear, and build digital experiences that make the next step obvious. I value honest communication, thoughtful design and continuous improvement over exaggerated promises.</p>
         <p>I work with small businesses and growing teams that want a stronger online presence and a practical path to getting more inquiries.</p>
         <p><strong>Education:</strong> Bachelor of Business Management (BBM), Public Youth Campus — Tribhuvan University (TU), Kathmandu. Currently in progress.</p>
+        <h3 class="skill-heading">Technical &amp; digital skills</h3>
         <div class="about-skills">
-          <a href="#contact">BBM Student</a>
-          <a href="#contact">Web design</a>
-          <a href="#contact">Landing pages</a>
-          <a href="#contact">Marketing strategy</a>
-          <a href="#contact">Email marketing</a>
-          <a href="#contact">Lead funnels</a>
-          <a href="#contact">Content planning</a>
-          <a href="#contact">Continuous learning</a>
+          <span>HTML, CSS &amp; JavaScript</span>
+          <span>Responsive web design</span>
+          <span>Landing pages</span>
+          <span>Google Ads</span>
+          <span>Google Analytics (GA4)</span>
+          <span>Digital marketing strategy</span>
+          <span>Lead generation</span>
+          <span>Content planning</span>
+          <span>Generative AI</span>
+          <span>Prompt engineering</span>
+          <span>Workflow automation</span>
+        </div>
+        <h3 class="skill-heading">Professional skills</h3>
+        <div class="about-skills">
+          <span>Written &amp; verbal communication</span>
+          <span>Active listening</span>
+          <span>Client communication</span>
+          <span>Presentation skills</span>
+          <span>Leadership</span>
+          <span>Team coordination</span>
+          <span>Collaboration</span>
+          <span>Critical thinking</span>
+          <span>Creative problem-solving</span>
+          <span>Analytical thinking</span>
+          <span>Time management</span>
+          <span>Adaptability</span>
+          <span>Continuous learning</span>
         </div>
         <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
           <a class="btn btn-book" href="https://calendly.com/pramikmaharjan51/free-consultation-call" target="_blank" rel="noopener">Book free call</a>
@@ -1034,27 +1070,46 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
       <div class="section-head reveal">
         <div>
           <div class="eyebrow"><span class="dot"></span> 09 / Credentials</div>
-          <h2>Certified. <span class="accent">Verified.</span></h2>
+          <h2>Learning. <span class="accent">Credentials.</span></h2>
         </div>
-        <p>Formal training I've completed — recognized credentials that back up the practical work.</p>
+        <p>Five credentials spanning generative AI, digital advertising, analytics, prompt engineering and collaborative problem-solving.</p>
       </div>
       <div class="cert-grid">
         <article class="cert-card reveal">
-          <div class="cert-top">
-            <span class="cert-badge">Professional training</span>
-            <span class="cert-seal" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M8.5 14.5 7 21l5-2.5L17 21l-1.5-6.5"/></svg>
-            </span>
-          </div>
+          <div class="cert-top"><span class="cert-badge">Generative AI</span><span class="cert-seal" aria-hidden="true">✳</span></div>
+          <h3>Generative AI Essentials: Using LLMs to Work with Data</h3>
+          <p class="cert-issuer"><strong>IBM</strong><br>IBM Granite, LLMs, prompt engineering, summarization, sentiment analysis and classification.</p>
+          <div class="cert-meta"><span>Issued Nov 2026</span></div>
+        </article>
+        <article class="cert-card reveal">
+          <div class="cert-top"><span class="cert-badge">Analytics</span><span class="cert-seal" aria-hidden="true">✳</span></div>
+          <h3>Google Analytics Certification (2026)</h3>
+          <p class="cert-issuer"><strong>Google Digital Academy (Skillshop)</strong><br>GA4, website analytics, conversion tracking and audience insights.</p>
+          <div class="cert-meta"><span>Issued Nov 2026 · Expires Nov 2027 · Credential ID 200535465</span></div>
+        </article>
+        <article class="cert-card reveal">
+          <div class="cert-top"><span class="cert-badge">Advertising</span><span class="cert-seal" aria-hidden="true">✳</span></div>
+          <h3>AI-Powered Performance Ads Certification</h3>
+          <p class="cert-issuer"><strong>Google Digital Academy (Skillshop)</strong><br>AI-driven advertising, Google Ads and campaign optimization.</p>
+          <div class="cert-meta"><span>Issued Nov 2026 · Expires Nov 2027 · Credential ID 200526874</span></div>
+        </article>
+        <article class="cert-card reveal">
+          <div class="cert-top"><span class="cert-badge">Challenge certificate</span><span class="cert-seal" aria-hidden="true">✳</span></div>
+          <h3>Galactic Problem Solver</h3>
+          <p class="cert-issuer"><strong>NASA — International Space Apps Challenge 2026</strong><br>Challenge participation, creative problem-solving, collaboration and innovation.</p>
+          <div class="cert-meta"><span>Issued Nov 2026</span></div>
+        </article>
+        <article class="cert-card reveal">
+          <div class="cert-top"><span class="cert-badge">Professional training</span><span class="cert-seal" aria-hidden="true">✳</span></div>
           <h3>AI Prompt Engineering Certification</h3>
-          <p class="cert-issuer"><strong>Issued by</strong> · Government of Nepal</p>
-          <div class="cert-meta"><span>✳ AI &amp; Automation</span><span>✳ Verified credential</span></div>
+          <p class="cert-issuer"><strong>Government of Nepal (GoN)</strong><br>AI prompting and prompt engineering.</p>
+          <div class="cert-meta"><span>Issued Nov 2026</span></div>
         </article>
         <article class="cert-card cert-card--note reveal">
-          <div class="cert-top"><span class="cert-badge cert-badge--muted">Growing list</span></div>
-          <h3>More credentials coming.</h3>
-          <p class="cert-issuer">I'm actively pursuing further training in web development, marketing, and AI. Verified certificates will be added here as they're earned.</p>
-          <div class="cert-meta"><span>✳ Continuous learning</span><span>✳ No invented credentials</span></div>
+          <div class="cert-top"><span class="cert-badge cert-badge--muted">Credential directory</span></div>
+          <h3>Explore my credentials.</h3>
+          <p class="cert-issuer">Find my listed licenses and certifications on LinkedIn, or view my current CV.</p>
+          <div class="credential-actions"><a class="btn btn-secondary" href="https://www.linkedin.com/in/pramik-maharjan-72b731434/details/certifications/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a class="btn btn-cv" href="cv.html">View CV</a></div>
         </article>
       </div>
     </div>
