@@ -1852,8 +1852,8 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
 
 <audio id="ambientAudio" loop preload="metadata" src="assets/audio/beyond-the-ordinary.mp3"></audio>
 <div class="audio-control" id="ambientControl" data-playing="false" role="group" aria-label="Background music — Beyond the Ordinary">
- <button type="button" class="audio-toggle" id="ambientToggle" aria-pressed="false" aria-label="Turn background music on" title="Turn background music on">
- <span class="audio-icon" aria-hidden="true"><svg id="ambientOffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM16 9l5 6m0-6-5 6"/></svg><svg id="ambientOnIcon" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8a6 6 0 0 1 0 8M18.5 5a10 10 0 0 1 0 14"/></svg></span><span id="ambientText">Play sound</span></button>
+ <button type="button" class="audio-toggle" id="ambientToggle" aria-pressed="false" aria-label="Start background music" title="Start background music">
+ <span class="audio-icon" aria-hidden="true"><svg id="ambientOffIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM16 9l5 6m0-6-5 6"/></svg><svg id="ambientOnIcon" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8a6 6 0 0 1 0 8M18.5 5a10 10 0 0 1 0 14"/></svg></span><span id="ambientText">Starting…</span></button>
  <span class="audio-level" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
  <label class="audio-sr" for="ambientVolume">Background music volume</label><input class="audio-volume" id="ambientVolume" type="range" min="0" max="100" step="1" value="15" aria-label="Background music volume"/><span class="audio-volume-label" id="ambientValue" aria-hidden="true">15%</span>
  <span class="audio-status" id="ambientStatus" role="status" hidden></span>
@@ -1862,20 +1862,41 @@ addEventListener('resize',request,{passive:true});document.addEventListener('vis
 (function(){
  const a=document.getElementById('ambientAudio'), box=document.getElementById('ambientControl'), b=document.getElementById('ambientToggle'), slider=document.getElementById('ambientVolume'), label=document.getElementById('ambientText'), value=document.getElementById('ambientValue'), status=document.getElementById('ambientStatus');
  if(!a||!b)return;
- let v=15, enabled=true, pending=false, blocked=false;
- try{const stored=localStorage.getItem('digital-pramik-ambient-volume');if(stored!==null&&Number.isFinite(Number(stored)))v=Math.max(0,Math.min(100,Number(stored)));enabled=localStorage.getItem('digital-pramik-sound-enabled')!=='false';}catch(_){}
- if(v===0)enabled=false;
- function save(){try{localStorage.setItem('digital-pramik-ambient-volume',String(v));localStorage.setItem('digital-pramik-sound-enabled',String(enabled));}catch(_){}}
- function sync(){const on=!a.paused&&!a.muted&&a.volume>0;box.dataset.playing=String(on);b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',on?'Mute background music':'Play background music');b.title=on?'Mute background music':'Play background music';label.textContent=on?'Mute sound':pending?'Starting…':'Play sound';document.getElementById('ambientOffIcon').hidden=on;document.getElementById('ambientOnIcon').hidden=!on;slider.value=String(v);value.textContent=v+'%';}
- function stop(){enabled=false;blocked=false;a.autoplay=false;a.pause();status.hidden=true;save();sync();}
- async function start(gesture=false){if(!enabled||(!gesture&&pending)||!a.paused||v===0)return;pending=true;blocked=false;a.muted=false;a.volume=v/100;sync();try{await a.play();if(!enabled)a.pause();else status.hidden=true;}catch(_){if(enabled){blocked=true;status.textContent='Tap anywhere or Play sound to start music.';status.hidden=false;}}finally{pending=false;sync();}}
- b.addEventListener('click',function(){if(!a.paused||pending){stop();return;}enabled=true;if(v===0)v=15;save();start();});
- slider.addEventListener('input',function(){v=Number(slider.value);a.volume=v/100;if(v===0)stop();save();sync();});
- function firstGesture(e){if(!enabled||!a.paused||box.contains(e.target)||e.isTrusted===false)return;if(e.type==='keydown'&&(e.key==='Escape'||e.metaKey||e.ctrlKey||e.altKey))return;start(true);}
+ let v=15, enabled=true, pending=false, blocked=false, failed=false, attempt=0, playing=false;
+ // Every new visit starts sound-enabled at 15%. Older stored mute preferences are not reused.
+ function sync(){
+   const on=playing&&!a.paused&&!a.muted&&a.volume>0;
+   box.dataset.playing=String(on);
+   b.setAttribute('aria-pressed',String(on));
+   const action=on?'Mute background music':!enabled?'Unmute background music':'Start background music';
+   b.setAttribute('aria-label',action);b.title=action;
+   label.textContent=on?'Mute sound':!enabled?'Unmute':failed?'Retry sound':blocked?'Tap for sound':'Starting…';
+   document.getElementById('ambientOffIcon').hidden=enabled;
+   document.getElementById('ambientOnIcon').hidden=!enabled;
+   slider.value=String(v);value.textContent=v+'%';
+   status.hidden=!enabled||(!blocked&&!failed);
+   if(blocked)status.textContent='Your browser requires a click or tap to start sound.';
+   if(failed)status.textContent='Music could not load. Tap to retry.';
+ }
+ function stop(){++attempt;enabled=false;pending=false;blocked=false;failed=false;playing=false;a.autoplay=false;a.pause();sync();}
+ async function start(gesture=false){
+   if(!enabled||v===0||(!a.paused&&playing)||(!gesture&&pending))return;
+   const id=++attempt;pending=true;blocked=false;failed=false;a.muted=false;a.volume=v/100;sync();
+   try{await a.play();if(id!==attempt)return;if(!enabled)a.pause();else playing=!a.paused;}
+   catch(err){if(id!==attempt)return;if(enabled){blocked=err&&err.name==='NotAllowedError';failed=!blocked;playing=false;}}
+   finally{if(id===attempt){pending=false;sync();}}
+ }
+ b.addEventListener('click',function(){if(playing&&!a.paused){stop();return;}enabled=true;if(v===0)v=15;if(a.error)a.load();start(true);});
+ slider.addEventListener('input',function(){v=Number(slider.value);a.volume=v/100;if(v===0)stop();else if(enabled&&a.paused)start(true);sync();});
+ function firstGesture(e){if(!enabled||playing||box.contains(e.target)||e.isTrusted===false)return;if(e.type==='keydown'&&(e.key==='Escape'||e.metaKey||e.ctrlKey||e.altKey))return;start(true);}
  document.addEventListener('pointerup',firstGesture,{passive:true,capture:true});document.addEventListener('click',firstGesture,{capture:true});document.addEventListener('keydown',firstGesture,{capture:true});
- a.addEventListener('play',sync);a.addEventListener('pause',sync);a.addEventListener('volumechange',sync);a.addEventListener('error',function(){status.textContent='Audio unavailable.';status.hidden=false;sync();});
- window.addEventListener('pagehide',function(){a.pause();});window.addEventListener('pageshow',function(e){if(e.persisted&&enabled)start();});
- a.volume=v/100;a.muted=false;a.autoplay=enabled;sync();if(enabled)start();
+ a.addEventListener('playing',function(){if(!enabled){a.pause();return;}playing=true;blocked=false;failed=false;sync();});
+ a.addEventListener('pause',function(){playing=false;sync();});
+ a.addEventListener('volumechange',sync);
+ a.addEventListener('error',function(){failed=true;pending=false;playing=false;sync();});
+ window.addEventListener('pagehide',function(){++attempt;pending=false;a.pause();});
+ window.addEventListener('pageshow',function(e){if(e.persisted&&enabled)start();});
+ a.volume=.15;a.muted=false;a.autoplay=true;sync();start();
 })();
 </script>
 </body>
