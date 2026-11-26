@@ -605,7 +605,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 32px;color:var(--muted);f
 .engine-intro{font-size:.92rem;color:#c2c6b9;line-height:1.6;max-width:44ch}
 .engine-controls{gap:9px;grid-template-columns:repeat(2,minmax(0,1fr));margin:2px 0}
 .engine-controls button{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr);gap:4px 7px;padding:12px 10px;min-height:76px;align-content:center;align-items:center;font-size:.84rem;line-height:1.3;background:#171b15;color:#f0f2e9;text-align:left}
-.engine-controls button span{grid-row:1/3;align-self:start;color:inherit;font-size:.72rem;opacity:.85}.engine-controls button b{font-weight:800;letter-spacing:-.025em}.engine-controls button small{grid-column:2;color:#b4c1aa;font-size:.72rem;font-weight:500}.engine-controls button[aria-pressed=true] small{color:#263619}.engine-controls button:focus-visible,.engine-cta:focus-visible,#enginePause:focus-visible,.engine-all:focus-visible{outline:2px solid #f4f1ea;outline-offset:3px}
+.engine-controls button:last-child{grid-column:1/-1}.engine-controls button span{grid-row:1/3;align-self:start;color:inherit;font-size:.72rem;opacity:.85}.engine-controls button b{font-weight:800;letter-spacing:-.025em}.engine-controls button small{grid-column:2;color:#b4c1aa;font-size:.72rem;font-weight:500}.engine-controls button[aria-pressed=true] small{color:#263619}.engine-controls button:focus-visible,.engine-cta:focus-visible,#enginePause:focus-visible,.engine-all:focus-visible{outline:2px solid #f4f1ea;outline-offset:3px}
 .engine-result{width:100%;border-left:2px solid var(--lime);padding:12px 0 12px 15px;background:linear-gradient(90deg,#c8f16909,transparent);min-height:150px;display:flex;flex-direction:column;gap:9px}
 .engine-result h3{font-size:1.13rem;line-height:1.35;letter-spacing:-.02em;color:#f4f1ea}.engine-desc{min-height:0;font-size:.88rem;color:#c2c6b9;line-height:1.55}.engine-mode{font-size:.67rem;line-height:1.4}.engine-cta{justify-content:space-between;width:100%;white-space:normal;min-height:48px}.engine-all{font-size:.82rem;color:#c6cebe;text-decoration:underline;text-underline-offset:4px}
 .engine-stage{display:flex;flex-direction:column;justify-content:center;min-height:450px;padding:55px 0 48px}.engine-stage canvas{flex:0 0 auto;height:clamp(320px,37vw,470px);touch-action:pan-y;cursor:pointer}.engine-hud{align-items:center;font-size:.64rem;color:#d1dec7;letter-spacing:.04em;top:12px;pointer-events:auto}.engine-hud button{background:#121811;border:1px solid #526448;border-radius:5px;color:#e3f3d7;font-size:.69rem;min-height:36px;padding:7px 10px;cursor:pointer;white-space:nowrap}.engine-hud button:disabled{opacity:.65;cursor:default}.engine-foot{bottom:13px;justify-content:center;font-size:.61rem;color:#b0bbaa;text-align:center}.engine-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 13px;padding:6px 12px;font-size:.7rem;color:#d4dccd}.engine-legend b{font-family:var(--font-mono);color:var(--lime);margin-right:4px}.engine-stage::before{opacity:.8}
@@ -970,17 +970,14 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
         <div class="hero-role" aria-label="Specialties">
           <span class="r-dot" aria-hidden="true"></span>
           <span class="r-text" id="heroRoleText">
-            <span class="active">Web Developer</span>
-            <span>Digital Marketer</span>
-            <span>AI Automation</span>
-            <span>Lead Generation</span>
-            <span>Google Ads</span>
-            <span>Google Analytics</span>
-            <span>Generative AI</span>
+            <span class="active">Web Development & Design</span>
+
+            <span>Content Marketing</span>
+            <span>Automation</span>
           </span>
         </div>
 
-        <p>I build clean websites and practical marketing systems that help businesses look credible, attract the right attention, and turn interest into real inquiries.</p>
+        <p>I help businesses build a stronger online presence, attract more customers, and grow through web development and design, content marketing, and automation.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://calendly.com/pramikmaharjan51/free-consultation-call" target="_blank" rel="noopener">Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
@@ -1001,24 +998,23 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
           <h2 id="studioTitle">Your business.<br><em>Better online.</em></h2>
           <p class="engine-intro">Choose a service to see how it can help your business, or tap a numbered point on the 3D model.</p>
           <div class="engine-controls" role="group" aria-label="Choose a service">
-            <button type="button" data-engine="web" aria-pressed="true"><span>01</span><b>Websites</b><small>Build trust</small></button>
-            <button type="button" data-engine="marketing" aria-pressed="false"><span>02</span><b>Digital marketing</b><small>Reach customers</small></button>
-            <button type="button" data-engine="leads" aria-pressed="false"><span>03</span><b>Lead generation</b><small>Get inquiries</small></button>
-            <button type="button" data-engine="ai" aria-pressed="false"><span>04</span><b>AI automation</b><small>Save time</small></button>
+            <button type="button" data-engine="web" aria-pressed="true"><span>01</span><b>Web Development & Design</b><small>Build trust</small></button>
+            <button type="button" data-engine="leads" aria-pressed="false"><span>02</span><b>Content Marketing</b><small>Reach customers</small></button>
+            <button type="button" data-engine="ai" aria-pressed="false"><span>03</span><b>Automation</b><small>Save time</small></button>
           </div>
           <div class="engine-result" aria-live="polite" aria-atomic="true">
-            <span class="engine-mode" id="engineMode">01 / Website development</span>
+            <span class="engine-mode" id="engineMode">01 / Web Development & Design</span>
             <h3 id="engineBenefit">Make a strong first impression.</h3>
-            <p class="engine-desc" id="engineDesc">Give customers a fast, mobile-friendly website where they can learn about your services and contact you easily.</p>
+            <p class="engine-desc" id="engineDesc">Give customers a fast, beautifully designed, mobile-friendly website that builds trust and makes it easy to contact you.</p>
           </div>
           <a class="btn btn-primary engine-cta" id="engineCta" href="#contact">Discuss a website <span aria-hidden="true">↗</span></a>
           <a class="engine-all" href="#services">See all services ↓</a>
         </div>
         <div class="engine-stage">
           <div class="engine-hud"><span><b>●</b> Interactive service model</span><button id="enginePause" type="button" aria-pressed="false">Ⅱ Pause motion</button></div>
-          <canvas id="engineCanvas" aria-label="Illustrative 3D model: laptop for websites, dashboard for digital marketing, phone for lead generation and chip for automation. Use the service buttons to explore." role="img">Four connected services: websites, marketing, lead generation and AI automation.</canvas>
-          <noscript><p class="engine-fallback">Websites · Digital marketing · Lead generation · AI automation</p></noscript>
-          <div class="engine-legend" aria-label="Model key"><span><b>01</b> Website</span><span><b>02</b> Marketing</span><span><b>03</b> Leads</span><span><b>04</b> AI</span></div>
+          <canvas id="engineCanvas" aria-label="Illustrative 3D model: laptop for web development and design, content studio for content marketing, and chip for automation. Use the service buttons to explore." role="img">Three connected services: web development and design, content marketing and automation.</canvas>
+          <noscript><p class="engine-fallback">Web Development & Design · Content Marketing · Automation</p></noscript>
+          <div class="engine-legend" aria-label="Model key"><span><b>01</b> Web &amp; Design</span><span><b>02</b> Content</span><span><b>03</b> Automation</span></div>
           <div class="engine-foot"><span>Illustration, not live performance data</span></div>
         </div>
       </section>
@@ -1040,22 +1036,21 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
       <div class="hero-grid">
         <div class="hero-card reveal">
           <div class="label">Hello, I'm Pramik</div>
-          <h3>Web developer & digital marketer building useful things for growing businesses.</h3>
+          <h3>Your digital partner for building a stronger brand and growing your business.</h3>
           <ul class="hero-list">
-            <li>Website Development</li>
-            <li>Branding &amp; Identity</li>
-            <li>Lead Generation</li>
-            <li>Email Marketing</li>
-            <li>Digital Marketing</li>
+            <li>Web Development & Design</li>
+
+            <li>Content Marketing</li>
+            <li>Automation</li>
           </ul>
         </div>
         <div class="hero-pitch reveal">
           <p class="tagline">Less noise.<br><em>More growth.</em></p>
           <div class="bottom">
             <div class="meta">
-              <span><b>✳</b> Websites</span>
-              <span><b>✳</b> Lead generation</span>
-              <span><b>✳</b> Marketing</span>
+              <span><b>✳</b> Web Development & Design</span>
+              <span><b>✳</b> Content Marketing</span>
+              <span><b>✳</b> Automation</span>
             </div>
           </div>
         </div>
@@ -1068,7 +1063,7 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
           </div>
           <div class="stat-card dark">
             <div>
-              <div class="stat-num">5<span class="accent">×</span></div>
+              <div class="stat-num">3<span class="accent">×</span></div>
               <div class="stat-label">Core service areas</div>
             </div>
           </div>
@@ -1086,10 +1081,7 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>Web Development</span><span class="outline">Digital Marketing</span>
-      <span>Lead Generation</span><span class="outline">Email Marketing</span>
-      <span>Web Development</span><span class="outline">Digital Marketing</span>
-      <span>Lead Generation</span><span class="outline">Email Marketing</span>
+      <span>Web Development & Design</span><span>Content Marketing</span><span class="outline">Automation</span><span>Web Development & Design</span><span>Content Marketing</span><span class="outline">Automation</span>
     </div>
   </div>
 
@@ -1105,28 +1097,18 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
       <div class="services-list">
         <div class="service-row reveal">
           <div class="service-num">01 / Web</div>
-          <div class="service-body"><h3>Website Design &amp; Development</h3><div class="service-tags"><a href="#contact">Landing pages</a><a href="#contact">Business sites</a><a href="#contact">Responsive</a><a href="#contact">Performance</a></div></div>
-          <a class="service-arrow" href="#contact" aria-label="Enquire about website design"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <div class="service-body"><h3>Web Development & Design</h3><div class="service-tags"><a href="#contact">Business websites</a><a href="#contact">Landing pages</a><a href="#contact">Responsive development</a><a href="#contact">Performance</a><a href="#contact">UI/UX design</a><a href="#contact">Visual identity</a><a href="#contact">Brand design</a><a href="#contact">Creative direction</a></div></div>
+          <a class="service-arrow" href="#contact" aria-label="Enquire about web development and design"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
         <div class="service-row reveal">
-          <div class="service-num">02 / Growth</div>
-          <div class="service-body"><h3>Digital Marketing Strategy</h3><div class="service-tags"><a href="#contact">Positioning</a><a href="#contact">Content</a><a href="#contact">Campaigns</a><a href="#contact">Creative direction</a></div></div>
-          <a class="service-arrow" href="#contact" aria-label="Enquire about marketing strategy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <div class="service-num">02 / Content</div>
+          <div class="service-body"><h3>Content Marketing</h3><div class="service-tags"><a href="#contact">Content strategy</a><a href="#contact">Social content</a><a href="#contact">Copywriting</a><a href="#contact">Content planning</a></div></div>
+          <a class="service-arrow" href="#contact" aria-label="Enquire about content marketing"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
         <div class="service-row reveal">
-          <div class="service-num">03 / Email</div>
-          <div class="service-body"><h3>Email Marketing</h3><div class="service-tags"><a href="#contact">Campaigns</a><a href="#contact">Automations</a><a href="#contact">Newsletters</a><a href="#contact">Lead Nurturing</a></div></div>
-          <a class="service-arrow" href="#contact" aria-label="Enquire about email marketing"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-        </div>
-        <div class="service-row reveal">
-          <div class="service-num">04 / Leads</div>
-          <div class="service-body"><h3>Lead Generation Systems</h3><div class="service-tags"><a href="#contact">Landing funnels</a><a href="#contact">Forms</a><a href="#contact">Follow-up</a><a href="#contact">Tracking</a></div></div>
-          <a class="service-arrow" href="#contact" aria-label="Enquire about lead generation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-        </div>
-        <div class="service-row reveal">
-          <div class="service-num">05 / AI</div>
-          <div class="service-body"><h3>AI Content &amp; Automation</h3><div class="service-tags"><a href="#contact">Workflows</a><a href="#contact">Content drafts</a><a href="#contact">Chatbots</a><a href="#contact">Efficiency</a></div></div>
-          <a class="service-arrow" href="#contact" aria-label="Enquire about AI automation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <div class="service-num">03 / Automation</div>
+          <div class="service-body"><h3>Automation</h3><div class="service-tags"><a href="#contact">AI workflows</a><a href="#contact">Lead follow-up</a><a href="#contact">Task automation</a><a href="#contact">Chatbots</a></div></div>
+          <a class="service-arrow" href="#contact" aria-label="Enquire about automation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
       </div>
     </div>
@@ -1430,7 +1412,7 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
           <span>Landing pages</span>
           <span>Google Ads</span>
           <span>Google Analytics (GA4)</span>
-          <span>Digital marketing strategy</span>
+          <span>Content Marketing</span>
           <span>Lead generation</span>
           <span>Content planning</span>
           <span>Generative AI</span>
@@ -1568,11 +1550,9 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
             <div class="form-field">
               <label for="cf-service">What do you need?</label>
               <select id="cf-service" name="service">
-                <option value="Website design &amp; development">Website design &amp; development</option>
-                <option value="Digital marketing strategy">Digital marketing strategy</option>
-                <option value="Email marketing">Email marketing</option>
-                <option value="Lead generation system">Lead generation system</option>
-                <option value="AI content &amp; automation">AI content &amp; automation</option>
+                <option value="Web Development & Design">Web Development & Design</option>
+                <option value="Content Marketing">Content Marketing</option>
+                <option value="Automation">Automation</option>
                 <option value="Not sure yet — need advice">Not sure yet — need advice</option>
               </select>
             </div>
@@ -1819,12 +1799,12 @@ body{background:var(--bg)}header.site-header{background:rgba(11,13,12,.91);borde
     }
     function makeResult(){
       var text=answers.map(function(a,i){return questions[i].a[a]||'';}).join(' ').toLowerCase();
-      var items=[];var service='Digital marketing strategy';
-      if(text.includes('do not have a website')||text.includes('professional online presence')){items.push('Create a clear, mobile-friendly website with one obvious contact action.','Add accurate service details, location or service area, and trust-building project examples.');service='Website design & development';}
-      if(text.includes('getting found online')){items.push('Review your Google Business Profile, local search information, page titles and useful website content.');service='SEO and digital presence';}
-      if(text.includes('turning visitors')||text.includes('more relevant inquiries')){items.push('Clarify the main headline, show who the service is for, and make the next step easy to understand.','Review your landing page form and remove unnecessary friction.');service='Landing page and conversion improvements';}
-      if(text.includes('following up')||text.includes('follow-up process')||text.includes('website contact form')){items.push('Use a consistent lead log and a timely, helpful response process.','Consider a welcome email and permission-based follow-up sequence.');service='Lead generation and email automation';}
-      if(text.includes('consistent marketing')||text.includes('marketing plan')){items.push('Choose one primary audience, one useful content theme and a realistic publishing rhythm.','Track inquiries and meaningful actions instead of vanity metrics.');service='Digital marketing strategy';}
+      var items=[];var service='Content Marketing';
+      if(text.includes('do not have a website')||text.includes('professional online presence')){items.push('Create a clear, mobile-friendly website with one obvious contact action.','Add accurate service details, location or service area, and trust-building project examples.');service='Web Development & Design';}
+      if(text.includes('getting found online')){items.push('Review your Google Business Profile, local search information, page titles and useful website content.');service='Content Marketing';}
+      if(text.includes('turning visitors')||text.includes('more relevant inquiries')){items.push('Clarify the main headline, show who the service is for, and make the next step easy to understand.','Review your landing page form and remove unnecessary friction.');service='Web Development & Design';}
+      if(text.includes('following up')||text.includes('follow-up process')||text.includes('website contact form')){items.push('Use a consistent lead log and a timely, helpful response process.','Consider a welcome email and permission-based follow-up sequence.');service='Automation';}
+      if(text.includes('consistent marketing')||text.includes('marketing plan')){items.push('Choose one primary audience, one useful content theme and a realistic publishing rhythm.','Track inquiries and meaningful actions instead of vanity metrics.');service='Content Marketing';}
       if(items.length<2)items.push('Check that your contact details and social links are consistent.','Choose one measurable business goal and review progress monthly.');
       result.replaceChildren();var h=document.createElement('h4');h.textContent='Your suggested starting points';result.appendChild(h);var ul=document.createElement('ul');items.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});result.appendChild(ul);var p=document.createElement('p');p.textContent='Suggested area to explore: '+service+'. These are general recommendations based on your answers, not a technical audit or a promise of results.';result.appendChild(p);var a=document.createElement('a');a.className='btn btn-primary';a.href='https://calendly.com/pramikmaharjan51/free-consultation-call';a.target='_blank';a.rel='noopener';a.textContent='Discuss my next steps ↗';a.style.marginTop='14px';result.appendChild(a);result.hidden=false;next.textContent='Start again ↻';next.disabled=false;
     }
@@ -2070,10 +2050,9 @@ document.addEventListener('click',e=>{const a=e.target.closest?.('a[href="cv.htm
 const canvas=document.getElementById('engineCanvas'),ctx=canvas&&canvas.getContext('2d');if(!ctx)return;
 const mq=matchMedia('(prefers-reduced-motion: reduce)'),buttons=[...document.querySelectorAll('[data-engine]')];
 const data={
-web:['01 / Website development','Make a strong first impression.','Give customers a fast, mobile-friendly website where they can learn about your services and contact you easily.','Discuss a website','Website design & development'],
-marketing:['02 / Digital marketing','Reach the right people.','Use targeted campaigns, clear messaging and analytics to understand what attracts potential customers.','Discuss digital marketing','Digital marketing strategy'],
-leads:['03 / Lead generation','Turn visits into inquiries.','Make it easy for potential customers to request a quote, book a call or send an inquiry from their phone.','Discuss lead generation','Lead generation system'],
-ai:['04 / AI automation','Spend less time on repetitive work.','Organize recurring tasks, draft content and streamline follow-up with practical AI-assisted workflows.','Discuss AI automation','AI content & automation']};
+web:['01 / Web Development & Design','Make a strong first impression.','Give customers a fast, beautifully designed, mobile-friendly website that builds trust and makes it easy to contact you.','Discuss a website','Web Development & Design'],
+leads:['02 / Content Marketing','Reach the right customers.','Create useful, relevant content that explains your value, earns attention and encourages inquiries.','Discuss content marketing','Content Marketing'],
+ai:['03 / Automation','Spend less time on repetitive work.','Organize recurring tasks, draft content and streamline follow-up with practical AI-assisted workflows.','Discuss automation','Automation']};
 let mode='web',px=0,py=0,tx=0,ty=0,raf=0,visible=!("IntersectionObserver" in window),stamp=0,clock=0,paused=false,hotspots=[];
 const pause=document.getElementById('enginePause');
 const still=()=>mq.matches||paused;
@@ -2103,8 +2082,8 @@ function render(ms){
  layer=1;box(-3.24,-.012,-2.01,6.48,.035,4.02,['#141c15','#131b13','#111711','#47533d']);
  layer=2;flat=true;for(let i=-3;i<=3;i++)line([i,.03,-1.98],[i,.03,1.98],'#303d2c',.55,.01);
  for(let j=-1.5;j<=1.5;j+=.5)line([-3.2,.03,j],[3.2,.03,j],'#293629',.55,.01);
- // Bright traces converge on four practical modules.
- const traces={web:[[-.9,.05,.7],[-.9,.05,-.15],[-1.7,.05,-.15]],marketing:[[.2,.05,.7],[1.75,.05,.7],[1.75,.05,-.75]],leads:[[.2,.05,.7],[1.1,.05,.7],[1.1,.05,1.53],[2.35,.05,1.53]],ai:[[.2,.05,.7],[-.05,.05,.7],[-.05,.05,1.48],[-1.65,.05,1.48]]};
+ // Bright traces converge on three practical modules.
+ const traces={web:[[-.9,.05,.7],[-.9,.05,-.15],[-1.7,.05,-.15]],leads:[[.2,.05,.7],[1.75,.05,.7],[1.75,.05,-.75]],ai:[[.2,.05,.7],[-.05,.05,.7],[-.05,.05,1.48],[-1.65,.05,1.48]]};
  Object.entries(traces).forEach(([k,pts])=>{for(let i=1;i<pts.length;i++)line(pts[i-1],pts[i],selected(k)?'#b8f26b':'#43563a',selected(k)?2:1,.04);const u=(t*.8)% (pts.length-1),i=Math.min(pts.length-2,Math.floor(u)),v=u-i;dot(pts[i].map((a,j)=>a+(pts[i+1][j]-a)*v),selected(k)?'#ebffbf':'#688253',selected(k)?3:1.7,.1)});
  // Laptop: screen, working browser UI and full keyboard.
  layer=3;flat=false;const lift=selected('web')&&!still()?.055*Math.sin(t*1.8):0;
@@ -2118,37 +2097,34 @@ function render(ms){
  for(let i=0;i<3;i++)dot([-2.72+i*.12,1.805+ly,lz+.008],i===0?C.lime:'#83987c',Math.max(1.4,scale*.026));
  panel(-2.67,1.42+ly,.56,.10,lz+.004,C.lime,.09);panel(-2.67,1.11+ly,1.03,.16,lz+.004,C.white,.09);panel(-2.67,.88+ly,.93,.09,lz+.004,'#839180',.09);panel(-2.67,.65+ly,.69,.12,lz+.004,C.lime,.09);
  panel(-1.48,.51+ly,.79,.98,lz+.004,'#263d2b',.08);panel(-1.35,.63+ly,.53,.71,lz+.006,'#b0d96d',.1);panel(-1.22,.76+ly,.27,.45,lz+.008,'#668747',.12);
- textPlane('WEB / 01',-2.65,1.805+ly,lz+.02,.115,'#cad9c4');
- // Analytics tower: screen with rising bars, not real performance data.
- layer=8;flat=false;const ay=.08+(selected('marketing')&&!still()?.045*Math.sin(t*2):0);
- box(.30,ay,-1.70,2.62,.13,1.29,['#46583e','#283727','#1b281b',edge('marketing')]);
- layer=9;box(.36,ay+.13,-1.66,2.5,1.66,.15,['#6a7e5c','#354b34','#263725',edge('marketing')]);
+ textPlane('WEB + DESIGN / 01',-2.65,1.805+ly,lz+.02,.115,'#cad9c4');
+ // Content marketing studio: editorial preview and social content cards.
+ layer=8;flat=false;const ay=.08+(selected('leads')&&!still()?.045*Math.sin(t*2):0);
+ box(.30,ay,-1.70,2.62,.13,1.29,['#46583e','#283727','#1b281b',edge('leads')]);
+ layer=9;box(.36,ay+.13,-1.66,2.5,1.66,.15,['#6a7e5c','#354b34','#263725',edge('leads')]);
  layer=10;flat=true;const az=-1.495;
  panel(.47,ay+.24,2.27,1.43,az,'#0e160f');panel(.55,ay+1.43,2.1,.15,az+.004,'#243923',.08);
- textPlane('ANALYTICS / 02',.64,ay+1.50,az+.015,.12,C.lime);
- for(let j=0;j<3;j++)panel(.64,ay+.40+j*.30,1.90,.016,az+.004,'#354834',.07);
- [0.25,.43,.36,.70,.88,1.01].forEach((h,i)=>{const f=selected('marketing')?1+.05*Math.sin(t*2+i):1;panel(.72+i*.30,ay+.40,.18,h*f,az+.01,i===5?C.lime:'#719c4e',.10)});
- // Phone: actual 3D slab, with a miniature inquiry flow.
- layer=14;flat=false;const fy=.08+(selected('leads')&&!still()?.06*Math.sin(t*1.8):0);
- box(1.45,fy,.38,1.28,.15,1.47,['#52684a','#293e2b','#17291a',edge('leads')]);
- layer=15;box(1.54,fy+.15,.60,1.10,1.50,.23,['#72866c','#40523d','#2b3b29',edge('leads')]);
- layer=16;flat=true;const pz=.845;
- panel(1.62,fy+.25,.94,1.30,pz,'#0b120d');panel(1.70,fy+1.31,.78,.13,pz+.004,C.lime,.09);
- panel(1.70,fy+1.05,.78,.13,pz+.004,'#a8bba0',.09);panel(1.70,fy+.84,.78,.13,pz+.004,'#374d37',.09);panel(1.70,fy+.64,.78,.13,pz+.004,'#374d37',.09);panel(1.70,fy+.39,.78,.14,pz+.004,C.lime,.09);
- textPlane('INQUIRE',1.78,fy+.46,pz+.015,.095,'#172415');
+ textPlane('CONTENT / 02',.64,ay+1.50,az+.015,.12,C.lime);
+ panel(.62,ay+.53,.91,.78,az+.008,'#45613b',.09);
+ panel(.72,ay+.85,.71,.35,az+.012,'#a9cf72',.10);
+ panel(.72,ay+.64,.52,.09,az+.012,C.white,.10);
+ panel(1.67,ay+1.15,.84,.12,az+.008,C.lime,.09);
+ for(let j=0;j<3;j++)panel(1.67,ay+.96-j*.17,.84-j*.12,.07,az+.008,'#80947a',.09);
+ panel(1.67,ay+.43,.65,.14,az+.008,C.lime,.10);
+ textPlane('PUBLISH',1.73,ay+.50,az+.018,.09,'#172415');
  // AI processor: stacked board, metal pins, raised silicon and glow.
  layer=12;flat=false;const iy=.08+(selected('ai')&&!still()?.035*Math.sin(t*2.2):0);
  box(-2.72,iy,.43,2.26,.13,1.31,['#324833','#1f3022','#152019',edge('ai')]);
  layer=13;flat=true;for(let i=0;i<7;i++){top(-2.56+i*.28,.49,.12,.25,iy+.14,'#8ea27e');top(-2.56+i*.28,1.42,.12,.25,iy+.14,'#8ea27e')}
  for(let i=0;i<4;i++){top(-2.67,.78+i*.20,.28,.09,iy+.14,'#8ea27e');top(-.85,.78+i*.20,.28,.09,iy+.14,'#8ea27e')}
  layer=13.2;flat=false;box(-2.31,iy+.14,.74,1.42,.26,.74,['#829d62','#435d36','#2a3b25',edge('ai')]);
- layer=13.3;flat=true;top(-2.21,.83,1.22,.56,iy+.41,selected('ai')?'#d4f89c':'#b1d37a',.03);textPlane('AI / 04',-2.04,iy+.43,1.11,.22,'#23331c','top');
+ layer=13.3;flat=true;top(-2.21,.83,1.22,.56,iy+.41,selected('ai')?'#d4f89c':'#b1d37a',.03);textPlane('AI / 03',-2.04,iy+.43,1.11,.22,'#23331c','top');
  // Small network hub in the center.
  layer=11;flat=false;box(-.38,.05,.32,.73,.14,.73,['#708d53','#3c5534','#293f28',C.lime]);layer=11.1;flat=true;top(-.26,.44,.49,.49,.202,'#b9e983',.05);dot([-.015,.215,.68],C.light,Math.max(2,scale*.04),.15);
  // Paint sorted 3D surfaces, then a subtle selection label above selected object.
  jobs.sort((a,b)=>a.layer-b.layer||(a.flat?a.order-b.order:a.z-b.z||a.order-b.order)).forEach(j=>j.draw());
- const targets={web:[-1.69,2.20,-1.60],marketing:[1.58,2.14,-1.55],leads:[2.08,1.94,.75],ai:[-1.65,.81,1.15]};
- const labels={web:'01',marketing:'02',leads:'03',ai:'04'};hotspots=[];
+ const targets={web:[-1.69,2.20,-1.60],leads:[1.58,2.14,-1.55],ai:[-1.65,.81,1.15]};
+ const labels={web:'01',leads:'02',ai:'03'};hotspots=[];
  Object.keys(targets).forEach(k=>{const q=screen(targets[k]),active=k===mode;const x=Math.max(18,Math.min(W-18,q[0])),y=Math.max(18,Math.min(H-18,q[1]-12));hotspots.push({k,x,y});ctx.beginPath();ctx.arc(x,y,active?14:12,0,Math.PI*2);ctx.fillStyle=active?C.lime:'#152015';ctx.fill();ctx.strokeStyle=active?'#eaffc0':'#8eac73';ctx.lineWidth=1.2;ctx.stroke();ctx.fillStyle=active?'#10200b':'#eff5e8';ctx.font='700 11px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(labels[k],x,y+.5);});ctx.textAlign='start';
 }
 function tick(ms){raf=0;if(document.hidden||!visible)return;if(ms-stamp>41||still()){stamp=ms;render(ms)}if(!still())raf=requestAnimationFrame(tick)}
@@ -2209,8 +2185,8 @@ function projectBrief(){
   return {name,pages,timeline,priority,features};
 }
 ['gsType','gsTimeline','gsPages','gsPriority'].forEach(id=>$(id).addEventListener('input',projectBrief));extras.forEach(x=>x.addEventListener('change',projectBrief));projectBrief();
-const guide={presence:['Start with a clear website.','A responsive business site with clear services, trust signals and a direct contact action is a practical first step.','Website design & development'],leads:['Improve the inquiry journey.','Review the landing page and offer, make the contact action easy, and measure qualified inquiries before expanding ad spend.','Lead generation system'],sales:['Build a useful shopping experience.','Start with product information, a simple checkout and clear delivery and return information.','Website design & development'],automation:['Map your repetitive tasks.','Identify one repeated workflow, define the trigger and desired outcome, and test it before automating more.','AI content & automation']};let goal='presence';$('gsGuide').addEventListener('click',e=>{const b=e.target.closest('button[data-goal]');if(!b)return;goal=b.dataset.goal;$('gsGuide').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('gsGuideTitle').textContent=guide[goal][0];$('gsGuideText').textContent=guide[goal][1]});
-document.querySelectorAll('[data-gs-inquiry]').forEach(b=>b.addEventListener('click',()=>{let service='Website design & development',message='';switch(b.dataset.gsInquiry){case 'case':message='I would like to discuss a business website similar to the Clean Cuts project.';break;case 'audit':{const a=audit();const url=$('gsUrl').value.trim();message='Website readiness self-assessment: '+a.n+'/6 confirmed.\n'+(url?'Website: '+url+'\n':'')+'Unconfirmed priorities: '+(a.missing.join('; ')||'All six confirmed')+'.\nI would like advice on the next step.';break;}case 'brief':{const a=projectBrief();message='Project type: '+a.name+'\nKey pages or sections: '+a.pages+'\nPreferred timeline: '+a.timeline+'\nPrimary priority: '+a.priority+'\nWanted features: '+(a.features.join(', ')||'None selected')+'\nI would like to discuss the right scope and next steps.';break;}case 'guide':service=guide[goal][2];message='My goal: '+$('gsGuide').querySelector('[aria-pressed=true]').textContent+'.\nSuggested starting point: '+guide[goal][1]+'\nI would like to discuss my options.';break;}const sel=$('cf-service'),msg=$('cf-message');sel.value=service;msg.value=(msg.value.trim()?msg.value.trim()+'\n\n':'')+message;msg.value=msg.value.slice(0,5000);$('contact').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});msg.focus({preventScroll:true});}));
+const guide={presence:['Start with a clear website.','A responsive business site with clear services, trust signals and a direct contact action is a practical first step.','Web Development & Design'],leads:['Improve the inquiry journey.','Review the landing page and offer, make the contact action easy, and measure qualified inquiries before expanding ad spend.','Automation'],sales:['Build a useful shopping experience.','Start with product information, a simple checkout and clear delivery and return information.','Web Development & Design'],automation:['Map your repetitive tasks.','Identify one repeated workflow, define the trigger and desired outcome, and test it before automating more.','Automation']};let goal='presence';$('gsGuide').addEventListener('click',e=>{const b=e.target.closest('button[data-goal]');if(!b)return;goal=b.dataset.goal;$('gsGuide').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('gsGuideTitle').textContent=guide[goal][0];$('gsGuideText').textContent=guide[goal][1]});
+document.querySelectorAll('[data-gs-inquiry]').forEach(b=>b.addEventListener('click',()=>{let service='Web Development & Design',message='';switch(b.dataset.gsInquiry){case 'case':message='I would like to discuss a business website similar to the Clean Cuts project.';break;case 'audit':{const a=audit();const url=$('gsUrl').value.trim();message='Website readiness self-assessment: '+a.n+'/6 confirmed.\n'+(url?'Website: '+url+'\n':'')+'Unconfirmed priorities: '+(a.missing.join('; ')||'All six confirmed')+'.\nI would like advice on the next step.';break;}case 'brief':{const a=projectBrief();message='Project type: '+a.name+'\nKey pages or sections: '+a.pages+'\nPreferred timeline: '+a.timeline+'\nPrimary priority: '+a.priority+'\nWanted features: '+(a.features.join(', ')||'None selected')+'\nI would like to discuss the right scope and next steps.';break;}case 'guide':service=guide[goal][2];message='My goal: '+$('gsGuide').querySelector('[aria-pressed=true]').textContent+'.\nSuggested starting point: '+guide[goal][1]+'\nI would like to discuss my options.';break;}const sel=$('cf-service'),msg=$('cf-message');sel.value=service;msg.value=(msg.value.trim()?msg.value.trim()+'\n\n':'')+message;msg.value=msg.value.slice(0,5000);$('contact').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});msg.focus({preventScroll:true});}));
 
 })();</script>
 
